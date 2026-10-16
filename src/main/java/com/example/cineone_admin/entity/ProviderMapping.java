@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(
-    name = "ProviderMappings",
+    name = "providermappings",
     uniqueConstraints = {
         @UniqueConstraint(
             name = "uq_provider_mapping",

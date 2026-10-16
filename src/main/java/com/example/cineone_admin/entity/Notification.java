@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Notifications")
+@Table(name = "notifications")
 @Getter
 @Setter
 public class Notification {
