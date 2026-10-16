@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "VoucherUsages")
+@Table(name = "voucherusages")
 @Getter
 @Setter
 public class VoucherUsage {

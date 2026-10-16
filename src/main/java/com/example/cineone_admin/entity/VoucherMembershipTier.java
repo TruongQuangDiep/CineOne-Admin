@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "VoucherMembershipTiers")
+@Table(name = "vouchermembershiptiers")
 @Getter
 @Setter
 public class VoucherMembershipTier {

@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Reviews")
+@Table(name = "reviews")
 @Getter
 @Setter
 public class Review {
@@ -23,8 +23,8 @@ public class Review {
     @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
 
-    @Column(nullable = false)
-    private Integer rating;
+    @Column(name = "rating")
+    private Byte rating;
 
     @Column(columnDefinition = "TEXT")
     private String content;

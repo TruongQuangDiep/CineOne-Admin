@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "ProviderSyncLogs")
+@Table(name = "providersynclogs")
 @Getter
 @Setter
 public class ProviderSyncLog {

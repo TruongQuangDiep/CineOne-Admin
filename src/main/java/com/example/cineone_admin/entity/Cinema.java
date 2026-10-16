@@ -1,11 +1,13 @@
 package com.example.cineone_admin.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Cinemas")
+@Table(name = "cinemas")
 @Getter
 @Setter
 public class Cinema {
@@ -25,9 +27,11 @@ public class Cinema {
     @Column(nullable = false)
     private String address;
 
-    private Double latitude;
+    @Column(name = "latitude")
+    private BigDecimal latitude;
 
-    private Double longitude;
+    @Column(name = "longitude")
+    private BigDecimal longitude;
 
     @Column(length = 20)
     private String phone;
