@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+cay.txt
+
+.DS_Store
+Thumbs.db

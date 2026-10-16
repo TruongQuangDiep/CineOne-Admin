@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "DataProviders")
+@Table(name = "dataproviders")
 @Getter
 @Setter
 public class DataProvider {

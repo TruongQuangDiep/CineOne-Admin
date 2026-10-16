@@ -3,11 +3,13 @@ package com.example.cineone_admin.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 @Getter
 @Setter
 public class User {
@@ -43,10 +45,10 @@ public class User {
     private String homeAddress;
 
     @Column(name = "home_latitude")
-    private Double homeLatitude;
+    private BigDecimal homeLatitude;
 
     @Column(name = "home_longitude")
-    private Double homeLongitude;
+    private BigDecimal homeLongitude;
 
     @Column(name = "email_verified", nullable = false)
     private Boolean emailVerified = false;
