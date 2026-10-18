@@ -7,7 +7,7 @@ import tools.jackson.databind.JsonNode;
 /** Các giá trị cố định được lưu trong ProviderMapping.entityType. */
 public enum ProviderEntityType {
     CINEMA_BRAND(CinemaBrand.class), CINEMA(Cinema.class), ROOM(Room.class),
-    SEAT(Seat.class), MOVIE(Movie.class), SHOWTIME(Showtime.class), FNB_ITEM(FnbItem.class);
+    SEAT(Seat.class), MOVIE(Movie.class), GENRE(Genre.class), SHOWTIME(Showtime.class), FNB_ITEM(FnbItem.class);
 
     private final Class<?> entityClass;
 
