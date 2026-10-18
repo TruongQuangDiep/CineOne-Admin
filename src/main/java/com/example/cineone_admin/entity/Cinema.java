@@ -27,15 +27,15 @@ public class Cinema {
     @Column(nullable = false)
     private String address;
 
-    @Column(name = "latitude")
+    @Column(name = "latitude", precision = 10, scale = 7)
     private BigDecimal latitude;
 
-    @Column(name = "longitude")
+    @Column(name = "longitude", precision = 10, scale = 7)
     private BigDecimal longitude;
 
     @Column(length = 20)
     private String phone;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 10, columnDefinition = "ENUM('ACTIVE','INACTIVE')")
     private String status = "ACTIVE";
 }

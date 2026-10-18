@@ -21,6 +21,6 @@ public class CinemaBrand {
     @Column(name = "logo_url", length = 500)
     private String logoUrl;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 10, columnDefinition = "ENUM('ACTIVE','INACTIVE')")
     private String status = "ACTIVE";
 }
