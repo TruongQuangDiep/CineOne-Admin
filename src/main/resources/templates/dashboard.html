@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#dashboard-content}, 'dashboard', 'Trang chủ')}">
+<body>
+<div id="dashboard-content">
+    <div class="d-flex align-items-center gap-2 mb-4">
+        <i class="bi bi-bar-chart-fill text-primary fs-4"></i>
+        <h3 class="m-0 fw-bold">TRANG CHỦ</h3>
+    </div>
+
+    <!-- HÀNG 1: 4 THẺ TỔNG QUAN (KPI CARDS) -->
+    <div class="kpi-grid">
+        <div class="kpi-card shadow-sm">
+            <div>
+                <div class="kpi-title fw-semibold">Phim</div>
+                <div class="kpi-value" th:text="${summary.totalMovies}">128</div>
+            </div>
+            <i class="bi bi-film fs-1 text-primary opacity-75"></i>
+        </div>
+
+        <div class="kpi-card shadow-sm">
+            <div>
+                <div class="kpi-title fw-semibold">Rạp</div>
+                <div class="kpi-value" th:text="${summary.totalCinemas}">12</div>
+            </div>
+            <i class="bi bi-geo-alt fs-1 text-success opacity-75"></i>
+        </div>
+
+        <div class="kpi-card shadow-sm">
+            <div>
+                <div class="kpi-title fw-semibold">Suất chiếu</div>
+                <div class="kpi-value" th:text="${summary.totalShowtimes}">356</div>
+            </div>
+            <i class="bi bi-calendar3 fs-1 text-info opacity-75"></i>
+        </div>
+
+        <div class="kpi-card shadow-sm">
+            <div>
+                <div class="kpi-title fw-semibold">Người dùng</div>
+                <div class="kpi-value" th:text="${summary.totalUsers}">12,540</div>
+            </div>
+            <i class="bi bi-people fs-1 text-warning opacity-75"></i>
+        </div>
+    </div>
+
+    <!-- HÀNG 2: TRẠNG THÁI ĐỒNG BỘ & CẢNH BÁO -->
+    <div class="row g-4 mb-4">
+        <!-- Khối Trạng thái đồng bộ -->
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header bg-white border-bottom">
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-arrow-repeat text-primary fs-5"></i>
+                        TRẠNG THÁI ĐỒNG BỘ
+                    </span>
+                </div>
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="d-flex flex-column gap-3 mb-3">
+                        <div th:each="status : ${summary.syncStatuses}" class="d-flex align-items-center justify-content-between p-2 rounded hover-bg">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="badge rounded-circle bg-light text-dark border d-flex align-items-center justify-content-center"
+                                      style="width: 32px; height: 32px; font-size: 0.9rem;"
+                                      th:text="${status.avatarLetter}">A</span>
+                                <span class="fw-medium" th:text="${status.name}">Provider A</span>
+                            </div>
+                            <span class="fw-semibold d-flex align-items-center gap-1" th:classappend="${status.badgeClass}">
+                                <i class="bi bi-circle-fill" style="font-size: 0.6rem;"></i>
+                                <span th:text="${status.statusText}">Thành công</span>
+                            </span>
+                        </div>
+                    </div>
+                    <a th:href="@{/sync-logs}" class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2 fw-semibold">
+                        <i class="bi bi-arrow-repeat"></i> Đồng bộ ngay
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Khối Cảnh báo -->
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header bg-white border-bottom text-danger">
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                        CẢNH BÁO
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div th:each="alert : ${summary.alerts}" class="alert alert-warning border border-warning-subtle d-flex align-items-center justify-content-between p-3 mb-0 shadow-sm">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
+                            <div>
+                                <h6 class="mb-1 fw-bold text-dark" th:text="${alert.providerName}">Provider B</h6>
+                                <p class="mb-0 text-muted small" th:text="${alert.message}">5 mapping lỗi</p>
+                            </div>
+                        </div>
+                        <a th:href="@{${alert.detailUrl}}" class="btn btn-sm btn-outline-dark fw-semibold">
+                            Xem chi tiết <i class="bi bi-chevron-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HÀNG 3: HOẠT ĐỘNG ĐỒNG BỘ -->
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-bottom">
+            <span class="d-flex align-items-center gap-2">
+                <i class="bi bi-bar-chart-line-fill text-primary fs-5"></i>
+                HOẠT ĐỘNG ĐỒNG BỘ
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column gap-3">
+                <div th:each="act : ${summary.activities}" class="d-flex align-items-center gap-3">
+                    <span class="badge rounded-circle bg-light text-dark border d-flex align-items-center justify-content-center"
+                          style="width: 30px; height: 30px; font-size: 0.85rem;"
+                          th:text="${act.avatarLetter}">A</span>
+                    <span class="fw-medium text-nowrap" style="min-width: 110px;" th:text="${act.name}">Provider A</span>
+                    <div class="progress flex-grow-1" style="height: 10px;">
+                        <div class="progress-bar bg-primary" role="progressbar"
+                             th:style="'width: ' + ${act.percentage} + '%'"
+                             th:aria-valuenow="${act.percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <span class="fw-bold text-secondary text-end" style="min-width: 45px;" th:text="${act.percentage + '%'}">98%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
