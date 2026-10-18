@@ -35,6 +35,6 @@ public class FnbItem {
     @Column(name = "image_url", length = 500)
     private String imageUrl;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, columnDefinition = "ENUM('ACTIVE','INACTIVE','OUT_OF_STOCK')")
     private String status = "ACTIVE";
 }

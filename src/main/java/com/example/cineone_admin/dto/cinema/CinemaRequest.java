@@ -22,7 +22,7 @@ public class CinemaRequest {
     @Size(max = 255)
     private String address;
 
-    // Follow SCRUM-5 BigDecimal mapping; it declares no precision/scale.
+    // Tọa độ dùng BigDecimal; database.sql quy định lưu bằng DECIMAL(10,7).
     @DecimalMin("-90")
     @DecimalMax("90")
     private BigDecimal latitude;

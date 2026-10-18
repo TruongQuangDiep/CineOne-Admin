@@ -26,6 +26,6 @@ public class DataProvider {
     @Column(name = "is_mock", nullable = false)
     private Boolean mock = false;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 10, columnDefinition = "ENUM('ACTIVE','INACTIVE','ERROR')")
     private String status = "ACTIVE";
 }

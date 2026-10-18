@@ -1,7 +1,7 @@
 package com.example.cineone_admin.dto.room;
 
 import com.example.cineone_admin.enums.RoomStatus;
-import com.example.cineone_admin.enums.RoomType;
+import com.example.cineone_admin.model.RoomType;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;

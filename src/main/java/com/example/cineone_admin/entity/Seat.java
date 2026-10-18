@@ -1,6 +1,8 @@
 package com.example.cineone_admin.entity;
 
 import jakarta.persistence.*;
+import com.example.cineone_admin.enums.SeatType;
+import com.example.cineone_admin.enums.SeatStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,9 +27,11 @@ public class Seat {
     @Column(name = "seat_number", nullable = false)
     private Integer seatNumber;
 
-    @Column(name = "seat_type", nullable = false, length = 20)
-    private String seatType = "NORMAL";
+    @Enumerated(EnumType.STRING)
+    @Column(name = "seat_type", nullable = false, columnDefinition = "ENUM('NORMAL','VIP','SWEETBOX')")
+    private SeatType seatType = SeatType.NORMAL;
 
-    @Column(nullable = false, length = 20)
-    private String status = "ACTIVE";
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "ENUM('ACTIVE','INACTIVE','MAINTENANCE')")
+    private SeatStatus status = SeatStatus.ACTIVE;
 }

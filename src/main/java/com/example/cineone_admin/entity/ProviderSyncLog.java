@@ -19,7 +19,7 @@ public class ProviderSyncLog {
     @JoinColumn(name = "provider_id", nullable = false)
     private DataProvider provider;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, columnDefinition = "ENUM('SUCCESS','FAILED','PROCESSING')")
     private String status;
 
     @Column(columnDefinition = "TEXT")

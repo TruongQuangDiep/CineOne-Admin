@@ -1,5 +1,7 @@
 package com.example.cineone_admin.dto;
 
+import com.example.cineone_admin.model.RoomType;
+
 import com.example.cineone_admin.dto.fnb.FnbItemRequest;
 import com.example.cineone_admin.dto.movie.MovieRequest;
 import com.example.cineone_admin.dto.cinema.CinemaRequest;
