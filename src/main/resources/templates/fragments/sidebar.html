@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside th:fragment="sidebar(activeMenu)" class="sidebar">
+    <a th:href="@{/dashboard}" class="sidebar-brand">
+        <i class="bi bi-film text-primary"></i>
+        <div>CINEONE <span>ADMIN</span></div>
+    </a>
+
+    <ul class="sidebar-menu">
+        <!-- 1. TRANG CHỦ -->
+        <li class="menu-item" th:classappend="${activeMenu == 'dashboard' ? 'active' : ''}">
+            <a th:href="@{/dashboard}">
+                <i class="bi bi-grid-fill"></i>
+                <span>TRANG CHỦ</span>
+            </a>
+        </li>
+
+        <!-- 2. ĐỒNG BỘ -->
+        <li class="menu-heading">ĐỒNG BỘ</li>
+        <li class="menu-item" th:classappend="${activeMenu == 'providers' ? 'active' : ''}">
+            <a th:href="@{/providers}">
+                <i class="bi bi-building"></i>
+                <span>Nhà cung cấp</span>
+            </a>
+        </li>
+        <li class="menu-item" th:classappend="${activeMenu == 'mappings' ? 'active' : ''}">
+            <a th:href="@{/mappings}">
+                <i class="bi bi-link-45deg"></i>
+                <span>Mapping</span>
+            </a>
+        </li>
+        <li class="menu-item" th:classappend="${activeMenu == 'sync-logs' ? 'active' : ''}">
+            <a th:href="@{/sync-logs}">
+                <i class="bi bi-clock-history"></i>
+                <span>Lịch sử đồng bộ</span>
+            </a>
+        </li>
+
+        <!-- 3. DỮ LIỆU -->
+        <li class="menu-heading">DỮ LIỆU</li>
+        <li class="menu-item" th:classappend="${activeMenu == 'movies' ? 'active' : ''}">
+            <a th:href="@{/movies}">
+                <i class="bi bi-camera-reels"></i>
+                <span>Phim</span>
+            </a>
+        </li>
+        <li class="menu-item" th:classappend="${activeMenu == 'cinemas' ? 'active' : ''}">
+            <a th:href="@{/cinemas}">
+                <i class="bi bi-geo-alt"></i>
+                <span>Rạp</span>
+            </a>
+        </li>
+        <li class="menu-item" th:classappend="${activeMenu == 'showtimes' ? 'active' : ''}">
+            <a th:href="@{/showtimes}">
+                <i class="bi bi-calendar3"></i>
+                <span>Suất chiếu</span>
+            </a>
+        </li>
+        <li class="menu-item" th:classappend="${activeMenu == 'fnb' ? 'active' : ''}">
+            <a th:href="@{/fnb}">
+                <i class="bi bi-cup-straw"></i>
+                <span>F&B</span>
+            </a>
+        </li>
+
+        <!-- 4. NGƯỜI DÙNG -->
+        <li class="menu-heading">NGƯỜI DÙNG</li>
+        <li class="menu-item" th:classappend="${activeMenu == 'users' ? 'active' : ''}">
+            <a th:href="@{/users}">
+                <i class="bi bi-people"></i>
+                <span>Người dùng</span>
+            </a>
+        </li>
+        <li class="menu-item" th:classappend="${activeMenu == 'reviews' ? 'active' : ''}">
+            <a th:href="@{/reviews}">
+                <i class="bi bi-star"></i>
+                <span>Đánh giá</span>
+            </a>
+        </li>
+
+        <!-- 5. GIAO DỊCH -->
+        <li class="menu-heading">GIAO DỊCH</li>
+        <li class="menu-item" th:classappend="${activeMenu == 'bookings' ? 'active' : ''}">
+            <a th:href="@{/bookings}">
+                <i class="bi bi-ticket-perforated"></i>
+                <span>Bookings</span>
+            </a>
+        </li>
+        <li class="menu-item" th:classappend="${activeMenu == 'payments' ? 'active' : ''}">
+            <a th:href="@{/payments}">
+                <i class="bi bi-credit-card"></i>
+                <span>Thanh toán</span>
+            </a>
+        </li>
+        <li class="menu-item" th:classappend="${activeMenu == 'vouchers' ? 'active' : ''}">
+            <a th:href="@{/vouchers}">
+                <i class="bi bi-tag"></i>
+                <span>Khuyến mãi</span>
+            </a>
+        </li>
+
+        <!-- 6. THÔNG BÁO -->
+        <li class="menu-heading">THÔNG BÁO</li>
+        <li class="menu-item" th:classappend="${activeMenu == 'notifications' ? 'active' : ''}">
+            <a th:href="@{/notifications}">
+                <i class="bi bi-bell"></i>
+                <span>Thông báo</span>
+            </a>
+        </li>
+
+        <!-- 7. HỖ TRỢ (2 MỤC CON THEO WIREFRAME) -->
+        <li class="menu-heading">HỖ TRỢ</li>
+        <li class="menu-item" th:classappend="${activeMenu == 'support' ? 'active' : ''}">
+            <a th:href="@{/support}">
+                <i class="bi bi-headset"></i>
+                <span>Yêu cầu hỗ trợ</span>
+            </a>
+        </li>
+        <li class="menu-item" th:classappend="${activeMenu == 'knowledgebase' ? 'active' : ''}">
+            <a th:href="@{/knowledgebase}">
+                <i class="bi bi-question-circle"></i>
+                <span>Trợ giúp & chính sách</span>
+            </a>
+        </li>
+
+        <!-- 8. CÀI ĐẶT -->
+        <li class="menu-heading">CÀI ĐẶT</li>
+        <li class="menu-item" th:classappend="${activeMenu == 'settings' ? 'active' : ''}">
+            <a th:href="@{/settings}">
+                <i class="bi bi-gear"></i>
+                <span>Cài đặt hệ thống</span>
+            </a>
+        </li>
+    </ul>
+</aside>
+</body>
+</html>
