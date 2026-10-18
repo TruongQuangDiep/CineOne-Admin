@@ -35,6 +35,6 @@ public class Showtime {
             precision = 12, scale = 2)
     private BigDecimal basePrice;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, columnDefinition = "ENUM('OPEN','CLOSED','CANCELLED','ENDED')")
     private String status = "OPEN";
 }

@@ -10,7 +10,7 @@ import com.example.cineone_admin.dto.room.RoomResponse;
 import com.example.cineone_admin.dto.room.RoomRequest;
 import com.example.cineone_admin.dto.showtime.ShowtimeRequest;
 import com.example.cineone_admin.dto.showtime.ShowtimeResponse;
-import com.example.cineone_admin.enums.RoomType;
+import com.example.cineone_admin.model.RoomType;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -63,7 +63,7 @@ class CatalogJsonTests {
         assertTrue(mapper.writeValueAsString(r).contains("\"roomType\":\"4DX\""));
         assertThrows(JacksonException.class, () -> mapper.readValue("{\"status\":\"UNKNOWN\"}", ShowtimeRequest.class));
         assertThrows(JacksonException.class, () -> mapper.readValue("{\"status\":\"open\"}", ShowtimeRequest.class));
-        assertThrows(JacksonException.class, () -> mapper.readValue("{\"roomType\":\"VIP\"}", RoomRequest.class));
+        assertEquals(RoomType.of("VIP"), mapper.readValue("{\"roomType\":\"VIP\"}", RoomRequest.class).getRoomType());
     }
 
     @Test

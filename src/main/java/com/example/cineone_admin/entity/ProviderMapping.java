@@ -43,6 +43,6 @@ public class ProviderMapping {
     @Column(name = "last_synced_at")
     private LocalDateTime lastSyncedAt;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 10, columnDefinition = "ENUM('ACTIVE','INACTIVE','ERROR')")
     private String status = "ACTIVE";
 }
