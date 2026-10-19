@@ -2,7 +2,6 @@ package com.example.cineone_admin.controller;
 
 import com.example.cineone_admin.service.DashboardService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -17,7 +16,7 @@ class DashboardControllerTests {
 
     @BeforeEach
     void setUp() {
-        // Cấu hình ViewResolver giả lập đường dẫn template để tránh lỗi Circular view path
+
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/templates/");
         viewResolver.setSuffix(".html");
@@ -30,7 +29,6 @@ class DashboardControllerTests {
     }
 
     @Test
-    @DisplayName("GET /dashboard phải trả về HTTP 200, view dashboard và model summary")
     void shouldReturnDashboardPage() throws Exception {
         mockMvc.perform(get("/dashboard"))
                 .andExpect(status().isOk())
@@ -40,7 +38,6 @@ class DashboardControllerTests {
     }
 
     @Test
-    @DisplayName("GET / (Trang gốc) phải nạp đúng dashboard view")
     void shouldReturnDashboardOnRoot() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
