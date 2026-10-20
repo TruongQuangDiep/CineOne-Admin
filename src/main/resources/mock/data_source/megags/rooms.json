@@ -1,0 +1,102 @@
+{
+  "provider_code": "MEGAGS",
+  "note": "Du lieu phong gia lap cho do an; khong phai so phong thuc te cua hang rap.",
+  "rooms": [
+    {
+      "external_id": "MEGAGS_LY_CHINH_THANG_ROOM_01",
+      "cinema_id": "MEGAGS_LY_CHINH_THANG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_LY_CHINH_THANG_ROOM_02",
+      "cinema_id": "MEGAGS_LY_CHINH_THANG",
+      "name": "VIP Room 1",
+      "room_type": "VIP_PREMIUM",
+      "template_code": "MEGAGS_VIP_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_LY_CHINH_THANG_ROOM_03",
+      "cinema_id": "MEGAGS_LY_CHINH_THANG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_LY_CHINH_THANG_ROOM_04",
+      "cinema_id": "MEGAGS_LY_CHINH_THANG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_LY_CHINH_THANG_ROOM_05",
+      "cinema_id": "MEGAGS_LY_CHINH_THANG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_LY_CHINH_THANG_ROOM_06",
+      "cinema_id": "MEGAGS_LY_CHINH_THANG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_CAO_THANG_ROOM_01",
+      "cinema_id": "MEGAGS_CAO_THANG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_CAO_THANG_ROOM_02",
+      "cinema_id": "MEGAGS_CAO_THANG",
+      "name": "VIP Room 1",
+      "room_type": "VIP_PREMIUM",
+      "template_code": "MEGAGS_VIP_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_CAO_THANG_ROOM_03",
+      "cinema_id": "MEGAGS_CAO_THANG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_CAO_THANG_ROOM_04",
+      "cinema_id": "MEGAGS_CAO_THANG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_CAO_THANG_ROOM_05",
+      "cinema_id": "MEGAGS_CAO_THANG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_CAO_THANG_ROOM_06",
+      "cinema_id": "MEGAGS_CAO_THANG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "MEGAGS_STD_80",
+      "status": "ACTIVE"
+    }
+  ]
+}

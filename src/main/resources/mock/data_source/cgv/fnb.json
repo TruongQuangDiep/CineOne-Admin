@@ -1,0 +1,79 @@
+{
+  "provider_code": "CGV",
+  "provider_name": "CGV Cinemas Vietnam",
+  "total_items": 8,
+  "items": [
+    {
+      "external_id": "CGV_FNB_MY_COMBO",
+      "name": "My Combo",
+      "category": "COMBO",
+      "price": 95000,
+      "description": "1 Bắp rang vừa (vị ngọt) + 1 Nước có gas lớn (32oz)",
+      "image_url": "https://images.unsplash.com/photo-1572177191856-3cde618dee1f?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_FNB_CGV_COMBO",
+      "name": "CGV Combo",
+      "category": "COMBO",
+      "price": 119000,
+      "description": "1 Bắp rang lớn (vị ngọt) + 2 Nước có gas lớn (32oz)",
+      "image_url": "https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_FNB_GOLDEN_COMBO",
+      "name": "Golden Cheese Combo",
+      "category": "COMBO",
+      "price": 149000,
+      "description": "1 Bắp rang lớn (vị phô mai đậm đà) + 2 Nước có gas lớn + 1 Snack khoai tây",
+      "image_url": "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_FNB_FAMILY_COMBO",
+      "name": "Family & Friends Combo",
+      "category": "COMBO",
+      "price": 209000,
+      "description": "2 Bắp rang lớn (2 vị tự chọn) + 4 Nước có gas lớn (32oz)",
+      "image_url": "https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_FNB_POPCORN_CARAMEL",
+      "name": "Bắp Rang Vị Caramel (Lớn)",
+      "category": "POPCORN",
+      "price": 65000,
+      "description": "Bắp rang giòn phủ lớp đường caramel béo ngọt quyến rũ",
+      "image_url": "https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_FNB_POPCORN_CHEESE",
+      "name": "Bắp Rang Vị Phô Mai (Lớn)",
+      "category": "POPCORN",
+      "price": 65000,
+      "description": "Bắp rang giòn lắc phô mai béo mặn đặc trưng CGV",
+      "image_url": "https://images.unsplash.com/photo-1585647347384-2593bc35786b?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_FNB_DRINK_COKE",
+      "name": "Coca-Cola Tươi (32oz)",
+      "category": "DRINK",
+      "price": 37000,
+      "description": "Nước ngọt Coca-Cola mát lạnh sảng khoái cỡ lớn",
+      "image_url": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_FNB_SNACK_HOTDOG",
+      "name": "Xúc Xích Phô Mai Nướng",
+      "category": "SNACK",
+      "price": 45000,
+      "description": "Xúc xích xông khói nhân phô mai tan chảy sốt cà chua, mù tạt",
+      "image_url": "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    }
+  ]
+}

@@ -1,0 +1,926 @@
+{
+  "provider_code": "MEGAGS",
+  "provider_name": "Mega GS Cinemas",
+  "templates": [
+    {
+      "template_code": "MEGAGS_STD_80",
+      "template_name": "Phòng Chiếu Tiêu Chuẩn 80 Ghế",
+      "room_type": "STANDARD",
+      "total_rows": 8,
+      "columns_per_row": 10,
+      "total_seats": 80,
+      "seats": [
+        {
+          "row": "A",
+          "number": 1,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 2,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 3,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 4,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 5,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 6,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 7,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 8,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 9,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 10,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 1,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 2,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 3,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 4,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 5,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 6,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 7,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 8,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 9,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 10,
+          "type": "NORMAL"
+        },
+        {
+          "row": "C",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 1,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "H",
+          "number": 2,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "H",
+          "number": 3,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "H",
+          "number": 4,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "H",
+          "number": 5,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "H",
+          "number": 6,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "H",
+          "number": 7,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "H",
+          "number": 8,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "H",
+          "number": 9,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "H",
+          "number": 10,
+          "type": "SWEETBOX"
+        }
+      ]
+    },
+    {
+      "template_code": "MEGAGS_VIP_100",
+      "template_name": "Phòng Chiếu Lớn VIP 100 Ghế",
+      "room_type": "VIP_PREMIUM",
+      "total_rows": 10,
+      "columns_per_row": 10,
+      "total_seats": 100,
+      "seats": [
+        {
+          "row": "A",
+          "number": 1,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 2,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 3,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 4,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 5,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 6,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 7,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 8,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 9,
+          "type": "NORMAL"
+        },
+        {
+          "row": "A",
+          "number": 10,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 1,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 2,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 3,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 4,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 5,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 6,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 7,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 8,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 9,
+          "type": "NORMAL"
+        },
+        {
+          "row": "B",
+          "number": 10,
+          "type": "NORMAL"
+        },
+        {
+          "row": "C",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "C",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "D",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "E",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "F",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "G",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "H",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 1,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 2,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 3,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 4,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 5,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 6,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 7,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 8,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 9,
+          "type": "VIP"
+        },
+        {
+          "row": "J",
+          "number": 10,
+          "type": "VIP"
+        },
+        {
+          "row": "K",
+          "number": 1,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "K",
+          "number": 2,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "K",
+          "number": 3,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "K",
+          "number": 4,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "K",
+          "number": 5,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "K",
+          "number": 6,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "K",
+          "number": 7,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "K",
+          "number": 8,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "K",
+          "number": 9,
+          "type": "SWEETBOX"
+        },
+        {
+          "row": "K",
+          "number": 10,
+          "type": "SWEETBOX"
+        }
+      ]
+    }
+  ]
+}
