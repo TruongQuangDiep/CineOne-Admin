@@ -1,0 +1,228 @@
+{
+  "provider_code": "BETA",
+  "provider_name": "Beta Cinemas",
+  "hotline": "1900636807",
+  "total_cinemas": 22,
+  "cinemas": [
+    {
+      "external_id": "BETA_THANH_XUAN",
+      "name": "Beta Thanh Xuân",
+      "city": "Hà Nội",
+      "address": "Tầng hầm B1, Tòa nhà Golden West, Số 2 Lê Văn Thiêm, Phường Nhân Chính, Quận Thanh Xuân, Hà Nội",
+      "latitude": 21.00295334588731,
+      "longitude": 105.80218103759569,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_MY_DINH",
+      "name": "Beta Mỹ Đình",
+      "city": "Hà Nội",
+      "address": "Tầng hầm B1, Tòa nhà Golden Palace, Đường Mễ Trì, Phường Mễ Trì, Quận Nam Từ Liêm, Hà Nội",
+      "latitude": 21.011944304808083,
+      "longitude": 105.77493291060989,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_DAN_PHUONG",
+      "name": "Beta Đan Phượng",
+      "city": "Hà Nội",
+      "address": "Tầng 2, Tòa nhà HHA, KĐT Tân Tây Đô, Xã Tân Lập, Huyện Đan Phượng, Hà Nội",
+      "latitude": 21.075280349597385,
+      "longitude": 105.7016558952689,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_GIAI_PHONG",
+      "name": "Beta Giải Phóng",
+      "city": "Hà Nội",
+      "address": "Tầng 3, Tòa IP2, Chung cư Imperial Plaza, 360 Giải Phóng, Phường Phương Liệt, Quận Thanh Xuân, Hà Nội",
+      "latitude": 20.98584072126201,
+      "longitude": 105.84061598177357,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_XUAN_THUY",
+      "name": "Beta Xuân Thủy",
+      "city": "Hà Nội",
+      "address": "Tầng 4, Tòa nhà Mipec Building, Số 122 - 124 Xuân Thủy, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội",
+      "latitude": 21.037139341743845,
+      "longitude": 105.78644708177485,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_TAY_SON",
+      "name": "Beta Tây Sơn",
+      "city": "Hà Nội",
+      "address": "Tầng 5, Tòa nhà Mipec Tower, 229 Tây Sơn, Phường Ngã Tư Sở, Quận Đống Đa, Hà Nội",
+      "latitude": 21.00574607084141,
+      "longitude": 105.82344442410276,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_QUANG_TRUNG",
+      "name": "Beta Quang Trung",
+      "city": "Hồ Chí Minh",
+      "address": "Số 645 Quang Trung, Phường 11, Quận Gò Vấp, TP. Hồ Chí Minh",
+      "latitude": 10.835610514616286,
+      "longitude": 106.66051591041376,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_UNG_VAN_KHIEM",
+      "name": "Beta Ung Văn Khiêm",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng trệt, Tòa nhà Pax Sky, 26 Ung Văn Khiêm, Phường 25, Quận Bình Thạnh, TP. Hồ Chí Minh",
+      "latitude": 10.80915877442469,
+      "longitude": 106.71336261041344,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_NOWZONE",
+      "name": "Beta Nowzone",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 5, TTTM Nowzone, 235 Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh, Quận 1, TP. Hồ Chí Minh",
+      "latitude": 10.764700430215147,
+      "longitude": 106.68232916808422,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_TRAN_QUANG_KHAI",
+      "name": "Beta Trần Quang Khải",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 2 & 3, Trung Tâm Văn Hóa Đa Năng IMC, Số 62 Trần Quang Khải, Phường Tân Định, Quận 1, TP. Hồ Chí Minh",
+      "latitude": 10.792711814283482,
+      "longitude": 106.69399865274201,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_EMPIRE_BINH_DUONG",
+      "name": "Beta Empire Bình Dương",
+      "city": "Bình Dương",
+      "address": "Số 5 Lý Thường Kiệt, Phường Phú Cường, TP. Thủ Dầu Một, Bình Dương",
+      "latitude": 10.974834645843837,
+      "longitude": 106.6566936662372,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_TAN_UYEN",
+      "name": "Beta Tân Uyên",
+      "city": "Bình Dương",
+      "address": "Tầng 4, TTTM Biconsi Uyên Hưng, Khu dân cư Thương mại Uyên Hưng, Phường Uyên Hưng, TP. Tân Uyên, Bình Dương",
+      "latitude": 11.061356531937369,
+      "longitude": 106.79554641041649,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_HO_TRAM",
+      "name": "Beta Hồ Tràm",
+      "city": "Bà Rịa - Vũng Tàu",
+      "address": "The Grand Ho Tram Strip, Xã Phước Thuận, Huyện Xuyên Mộc, Bà Rịa - Vũng Tàu",
+      "latitude": 10.486681182421314,
+      "longitude": 107.45422832390284,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_TRMALL_PHU_QUOC",
+      "name": "Beta TRMall Phú Quốc",
+      "city": "Kiên Giang",
+      "address": "Tầng 3, The Residence Phú Quốc, Ấp Đường Bào, Xã Dương Tơ, TP. Phú Quốc, Kiên Giang",
+      "latitude": 10.1265855942834,
+      "longitude": 103.9859326797206,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_BIEN_HOA",
+      "name": "Beta Biên Hòa",
+      "city": "Đồng Nai",
+      "address": "Lầu 6, The Pegasus Plaza, Số 53 - 55 Võ Thị Sáu, Phường Quyết Thắng, TP. Biên Hòa, Đồng Nai",
+      "latitude": 10.947394462742215,
+      "longitude": 106.82507897973001,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_LONG_KHANH",
+      "name": "Beta Long Khánh",
+      "city": "Đồng Nai",
+      "address": "Tầng 5, Siêu thị Hoàng Đức, Số 198 Hùng Vương, Phường Xuân Bình, TP. Long Khánh, Đồng Nai",
+      "latitude": 10.932298910842196,
+      "longitude": 107.2437100950724,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_NHA_TRANG",
+      "name": "Beta Nha Trang",
+      "city": "Khánh Hòa",
+      "address": "Tầng 2, Số 10 Hoàng Hoa Thám, Phường Vạn Thạnh, TP. Nha Trang, Khánh Hòa",
+      "latitude": 12.24907391851712,
+      "longitude": 109.19385365276064,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_THAI_NGUYEN",
+      "name": "Beta Thái Nguyên",
+      "city": "Thái Nguyên",
+      "address": "Tầng 1, Tòa nhà Hoàng Gia Plaza, Số 259 Quang Trung, Phường Tân Thịnh, TP. Thái Nguyên, Thái Nguyên",
+      "latitude": 21.579416140257884,
+      "longitude": 105.81687241062522,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_THANH_HOA",
+      "name": "Beta Thanh Hóa",
+      "city": "Thanh Hóa",
+      "address": "Tầng 3, TTTM Thanh Hóa, 27 - 29 Lê Lợi, Phường Lam Sơn, TP. Thanh Hóa, Thanh Hóa",
+      "latitude": 19.807090799140937,
+      "longitude": 105.77713793756499,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_BAC_GIANG",
+      "name": "Beta Bắc Giang",
+      "city": "Bắc Giang",
+      "address": "Tầng 4, Số 51 Nguyễn Văn Cừ, Phường Lê Lợi, TP. Bắc Giang, Bắc Giang",
+      "latitude": 21.276817926450818,
+      "longitude": 106.19510332410994,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_LAO_CAI",
+      "name": "Beta Lào Cai",
+      "city": "Lào Cai",
+      "address": "Tầng 2, TTTM GO! Lào Cai, Đại lộ Trần Hưng Đạo, Phường Bắc Lệnh, TP. Lào Cai, Lào Cai",
+      "latitude": 22.434327617973953,
+      "longitude": 104.01625066832035,
+      "phone": "1900636807",
+      "rooms": []
+    },
+    {
+      "external_id": "BETA_VINH_YEN",
+      "name": "Beta Vĩnh Yên",
+      "city": "Vĩnh Phúc",
+      "address": "Khách sạn Quốc tế Modena by Fraser, Số 99 Lý Bôn, Phường Tích Sơn, TP. Vĩnh Yên, Vĩnh Phúc",
+      "latitude": 21.30407899425552,
+      "longitude": 105.59225905294646,
+      "phone": "1900636807",
+      "rooms": []
+    }
+  ]
+}

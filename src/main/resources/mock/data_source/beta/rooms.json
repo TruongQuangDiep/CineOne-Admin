@@ -1,0 +1,1078 @@
+{
+  "provider_code": "BETA",
+  "note": "Du lieu phong gia lap cho do an; khong phai so phong thuc te cua hang rap.",
+  "rooms": [
+    {
+      "external_id": "BETA_THANH_XUAN_ROOM_01",
+      "cinema_id": "BETA_THANH_XUAN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_XUAN_ROOM_02",
+      "cinema_id": "BETA_THANH_XUAN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_XUAN_ROOM_03",
+      "cinema_id": "BETA_THANH_XUAN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_XUAN_ROOM_04",
+      "cinema_id": "BETA_THANH_XUAN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_XUAN_ROOM_05",
+      "cinema_id": "BETA_THANH_XUAN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_XUAN_ROOM_06",
+      "cinema_id": "BETA_THANH_XUAN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_MY_DINH_ROOM_01",
+      "cinema_id": "BETA_MY_DINH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_MY_DINH_ROOM_02",
+      "cinema_id": "BETA_MY_DINH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_MY_DINH_ROOM_03",
+      "cinema_id": "BETA_MY_DINH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_MY_DINH_ROOM_04",
+      "cinema_id": "BETA_MY_DINH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_MY_DINH_ROOM_05",
+      "cinema_id": "BETA_MY_DINH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_MY_DINH_ROOM_06",
+      "cinema_id": "BETA_MY_DINH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_DAN_PHUONG_ROOM_01",
+      "cinema_id": "BETA_DAN_PHUONG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_DAN_PHUONG_ROOM_02",
+      "cinema_id": "BETA_DAN_PHUONG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_DAN_PHUONG_ROOM_03",
+      "cinema_id": "BETA_DAN_PHUONG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_DAN_PHUONG_ROOM_04",
+      "cinema_id": "BETA_DAN_PHUONG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_DAN_PHUONG_ROOM_05",
+      "cinema_id": "BETA_DAN_PHUONG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_DAN_PHUONG_ROOM_06",
+      "cinema_id": "BETA_DAN_PHUONG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_GIAI_PHONG_ROOM_01",
+      "cinema_id": "BETA_GIAI_PHONG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_GIAI_PHONG_ROOM_02",
+      "cinema_id": "BETA_GIAI_PHONG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_GIAI_PHONG_ROOM_03",
+      "cinema_id": "BETA_GIAI_PHONG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_GIAI_PHONG_ROOM_04",
+      "cinema_id": "BETA_GIAI_PHONG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_GIAI_PHONG_ROOM_05",
+      "cinema_id": "BETA_GIAI_PHONG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_GIAI_PHONG_ROOM_06",
+      "cinema_id": "BETA_GIAI_PHONG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_XUAN_THUY_ROOM_01",
+      "cinema_id": "BETA_XUAN_THUY",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_XUAN_THUY_ROOM_02",
+      "cinema_id": "BETA_XUAN_THUY",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_XUAN_THUY_ROOM_03",
+      "cinema_id": "BETA_XUAN_THUY",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_XUAN_THUY_ROOM_04",
+      "cinema_id": "BETA_XUAN_THUY",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_XUAN_THUY_ROOM_05",
+      "cinema_id": "BETA_XUAN_THUY",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_XUAN_THUY_ROOM_06",
+      "cinema_id": "BETA_XUAN_THUY",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAY_SON_ROOM_01",
+      "cinema_id": "BETA_TAY_SON",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAY_SON_ROOM_02",
+      "cinema_id": "BETA_TAY_SON",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAY_SON_ROOM_03",
+      "cinema_id": "BETA_TAY_SON",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAY_SON_ROOM_04",
+      "cinema_id": "BETA_TAY_SON",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAY_SON_ROOM_05",
+      "cinema_id": "BETA_TAY_SON",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAY_SON_ROOM_06",
+      "cinema_id": "BETA_TAY_SON",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_QUANG_TRUNG_ROOM_01",
+      "cinema_id": "BETA_QUANG_TRUNG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_QUANG_TRUNG_ROOM_02",
+      "cinema_id": "BETA_QUANG_TRUNG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_QUANG_TRUNG_ROOM_03",
+      "cinema_id": "BETA_QUANG_TRUNG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_QUANG_TRUNG_ROOM_04",
+      "cinema_id": "BETA_QUANG_TRUNG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_QUANG_TRUNG_ROOM_05",
+      "cinema_id": "BETA_QUANG_TRUNG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_QUANG_TRUNG_ROOM_06",
+      "cinema_id": "BETA_QUANG_TRUNG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_QUANG_TRUNG_ROOM_07",
+      "cinema_id": "BETA_QUANG_TRUNG",
+      "name": "Cinema 7",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_QUANG_TRUNG_ROOM_08",
+      "cinema_id": "BETA_QUANG_TRUNG",
+      "name": "Cinema 8",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_UNG_VAN_KHIEM_ROOM_01",
+      "cinema_id": "BETA_UNG_VAN_KHIEM",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_UNG_VAN_KHIEM_ROOM_02",
+      "cinema_id": "BETA_UNG_VAN_KHIEM",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_UNG_VAN_KHIEM_ROOM_03",
+      "cinema_id": "BETA_UNG_VAN_KHIEM",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_UNG_VAN_KHIEM_ROOM_04",
+      "cinema_id": "BETA_UNG_VAN_KHIEM",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_UNG_VAN_KHIEM_ROOM_05",
+      "cinema_id": "BETA_UNG_VAN_KHIEM",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_UNG_VAN_KHIEM_ROOM_06",
+      "cinema_id": "BETA_UNG_VAN_KHIEM",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NOWZONE_ROOM_01",
+      "cinema_id": "BETA_NOWZONE",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NOWZONE_ROOM_02",
+      "cinema_id": "BETA_NOWZONE",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NOWZONE_ROOM_03",
+      "cinema_id": "BETA_NOWZONE",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NOWZONE_ROOM_04",
+      "cinema_id": "BETA_NOWZONE",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NOWZONE_ROOM_05",
+      "cinema_id": "BETA_NOWZONE",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NOWZONE_ROOM_06",
+      "cinema_id": "BETA_NOWZONE",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRAN_QUANG_KHAI_ROOM_01",
+      "cinema_id": "BETA_TRAN_QUANG_KHAI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRAN_QUANG_KHAI_ROOM_02",
+      "cinema_id": "BETA_TRAN_QUANG_KHAI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRAN_QUANG_KHAI_ROOM_03",
+      "cinema_id": "BETA_TRAN_QUANG_KHAI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRAN_QUANG_KHAI_ROOM_04",
+      "cinema_id": "BETA_TRAN_QUANG_KHAI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRAN_QUANG_KHAI_ROOM_05",
+      "cinema_id": "BETA_TRAN_QUANG_KHAI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRAN_QUANG_KHAI_ROOM_06",
+      "cinema_id": "BETA_TRAN_QUANG_KHAI",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_EMPIRE_BINH_DUONG_ROOM_01",
+      "cinema_id": "BETA_EMPIRE_BINH_DUONG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_EMPIRE_BINH_DUONG_ROOM_02",
+      "cinema_id": "BETA_EMPIRE_BINH_DUONG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_EMPIRE_BINH_DUONG_ROOM_03",
+      "cinema_id": "BETA_EMPIRE_BINH_DUONG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_EMPIRE_BINH_DUONG_ROOM_04",
+      "cinema_id": "BETA_EMPIRE_BINH_DUONG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_EMPIRE_BINH_DUONG_ROOM_05",
+      "cinema_id": "BETA_EMPIRE_BINH_DUONG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_EMPIRE_BINH_DUONG_ROOM_06",
+      "cinema_id": "BETA_EMPIRE_BINH_DUONG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAN_UYEN_ROOM_01",
+      "cinema_id": "BETA_TAN_UYEN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAN_UYEN_ROOM_02",
+      "cinema_id": "BETA_TAN_UYEN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAN_UYEN_ROOM_03",
+      "cinema_id": "BETA_TAN_UYEN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAN_UYEN_ROOM_04",
+      "cinema_id": "BETA_TAN_UYEN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAN_UYEN_ROOM_05",
+      "cinema_id": "BETA_TAN_UYEN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TAN_UYEN_ROOM_06",
+      "cinema_id": "BETA_TAN_UYEN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_HO_TRAM_ROOM_01",
+      "cinema_id": "BETA_HO_TRAM",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_HO_TRAM_ROOM_02",
+      "cinema_id": "BETA_HO_TRAM",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_HO_TRAM_ROOM_03",
+      "cinema_id": "BETA_HO_TRAM",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_HO_TRAM_ROOM_04",
+      "cinema_id": "BETA_HO_TRAM",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_HO_TRAM_ROOM_05",
+      "cinema_id": "BETA_HO_TRAM",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_HO_TRAM_ROOM_06",
+      "cinema_id": "BETA_HO_TRAM",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRMALL_PHU_QUOC_ROOM_01",
+      "cinema_id": "BETA_TRMALL_PHU_QUOC",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRMALL_PHU_QUOC_ROOM_02",
+      "cinema_id": "BETA_TRMALL_PHU_QUOC",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRMALL_PHU_QUOC_ROOM_03",
+      "cinema_id": "BETA_TRMALL_PHU_QUOC",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRMALL_PHU_QUOC_ROOM_04",
+      "cinema_id": "BETA_TRMALL_PHU_QUOC",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRMALL_PHU_QUOC_ROOM_05",
+      "cinema_id": "BETA_TRMALL_PHU_QUOC",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_TRMALL_PHU_QUOC_ROOM_06",
+      "cinema_id": "BETA_TRMALL_PHU_QUOC",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BIEN_HOA_ROOM_01",
+      "cinema_id": "BETA_BIEN_HOA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BIEN_HOA_ROOM_02",
+      "cinema_id": "BETA_BIEN_HOA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BIEN_HOA_ROOM_03",
+      "cinema_id": "BETA_BIEN_HOA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BIEN_HOA_ROOM_04",
+      "cinema_id": "BETA_BIEN_HOA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BIEN_HOA_ROOM_05",
+      "cinema_id": "BETA_BIEN_HOA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BIEN_HOA_ROOM_06",
+      "cinema_id": "BETA_BIEN_HOA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LONG_KHANH_ROOM_01",
+      "cinema_id": "BETA_LONG_KHANH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LONG_KHANH_ROOM_02",
+      "cinema_id": "BETA_LONG_KHANH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LONG_KHANH_ROOM_03",
+      "cinema_id": "BETA_LONG_KHANH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LONG_KHANH_ROOM_04",
+      "cinema_id": "BETA_LONG_KHANH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LONG_KHANH_ROOM_05",
+      "cinema_id": "BETA_LONG_KHANH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LONG_KHANH_ROOM_06",
+      "cinema_id": "BETA_LONG_KHANH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NHA_TRANG_ROOM_01",
+      "cinema_id": "BETA_NHA_TRANG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NHA_TRANG_ROOM_02",
+      "cinema_id": "BETA_NHA_TRANG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NHA_TRANG_ROOM_03",
+      "cinema_id": "BETA_NHA_TRANG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NHA_TRANG_ROOM_04",
+      "cinema_id": "BETA_NHA_TRANG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NHA_TRANG_ROOM_05",
+      "cinema_id": "BETA_NHA_TRANG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_NHA_TRANG_ROOM_06",
+      "cinema_id": "BETA_NHA_TRANG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THAI_NGUYEN_ROOM_01",
+      "cinema_id": "BETA_THAI_NGUYEN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THAI_NGUYEN_ROOM_02",
+      "cinema_id": "BETA_THAI_NGUYEN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THAI_NGUYEN_ROOM_03",
+      "cinema_id": "BETA_THAI_NGUYEN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THAI_NGUYEN_ROOM_04",
+      "cinema_id": "BETA_THAI_NGUYEN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THAI_NGUYEN_ROOM_05",
+      "cinema_id": "BETA_THAI_NGUYEN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THAI_NGUYEN_ROOM_06",
+      "cinema_id": "BETA_THAI_NGUYEN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_HOA_ROOM_01",
+      "cinema_id": "BETA_THANH_HOA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_HOA_ROOM_02",
+      "cinema_id": "BETA_THANH_HOA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_HOA_ROOM_03",
+      "cinema_id": "BETA_THANH_HOA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_HOA_ROOM_04",
+      "cinema_id": "BETA_THANH_HOA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_HOA_ROOM_05",
+      "cinema_id": "BETA_THANH_HOA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_THANH_HOA_ROOM_06",
+      "cinema_id": "BETA_THANH_HOA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BAC_GIANG_ROOM_01",
+      "cinema_id": "BETA_BAC_GIANG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BAC_GIANG_ROOM_02",
+      "cinema_id": "BETA_BAC_GIANG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BAC_GIANG_ROOM_03",
+      "cinema_id": "BETA_BAC_GIANG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BAC_GIANG_ROOM_04",
+      "cinema_id": "BETA_BAC_GIANG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BAC_GIANG_ROOM_05",
+      "cinema_id": "BETA_BAC_GIANG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_BAC_GIANG_ROOM_06",
+      "cinema_id": "BETA_BAC_GIANG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LAO_CAI_ROOM_01",
+      "cinema_id": "BETA_LAO_CAI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LAO_CAI_ROOM_02",
+      "cinema_id": "BETA_LAO_CAI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LAO_CAI_ROOM_03",
+      "cinema_id": "BETA_LAO_CAI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LAO_CAI_ROOM_04",
+      "cinema_id": "BETA_LAO_CAI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LAO_CAI_ROOM_05",
+      "cinema_id": "BETA_LAO_CAI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_LAO_CAI_ROOM_06",
+      "cinema_id": "BETA_LAO_CAI",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_VINH_YEN_ROOM_01",
+      "cinema_id": "BETA_VINH_YEN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_VINH_YEN_ROOM_02",
+      "cinema_id": "BETA_VINH_YEN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_VINH_YEN_ROOM_03",
+      "cinema_id": "BETA_VINH_YEN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_VINH_YEN_ROOM_04",
+      "cinema_id": "BETA_VINH_YEN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_VINH_YEN_ROOM_05",
+      "cinema_id": "BETA_VINH_YEN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "BETA_STD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_VINH_YEN_ROOM_06",
+      "cinema_id": "BETA_VINH_YEN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "BETA_LARGE_100",
+      "status": "ACTIVE"
+    }
+  ]
+}

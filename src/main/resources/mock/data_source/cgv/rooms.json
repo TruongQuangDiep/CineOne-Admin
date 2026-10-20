@@ -1,0 +1,4134 @@
+{
+  "provider_code": "CGV",
+  "note": "Du lieu phong gia lap cho do an; khong phai so phong thuc te cua hang rap.",
+  "rooms": [
+    {
+      "external_id": "CGV_HUNG_VUONG_PLAZA_ROOM_01",
+      "cinema_id": "CGV_HUNG_VUONG_PLAZA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HUNG_VUONG_PLAZA_ROOM_02",
+      "cinema_id": "CGV_HUNG_VUONG_PLAZA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HUNG_VUONG_PLAZA_ROOM_03",
+      "cinema_id": "CGV_HUNG_VUONG_PLAZA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HUNG_VUONG_PLAZA_ROOM_04",
+      "cinema_id": "CGV_HUNG_VUONG_PLAZA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HUNG_VUONG_PLAZA_ROOM_05",
+      "cinema_id": "CGV_HUNG_VUONG_PLAZA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HUNG_VUONG_PLAZA_ROOM_06",
+      "cinema_id": "CGV_HUNG_VUONG_PLAZA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_CRESCENT_MALL_ROOM_01",
+      "cinema_id": "CGV_CRESCENT_MALL",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_CRESCENT_MALL_ROOM_02",
+      "cinema_id": "CGV_CRESCENT_MALL",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_CRESCENT_MALL_ROOM_03",
+      "cinema_id": "CGV_CRESCENT_MALL",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_CRESCENT_MALL_ROOM_04",
+      "cinema_id": "CGV_CRESCENT_MALL",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_CRESCENT_MALL_ROOM_05",
+      "cinema_id": "CGV_CRESCENT_MALL",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_CRESCENT_MALL_ROOM_06",
+      "cinema_id": "CGV_CRESCENT_MALL",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_THAO_DIEN_PEARL_ROOM_01",
+      "cinema_id": "CGV_THAO_DIEN_PEARL",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_THAO_DIEN_PEARL_ROOM_02",
+      "cinema_id": "CGV_THAO_DIEN_PEARL",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_THAO_DIEN_PEARL_ROOM_03",
+      "cinema_id": "CGV_THAO_DIEN_PEARL",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_THAO_DIEN_PEARL_ROOM_04",
+      "cinema_id": "CGV_THAO_DIEN_PEARL",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_THAO_DIEN_PEARL_ROOM_05",
+      "cinema_id": "CGV_THAO_DIEN_PEARL",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_THAO_DIEN_PEARL_ROOM_06",
+      "cinema_id": "CGV_THAO_DIEN_PEARL",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THU_DUC_ROOM_01",
+      "cinema_id": "CGV_VINCOM_THU_DUC",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THU_DUC_ROOM_02",
+      "cinema_id": "CGV_VINCOM_THU_DUC",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THU_DUC_ROOM_03",
+      "cinema_id": "CGV_VINCOM_THU_DUC",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THU_DUC_ROOM_04",
+      "cinema_id": "CGV_VINCOM_THU_DUC",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THU_DUC_ROOM_05",
+      "cinema_id": "CGV_VINCOM_THU_DUC",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THU_DUC_ROOM_06",
+      "cinema_id": "CGV_VINCOM_THU_DUC",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VIVO_CITY_ROOM_01",
+      "cinema_id": "CGV_VIVO_CITY",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VIVO_CITY_ROOM_02",
+      "cinema_id": "CGV_VIVO_CITY",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VIVO_CITY_ROOM_03",
+      "cinema_id": "CGV_VIVO_CITY",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VIVO_CITY_ROOM_04",
+      "cinema_id": "CGV_VIVO_CITY",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VIVO_CITY_ROOM_05",
+      "cinema_id": "CGV_VIVO_CITY",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VIVO_CITY_ROOM_06",
+      "cinema_id": "CGV_VIVO_CITY",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PEARL_PLAZA_ROOM_01",
+      "cinema_id": "CGV_PEARL_PLAZA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PEARL_PLAZA_ROOM_02",
+      "cinema_id": "CGV_PEARL_PLAZA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PEARL_PLAZA_ROOM_03",
+      "cinema_id": "CGV_PEARL_PLAZA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PEARL_PLAZA_ROOM_04",
+      "cinema_id": "CGV_PEARL_PLAZA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PEARL_PLAZA_ROOM_05",
+      "cinema_id": "CGV_PEARL_PLAZA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PEARL_PLAZA_ROOM_06",
+      "cinema_id": "CGV_PEARL_PLAZA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LIBERTY_CITYPOINT_ROOM_01",
+      "cinema_id": "CGV_LIBERTY_CITYPOINT",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LIBERTY_CITYPOINT_ROOM_02",
+      "cinema_id": "CGV_LIBERTY_CITYPOINT",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LIBERTY_CITYPOINT_ROOM_03",
+      "cinema_id": "CGV_LIBERTY_CITYPOINT",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LIBERTY_CITYPOINT_ROOM_04",
+      "cinema_id": "CGV_LIBERTY_CITYPOINT",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LIBERTY_CITYPOINT_ROOM_05",
+      "cinema_id": "CGV_LIBERTY_CITYPOINT",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LIBERTY_CITYPOINT_ROOM_06",
+      "cinema_id": "CGV_LIBERTY_CITYPOINT",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DONG_KHOI_ROOM_01",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DONG_KHOI_ROOM_02",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "name": "IMAX Cinema",
+      "room_type": "IMAX",
+      "template_code": "IMAX_120",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DONG_KHOI_ROOM_03",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DONG_KHOI_ROOM_04",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DONG_KHOI_ROOM_05",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DONG_KHOI_ROOM_06",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MENAS_MALL_ROOM_01",
+      "cinema_id": "CGV_MENAS_MALL",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MENAS_MALL_ROOM_02",
+      "cinema_id": "CGV_MENAS_MALL",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MENAS_MALL_ROOM_03",
+      "cinema_id": "CGV_MENAS_MALL",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MENAS_MALL_ROOM_04",
+      "cinema_id": "CGV_MENAS_MALL",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MENAS_MALL_ROOM_05",
+      "cinema_id": "CGV_MENAS_MALL",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MENAS_MALL_ROOM_06",
+      "cinema_id": "CGV_MENAS_MALL",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PANDORA_CITY_ROOM_01",
+      "cinema_id": "CGV_PANDORA_CITY",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PANDORA_CITY_ROOM_02",
+      "cinema_id": "CGV_PANDORA_CITY",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PANDORA_CITY_ROOM_03",
+      "cinema_id": "CGV_PANDORA_CITY",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PANDORA_CITY_ROOM_04",
+      "cinema_id": "CGV_PANDORA_CITY",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PANDORA_CITY_ROOM_05",
+      "cinema_id": "CGV_PANDORA_CITY",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_PANDORA_CITY_ROOM_06",
+      "cinema_id": "CGV_PANDORA_CITY",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_TAN_PHU_ROOM_01",
+      "cinema_id": "CGV_AEON_TAN_PHU",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_TAN_PHU_ROOM_02",
+      "cinema_id": "CGV_AEON_TAN_PHU",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_TAN_PHU_ROOM_03",
+      "cinema_id": "CGV_AEON_TAN_PHU",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_TAN_PHU_ROOM_04",
+      "cinema_id": "CGV_AEON_TAN_PHU",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_TAN_PHU_ROOM_05",
+      "cinema_id": "CGV_AEON_TAN_PHU",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_TAN_PHU_ROOM_06",
+      "cinema_id": "CGV_AEON_TAN_PHU",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GO_VAP_ROOM_01",
+      "cinema_id": "CGV_VINCOM_GO_VAP",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GO_VAP_ROOM_02",
+      "cinema_id": "CGV_VINCOM_GO_VAP",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GO_VAP_ROOM_03",
+      "cinema_id": "CGV_VINCOM_GO_VAP",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GO_VAP_ROOM_04",
+      "cinema_id": "CGV_VINCOM_GO_VAP",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GO_VAP_ROOM_05",
+      "cinema_id": "CGV_VINCOM_GO_VAP",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GO_VAP_ROOM_06",
+      "cinema_id": "CGV_VINCOM_GO_VAP",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HOANG_VAN_THU_ROOM_01",
+      "cinema_id": "CGV_HOANG_VAN_THU",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HOANG_VAN_THU_ROOM_02",
+      "cinema_id": "CGV_HOANG_VAN_THU",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HOANG_VAN_THU_ROOM_03",
+      "cinema_id": "CGV_HOANG_VAN_THU",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HOANG_VAN_THU_ROOM_04",
+      "cinema_id": "CGV_HOANG_VAN_THU",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HOANG_VAN_THU_ROOM_05",
+      "cinema_id": "CGV_HOANG_VAN_THU",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HOANG_VAN_THU_ROOM_06",
+      "cinema_id": "CGV_HOANG_VAN_THU",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_BINH_TAN_ROOM_01",
+      "cinema_id": "CGV_AEON_BINH_TAN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_BINH_TAN_ROOM_02",
+      "cinema_id": "CGV_AEON_BINH_TAN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_BINH_TAN_ROOM_03",
+      "cinema_id": "CGV_AEON_BINH_TAN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_BINH_TAN_ROOM_04",
+      "cinema_id": "CGV_AEON_BINH_TAN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_BINH_TAN_ROOM_05",
+      "cinema_id": "CGV_AEON_BINH_TAN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_BINH_TAN_ROOM_06",
+      "cinema_id": "CGV_AEON_BINH_TAN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SAIGONRES_NGUYEN_XI_ROOM_01",
+      "cinema_id": "CGV_SAIGONRES_NGUYEN_XI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SAIGONRES_NGUYEN_XI_ROOM_02",
+      "cinema_id": "CGV_SAIGONRES_NGUYEN_XI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SAIGONRES_NGUYEN_XI_ROOM_03",
+      "cinema_id": "CGV_SAIGONRES_NGUYEN_XI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SAIGONRES_NGUYEN_XI_ROOM_04",
+      "cinema_id": "CGV_SAIGONRES_NGUYEN_XI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SAIGONRES_NGUYEN_XI_ROOM_05",
+      "cinema_id": "CGV_SAIGONRES_NGUYEN_XI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SAIGONRES_NGUYEN_XI_ROOM_06",
+      "cinema_id": "CGV_SAIGONRES_NGUYEN_XI",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SU_VAN_HANH_ROOM_01",
+      "cinema_id": "CGV_SU_VAN_HANH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SU_VAN_HANH_ROOM_02",
+      "cinema_id": "CGV_SU_VAN_HANH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SU_VAN_HANH_ROOM_03",
+      "cinema_id": "CGV_SU_VAN_HANH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SU_VAN_HANH_ROOM_04",
+      "cinema_id": "CGV_SU_VAN_HANH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SU_VAN_HANH_ROOM_05",
+      "cinema_id": "CGV_SU_VAN_HANH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SU_VAN_HANH_ROOM_06",
+      "cinema_id": "CGV_SU_VAN_HANH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANDMARK_81_ROOM_01",
+      "cinema_id": "CGV_VINCOM_LANDMARK_81",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANDMARK_81_ROOM_02",
+      "cinema_id": "CGV_VINCOM_LANDMARK_81",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANDMARK_81_ROOM_03",
+      "cinema_id": "CGV_VINCOM_LANDMARK_81",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANDMARK_81_ROOM_04",
+      "cinema_id": "CGV_VINCOM_LANDMARK_81",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANDMARK_81_ROOM_05",
+      "cinema_id": "CGV_VINCOM_LANDMARK_81",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANDMARK_81_ROOM_06",
+      "cinema_id": "CGV_VINCOM_LANDMARK_81",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SATRA_CU_CHI_ROOM_01",
+      "cinema_id": "CGV_SATRA_CU_CHI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SATRA_CU_CHI_ROOM_02",
+      "cinema_id": "CGV_SATRA_CU_CHI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SATRA_CU_CHI_ROOM_03",
+      "cinema_id": "CGV_SATRA_CU_CHI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SATRA_CU_CHI_ROOM_04",
+      "cinema_id": "CGV_SATRA_CU_CHI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SATRA_CU_CHI_ROOM_05",
+      "cinema_id": "CGV_SATRA_CU_CHI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SATRA_CU_CHI_ROOM_06",
+      "cinema_id": "CGV_SATRA_CU_CHI",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GIGAMALL_THU_DUC_ROOM_01",
+      "cinema_id": "CGV_GIGAMALL_THU_DUC",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GIGAMALL_THU_DUC_ROOM_02",
+      "cinema_id": "CGV_GIGAMALL_THU_DUC",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GIGAMALL_THU_DUC_ROOM_03",
+      "cinema_id": "CGV_GIGAMALL_THU_DUC",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GIGAMALL_THU_DUC_ROOM_04",
+      "cinema_id": "CGV_GIGAMALL_THU_DUC",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GIGAMALL_THU_DUC_ROOM_05",
+      "cinema_id": "CGV_GIGAMALL_THU_DUC",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GIGAMALL_THU_DUC_ROOM_06",
+      "cinema_id": "CGV_GIGAMALL_THU_DUC",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LY_CHINH_THANG_ROOM_01",
+      "cinema_id": "CGV_LY_CHINH_THANG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LY_CHINH_THANG_ROOM_02",
+      "cinema_id": "CGV_LY_CHINH_THANG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LY_CHINH_THANG_ROOM_03",
+      "cinema_id": "CGV_LY_CHINH_THANG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LY_CHINH_THANG_ROOM_04",
+      "cinema_id": "CGV_LY_CHINH_THANG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LY_CHINH_THANG_ROOM_05",
+      "cinema_id": "CGV_LY_CHINH_THANG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LY_CHINH_THANG_ROOM_06",
+      "cinema_id": "CGV_LY_CHINH_THANG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GRAND_PARK_ROOM_01",
+      "cinema_id": "CGV_VINCOM_GRAND_PARK",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GRAND_PARK_ROOM_02",
+      "cinema_id": "CGV_VINCOM_GRAND_PARK",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GRAND_PARK_ROOM_03",
+      "cinema_id": "CGV_VINCOM_GRAND_PARK",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GRAND_PARK_ROOM_04",
+      "cinema_id": "CGV_VINCOM_GRAND_PARK",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GRAND_PARK_ROOM_05",
+      "cinema_id": "CGV_VINCOM_GRAND_PARK",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_GRAND_PARK_ROOM_06",
+      "cinema_id": "CGV_VINCOM_GRAND_PARK",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BA_TRIEU_ROOM_01",
+      "cinema_id": "CGV_VINCOM_BA_TRIEU",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BA_TRIEU_ROOM_02",
+      "cinema_id": "CGV_VINCOM_BA_TRIEU",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BA_TRIEU_ROOM_03",
+      "cinema_id": "CGV_VINCOM_BA_TRIEU",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BA_TRIEU_ROOM_04",
+      "cinema_id": "CGV_VINCOM_BA_TRIEU",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BA_TRIEU_ROOM_05",
+      "cinema_id": "CGV_VINCOM_BA_TRIEU",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BA_TRIEU_ROOM_06",
+      "cinema_id": "CGV_VINCOM_BA_TRIEU",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HO_GUOM_PLAZA_ROOM_01",
+      "cinema_id": "CGV_HO_GUOM_PLAZA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HO_GUOM_PLAZA_ROOM_02",
+      "cinema_id": "CGV_HO_GUOM_PLAZA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HO_GUOM_PLAZA_ROOM_03",
+      "cinema_id": "CGV_HO_GUOM_PLAZA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HO_GUOM_PLAZA_ROOM_04",
+      "cinema_id": "CGV_HO_GUOM_PLAZA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HO_GUOM_PLAZA_ROOM_05",
+      "cinema_id": "CGV_HO_GUOM_PLAZA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HO_GUOM_PLAZA_ROOM_06",
+      "cinema_id": "CGV_HO_GUOM_PLAZA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_LONG_BIEN_ROOM_01",
+      "cinema_id": "CGV_AEON_LONG_BIEN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_LONG_BIEN_ROOM_02",
+      "cinema_id": "CGV_AEON_LONG_BIEN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_LONG_BIEN_ROOM_03",
+      "cinema_id": "CGV_AEON_LONG_BIEN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_LONG_BIEN_ROOM_04",
+      "cinema_id": "CGV_AEON_LONG_BIEN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_LONG_BIEN_ROOM_05",
+      "cinema_id": "CGV_AEON_LONG_BIEN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_LONG_BIEN_ROOM_06",
+      "cinema_id": "CGV_AEON_LONG_BIEN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_NGUYEN_CHI_THANH_ROOM_01",
+      "cinema_id": "CGV_VINCOM_NGUYEN_CHI_THANH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_NGUYEN_CHI_THANH_ROOM_02",
+      "cinema_id": "CGV_VINCOM_NGUYEN_CHI_THANH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_NGUYEN_CHI_THANH_ROOM_03",
+      "cinema_id": "CGV_VINCOM_NGUYEN_CHI_THANH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_NGUYEN_CHI_THANH_ROOM_04",
+      "cinema_id": "CGV_VINCOM_NGUYEN_CHI_THANH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_NGUYEN_CHI_THANH_ROOM_05",
+      "cinema_id": "CGV_VINCOM_NGUYEN_CHI_THANH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_NGUYEN_CHI_THANH_ROOM_06",
+      "cinema_id": "CGV_VINCOM_NGUYEN_CHI_THANH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_INDOCHINA_PLAZA_ROOM_01",
+      "cinema_id": "CGV_INDOCHINA_PLAZA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_INDOCHINA_PLAZA_ROOM_02",
+      "cinema_id": "CGV_INDOCHINA_PLAZA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_INDOCHINA_PLAZA_ROOM_03",
+      "cinema_id": "CGV_INDOCHINA_PLAZA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_INDOCHINA_PLAZA_ROOM_04",
+      "cinema_id": "CGV_INDOCHINA_PLAZA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_INDOCHINA_PLAZA_ROOM_05",
+      "cinema_id": "CGV_INDOCHINA_PLAZA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_INDOCHINA_PLAZA_ROOM_06",
+      "cinema_id": "CGV_INDOCHINA_PLAZA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_RICE_CITY_ROOM_01",
+      "cinema_id": "CGV_RICE_CITY",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_RICE_CITY_ROOM_02",
+      "cinema_id": "CGV_RICE_CITY",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_RICE_CITY_ROOM_03",
+      "cinema_id": "CGV_RICE_CITY",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_RICE_CITY_ROOM_04",
+      "cinema_id": "CGV_RICE_CITY",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_RICE_CITY_ROOM_05",
+      "cinema_id": "CGV_RICE_CITY",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_RICE_CITY_ROOM_06",
+      "cinema_id": "CGV_RICE_CITY",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HA_NOI_CENTERPOINT_ROOM_01",
+      "cinema_id": "CGV_HA_NOI_CENTERPOINT",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HA_NOI_CENTERPOINT_ROOM_02",
+      "cinema_id": "CGV_HA_NOI_CENTERPOINT",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HA_NOI_CENTERPOINT_ROOM_03",
+      "cinema_id": "CGV_HA_NOI_CENTERPOINT",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HA_NOI_CENTERPOINT_ROOM_04",
+      "cinema_id": "CGV_HA_NOI_CENTERPOINT",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HA_NOI_CENTERPOINT_ROOM_05",
+      "cinema_id": "CGV_HA_NOI_CENTERPOINT",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HA_NOI_CENTERPOINT_ROOM_06",
+      "cinema_id": "CGV_HA_NOI_CENTERPOINT",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_ROYAL_CITY_ROOM_01",
+      "cinema_id": "CGV_VINCOM_ROYAL_CITY",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_ROYAL_CITY_ROOM_02",
+      "cinema_id": "CGV_VINCOM_ROYAL_CITY",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_ROYAL_CITY_ROOM_03",
+      "cinema_id": "CGV_VINCOM_ROYAL_CITY",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_ROYAL_CITY_ROOM_04",
+      "cinema_id": "CGV_VINCOM_ROYAL_CITY",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_ROYAL_CITY_ROOM_05",
+      "cinema_id": "CGV_VINCOM_ROYAL_CITY",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_ROYAL_CITY_ROOM_06",
+      "cinema_id": "CGV_VINCOM_ROYAL_CITY",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TIMES_CITY_ROOM_01",
+      "cinema_id": "CGV_VINCOM_TIMES_CITY",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TIMES_CITY_ROOM_02",
+      "cinema_id": "CGV_VINCOM_TIMES_CITY",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TIMES_CITY_ROOM_03",
+      "cinema_id": "CGV_VINCOM_TIMES_CITY",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TIMES_CITY_ROOM_04",
+      "cinema_id": "CGV_VINCOM_TIMES_CITY",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TIMES_CITY_ROOM_05",
+      "cinema_id": "CGV_VINCOM_TIMES_CITY",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TIMES_CITY_ROOM_06",
+      "cinema_id": "CGV_VINCOM_TIMES_CITY",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LONG_BIEN_ROOM_01",
+      "cinema_id": "CGV_VINCOM_LONG_BIEN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LONG_BIEN_ROOM_02",
+      "cinema_id": "CGV_VINCOM_LONG_BIEN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LONG_BIEN_ROOM_03",
+      "cinema_id": "CGV_VINCOM_LONG_BIEN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LONG_BIEN_ROOM_04",
+      "cinema_id": "CGV_VINCOM_LONG_BIEN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LONG_BIEN_ROOM_05",
+      "cinema_id": "CGV_VINCOM_LONG_BIEN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LONG_BIEN_ROOM_06",
+      "cinema_id": "CGV_VINCOM_LONG_BIEN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MAC_PLAZA_ROOM_01",
+      "cinema_id": "CGV_MAC_PLAZA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MAC_PLAZA_ROOM_02",
+      "cinema_id": "CGV_MAC_PLAZA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MAC_PLAZA_ROOM_03",
+      "cinema_id": "CGV_MAC_PLAZA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MAC_PLAZA_ROOM_04",
+      "cinema_id": "CGV_MAC_PLAZA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MAC_PLAZA_ROOM_05",
+      "cinema_id": "CGV_MAC_PLAZA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MAC_PLAZA_ROOM_06",
+      "cinema_id": "CGV_MAC_PLAZA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRUONG_DINH_PLAZA_ROOM_01",
+      "cinema_id": "CGV_TRUONG_DINH_PLAZA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRUONG_DINH_PLAZA_ROOM_02",
+      "cinema_id": "CGV_TRUONG_DINH_PLAZA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRUONG_DINH_PLAZA_ROOM_03",
+      "cinema_id": "CGV_TRUONG_DINH_PLAZA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRUONG_DINH_PLAZA_ROOM_04",
+      "cinema_id": "CGV_TRUONG_DINH_PLAZA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRUONG_DINH_PLAZA_ROOM_05",
+      "cinema_id": "CGV_TRUONG_DINH_PLAZA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRUONG_DINH_PLAZA_ROOM_06",
+      "cinema_id": "CGV_TRUONG_DINH_PLAZA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRANG_TIEN_PLAZA_ROOM_01",
+      "cinema_id": "CGV_TRANG_TIEN_PLAZA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRANG_TIEN_PLAZA_ROOM_02",
+      "cinema_id": "CGV_TRANG_TIEN_PLAZA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRANG_TIEN_PLAZA_ROOM_03",
+      "cinema_id": "CGV_TRANG_TIEN_PLAZA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRANG_TIEN_PLAZA_ROOM_04",
+      "cinema_id": "CGV_TRANG_TIEN_PLAZA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRANG_TIEN_PLAZA_ROOM_05",
+      "cinema_id": "CGV_TRANG_TIEN_PLAZA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_TRANG_TIEN_PLAZA_ROOM_06",
+      "cinema_id": "CGV_TRANG_TIEN_PLAZA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_THUY_KHUE_ROOM_01",
+      "cinema_id": "CGV_SUN_GRAND_THUY_KHUE",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_THUY_KHUE_ROOM_02",
+      "cinema_id": "CGV_SUN_GRAND_THUY_KHUE",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_THUY_KHUE_ROOM_03",
+      "cinema_id": "CGV_SUN_GRAND_THUY_KHUE",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_THUY_KHUE_ROOM_04",
+      "cinema_id": "CGV_SUN_GRAND_THUY_KHUE",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_THUY_KHUE_ROOM_05",
+      "cinema_id": "CGV_SUN_GRAND_THUY_KHUE",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_THUY_KHUE_ROOM_06",
+      "cinema_id": "CGV_SUN_GRAND_THUY_KHUE",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_LUONG_YEN_ROOM_01",
+      "cinema_id": "CGV_SUN_GRAND_LUONG_YEN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_LUONG_YEN_ROOM_02",
+      "cinema_id": "CGV_SUN_GRAND_LUONG_YEN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_LUONG_YEN_ROOM_03",
+      "cinema_id": "CGV_SUN_GRAND_LUONG_YEN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_LUONG_YEN_ROOM_04",
+      "cinema_id": "CGV_SUN_GRAND_LUONG_YEN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_LUONG_YEN_ROOM_05",
+      "cinema_id": "CGV_SUN_GRAND_LUONG_YEN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_LUONG_YEN_ROOM_06",
+      "cinema_id": "CGV_SUN_GRAND_LUONG_YEN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_TU_LIEM_ROOM_01",
+      "cinema_id": "CGV_VINCOM_BAC_TU_LIEM",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_TU_LIEM_ROOM_02",
+      "cinema_id": "CGV_VINCOM_BAC_TU_LIEM",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_TU_LIEM_ROOM_03",
+      "cinema_id": "CGV_VINCOM_BAC_TU_LIEM",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_TU_LIEM_ROOM_04",
+      "cinema_id": "CGV_VINCOM_BAC_TU_LIEM",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_TU_LIEM_ROOM_05",
+      "cinema_id": "CGV_VINCOM_BAC_TU_LIEM",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_TU_LIEM_ROOM_06",
+      "cinema_id": "CGV_VINCOM_BAC_TU_LIEM",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_METROPOLIS_ROOM_01",
+      "cinema_id": "CGV_VINCOM_METROPOLIS",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_METROPOLIS_ROOM_02",
+      "cinema_id": "CGV_VINCOM_METROPOLIS",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_METROPOLIS_ROOM_03",
+      "cinema_id": "CGV_VINCOM_METROPOLIS",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_METROPOLIS_ROOM_04",
+      "cinema_id": "CGV_VINCOM_METROPOLIS",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_METROPOLIS_ROOM_05",
+      "cinema_id": "CGV_VINCOM_METROPOLIS",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_METROPOLIS_ROOM_06",
+      "cinema_id": "CGV_VINCOM_METROPOLIS",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_XUAN_DIEU_ROOM_01",
+      "cinema_id": "CGV_XUAN_DIEU",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_XUAN_DIEU_ROOM_02",
+      "cinema_id": "CGV_XUAN_DIEU",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_XUAN_DIEU_ROOM_03",
+      "cinema_id": "CGV_XUAN_DIEU",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_XUAN_DIEU_ROOM_04",
+      "cinema_id": "CGV_XUAN_DIEU",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_XUAN_DIEU_ROOM_05",
+      "cinema_id": "CGV_XUAN_DIEU",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_XUAN_DIEU_ROOM_06",
+      "cinema_id": "CGV_XUAN_DIEU",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SKY_LAKE_ROOM_01",
+      "cinema_id": "CGV_VINCOM_SKY_LAKE",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SKY_LAKE_ROOM_02",
+      "cinema_id": "CGV_VINCOM_SKY_LAKE",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SKY_LAKE_ROOM_03",
+      "cinema_id": "CGV_VINCOM_SKY_LAKE",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SKY_LAKE_ROOM_04",
+      "cinema_id": "CGV_VINCOM_SKY_LAKE",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SKY_LAKE_ROOM_05",
+      "cinema_id": "CGV_VINCOM_SKY_LAKE",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SKY_LAKE_ROOM_06",
+      "cinema_id": "CGV_VINCOM_SKY_LAKE",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRAN_DUY_HUNG_ROOM_01",
+      "cinema_id": "CGV_VINCOM_TRAN_DUY_HUNG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRAN_DUY_HUNG_ROOM_02",
+      "cinema_id": "CGV_VINCOM_TRAN_DUY_HUNG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRAN_DUY_HUNG_ROOM_03",
+      "cinema_id": "CGV_VINCOM_TRAN_DUY_HUNG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRAN_DUY_HUNG_ROOM_04",
+      "cinema_id": "CGV_VINCOM_TRAN_DUY_HUNG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRAN_DUY_HUNG_ROOM_05",
+      "cinema_id": "CGV_VINCOM_TRAN_DUY_HUNG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRAN_DUY_HUNG_ROOM_06",
+      "cinema_id": "CGV_VINCOM_TRAN_DUY_HUNG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_HA_DONG_ROOM_01",
+      "cinema_id": "CGV_AEON_HA_DONG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_HA_DONG_ROOM_02",
+      "cinema_id": "CGV_AEON_HA_DONG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_HA_DONG_ROOM_03",
+      "cinema_id": "CGV_AEON_HA_DONG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_HA_DONG_ROOM_04",
+      "cinema_id": "CGV_AEON_HA_DONG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_HA_DONG_ROOM_05",
+      "cinema_id": "CGV_AEON_HA_DONG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_HA_DONG_ROOM_06",
+      "cinema_id": "CGV_AEON_HA_DONG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_PARK_ROOM_01",
+      "cinema_id": "CGV_VINCOM_OCEAN_PARK",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_PARK_ROOM_02",
+      "cinema_id": "CGV_VINCOM_OCEAN_PARK",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_PARK_ROOM_03",
+      "cinema_id": "CGV_VINCOM_OCEAN_PARK",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_PARK_ROOM_04",
+      "cinema_id": "CGV_VINCOM_OCEAN_PARK",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_PARK_ROOM_05",
+      "cinema_id": "CGV_VINCOM_OCEAN_PARK",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_PARK_ROOM_06",
+      "cinema_id": "CGV_VINCOM_OCEAN_PARK",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_TRUNG_PLAZA_ROOM_01",
+      "cinema_id": "CGV_VINH_TRUNG_PLAZA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_TRUNG_PLAZA_ROOM_02",
+      "cinema_id": "CGV_VINH_TRUNG_PLAZA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_TRUNG_PLAZA_ROOM_03",
+      "cinema_id": "CGV_VINH_TRUNG_PLAZA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_TRUNG_PLAZA_ROOM_04",
+      "cinema_id": "CGV_VINH_TRUNG_PLAZA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_TRUNG_PLAZA_ROOM_05",
+      "cinema_id": "CGV_VINH_TRUNG_PLAZA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_TRUNG_PLAZA_ROOM_06",
+      "cinema_id": "CGV_VINH_TRUNG_PLAZA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DA_NANG_ROOM_01",
+      "cinema_id": "CGV_VINCOM_DA_NANG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DA_NANG_ROOM_02",
+      "cinema_id": "CGV_VINCOM_DA_NANG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DA_NANG_ROOM_03",
+      "cinema_id": "CGV_VINCOM_DA_NANG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DA_NANG_ROOM_04",
+      "cinema_id": "CGV_VINCOM_DA_NANG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DA_NANG_ROOM_05",
+      "cinema_id": "CGV_VINCOM_DA_NANG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_DA_NANG_ROOM_06",
+      "cinema_id": "CGV_VINCOM_DA_NANG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MM_SUPERCENTER_DA_NANG_ROOM_01",
+      "cinema_id": "CGV_MM_SUPERCENTER_DA_NANG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MM_SUPERCENTER_DA_NANG_ROOM_02",
+      "cinema_id": "CGV_MM_SUPERCENTER_DA_NANG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MM_SUPERCENTER_DA_NANG_ROOM_03",
+      "cinema_id": "CGV_MM_SUPERCENTER_DA_NANG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MM_SUPERCENTER_DA_NANG_ROOM_04",
+      "cinema_id": "CGV_MM_SUPERCENTER_DA_NANG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MM_SUPERCENTER_DA_NANG_ROOM_05",
+      "cinema_id": "CGV_MM_SUPERCENTER_DA_NANG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_MM_SUPERCENTER_DA_NANG_ROOM_06",
+      "cinema_id": "CGV_MM_SUPERCENTER_DA_NANG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SENSE_CITY_ROOM_01",
+      "cinema_id": "CGV_SENSE_CITY",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SENSE_CITY_ROOM_02",
+      "cinema_id": "CGV_SENSE_CITY",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SENSE_CITY_ROOM_03",
+      "cinema_id": "CGV_SENSE_CITY",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SENSE_CITY_ROOM_04",
+      "cinema_id": "CGV_SENSE_CITY",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SENSE_CITY_ROOM_05",
+      "cinema_id": "CGV_SENSE_CITY",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_SENSE_CITY_ROOM_06",
+      "cinema_id": "CGV_SENSE_CITY",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_XUAN_KHANH_ROOM_01",
+      "cinema_id": "CGV_VINCOM_XUAN_KHANH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_XUAN_KHANH_ROOM_02",
+      "cinema_id": "CGV_VINCOM_XUAN_KHANH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_XUAN_KHANH_ROOM_03",
+      "cinema_id": "CGV_VINCOM_XUAN_KHANH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_XUAN_KHANH_ROOM_04",
+      "cinema_id": "CGV_VINCOM_XUAN_KHANH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_XUAN_KHANH_ROOM_05",
+      "cinema_id": "CGV_VINCOM_XUAN_KHANH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_XUAN_KHANH_ROOM_06",
+      "cinema_id": "CGV_VINCOM_XUAN_KHANH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO_ROOM_01",
+      "cinema_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO_ROOM_02",
+      "cinema_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO_ROOM_03",
+      "cinema_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO_ROOM_04",
+      "cinema_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO_ROOM_05",
+      "cinema_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO_ROOM_06",
+      "cinema_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_COOPMART_BIEN_HOA_ROOM_01",
+      "cinema_id": "CGV_COOPMART_BIEN_HOA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_COOPMART_BIEN_HOA_ROOM_02",
+      "cinema_id": "CGV_COOPMART_BIEN_HOA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_COOPMART_BIEN_HOA_ROOM_03",
+      "cinema_id": "CGV_COOPMART_BIEN_HOA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_COOPMART_BIEN_HOA_ROOM_04",
+      "cinema_id": "CGV_COOPMART_BIEN_HOA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_COOPMART_BIEN_HOA_ROOM_05",
+      "cinema_id": "CGV_COOPMART_BIEN_HOA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_COOPMART_BIEN_HOA_ROOM_06",
+      "cinema_id": "CGV_COOPMART_BIEN_HOA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_DONG_NAI_ROOM_01",
+      "cinema_id": "CGV_BIG_C_DONG_NAI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_DONG_NAI_ROOM_02",
+      "cinema_id": "CGV_BIG_C_DONG_NAI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_DONG_NAI_ROOM_03",
+      "cinema_id": "CGV_BIG_C_DONG_NAI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_DONG_NAI_ROOM_04",
+      "cinema_id": "CGV_BIG_C_DONG_NAI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_DONG_NAI_ROOM_05",
+      "cinema_id": "CGV_BIG_C_DONG_NAI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_DONG_NAI_ROOM_06",
+      "cinema_id": "CGV_BIG_C_DONG_NAI",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HAI_PHONG_ROOM_01",
+      "cinema_id": "CGV_VINCOM_HAI_PHONG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HAI_PHONG_ROOM_02",
+      "cinema_id": "CGV_VINCOM_HAI_PHONG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HAI_PHONG_ROOM_03",
+      "cinema_id": "CGV_VINCOM_HAI_PHONG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HAI_PHONG_ROOM_04",
+      "cinema_id": "CGV_VINCOM_HAI_PHONG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HAI_PHONG_ROOM_05",
+      "cinema_id": "CGV_VINCOM_HAI_PHONG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HAI_PHONG_ROOM_06",
+      "cinema_id": "CGV_VINCOM_HAI_PHONG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_MALL_HAI_PHONG_ROOM_01",
+      "cinema_id": "CGV_AEON_MALL_HAI_PHONG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_MALL_HAI_PHONG_ROOM_02",
+      "cinema_id": "CGV_AEON_MALL_HAI_PHONG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_MALL_HAI_PHONG_ROOM_03",
+      "cinema_id": "CGV_AEON_MALL_HAI_PHONG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_MALL_HAI_PHONG_ROOM_04",
+      "cinema_id": "CGV_AEON_MALL_HAI_PHONG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_MALL_HAI_PHONG_ROOM_05",
+      "cinema_id": "CGV_AEON_MALL_HAI_PHONG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_MALL_HAI_PHONG_ROOM_06",
+      "cinema_id": "CGV_AEON_MALL_HAI_PHONG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_LONG_ROOM_01",
+      "cinema_id": "CGV_VINCOM_HA_LONG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_LONG_ROOM_02",
+      "cinema_id": "CGV_VINCOM_HA_LONG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_LONG_ROOM_03",
+      "cinema_id": "CGV_VINCOM_HA_LONG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_LONG_ROOM_04",
+      "cinema_id": "CGV_VINCOM_HA_LONG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_LONG_ROOM_05",
+      "cinema_id": "CGV_VINCOM_HA_LONG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_LONG_ROOM_06",
+      "cinema_id": "CGV_VINCOM_HA_LONG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MONG_CAI_ROOM_01",
+      "cinema_id": "CGV_VINCOM_MONG_CAI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MONG_CAI_ROOM_02",
+      "cinema_id": "CGV_VINCOM_MONG_CAI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MONG_CAI_ROOM_03",
+      "cinema_id": "CGV_VINCOM_MONG_CAI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MONG_CAI_ROOM_04",
+      "cinema_id": "CGV_VINCOM_MONG_CAI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MONG_CAI_ROOM_05",
+      "cinema_id": "CGV_VINCOM_MONG_CAI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MONG_CAI_ROOM_06",
+      "cinema_id": "CGV_VINCOM_MONG_CAI",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAM_PHA_ROOM_01",
+      "cinema_id": "CGV_VINCOM_CAM_PHA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAM_PHA_ROOM_02",
+      "cinema_id": "CGV_VINCOM_CAM_PHA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAM_PHA_ROOM_03",
+      "cinema_id": "CGV_VINCOM_CAM_PHA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAM_PHA_ROOM_04",
+      "cinema_id": "CGV_VINCOM_CAM_PHA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAM_PHA_ROOM_05",
+      "cinema_id": "CGV_VINCOM_CAM_PHA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAM_PHA_ROOM_06",
+      "cinema_id": "CGV_VINCOM_CAM_PHA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAM_SON_SQUARE_ROOM_01",
+      "cinema_id": "CGV_LAM_SON_SQUARE",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAM_SON_SQUARE_ROOM_02",
+      "cinema_id": "CGV_LAM_SON_SQUARE",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAM_SON_SQUARE_ROOM_03",
+      "cinema_id": "CGV_LAM_SON_SQUARE",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAM_SON_SQUARE_ROOM_04",
+      "cinema_id": "CGV_LAM_SON_SQUARE",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAM_SON_SQUARE_ROOM_05",
+      "cinema_id": "CGV_LAM_SON_SQUARE",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAM_SON_SQUARE_ROOM_06",
+      "cinema_id": "CGV_LAM_SON_SQUARE",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAPEN_CENTER_VUNG_TAU_ROOM_01",
+      "cinema_id": "CGV_LAPEN_CENTER_VUNG_TAU",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAPEN_CENTER_VUNG_TAU_ROOM_02",
+      "cinema_id": "CGV_LAPEN_CENTER_VUNG_TAU",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAPEN_CENTER_VUNG_TAU_ROOM_03",
+      "cinema_id": "CGV_LAPEN_CENTER_VUNG_TAU",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAPEN_CENTER_VUNG_TAU_ROOM_04",
+      "cinema_id": "CGV_LAPEN_CENTER_VUNG_TAU",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAPEN_CENTER_VUNG_TAU_ROOM_05",
+      "cinema_id": "CGV_LAPEN_CENTER_VUNG_TAU",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_LAPEN_CENTER_VUNG_TAU_ROOM_06",
+      "cinema_id": "CGV_LAPEN_CENTER_VUNG_TAU",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_KIM_CUC_PLAZA_ROOM_01",
+      "cinema_id": "CGV_KIM_CUC_PLAZA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_KIM_CUC_PLAZA_ROOM_02",
+      "cinema_id": "CGV_KIM_CUC_PLAZA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_KIM_CUC_PLAZA_ROOM_03",
+      "cinema_id": "CGV_KIM_CUC_PLAZA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_KIM_CUC_PLAZA_ROOM_04",
+      "cinema_id": "CGV_KIM_CUC_PLAZA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_KIM_CUC_PLAZA_ROOM_05",
+      "cinema_id": "CGV_KIM_CUC_PLAZA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_KIM_CUC_PLAZA_ROOM_06",
+      "cinema_id": "CGV_KIM_CUC_PLAZA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BINH_DUONG_SQUARE_ROOM_01",
+      "cinema_id": "CGV_BINH_DUONG_SQUARE",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BINH_DUONG_SQUARE_ROOM_02",
+      "cinema_id": "CGV_BINH_DUONG_SQUARE",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BINH_DUONG_SQUARE_ROOM_03",
+      "cinema_id": "CGV_BINH_DUONG_SQUARE",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BINH_DUONG_SQUARE_ROOM_04",
+      "cinema_id": "CGV_BINH_DUONG_SQUARE",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BINH_DUONG_SQUARE_ROOM_05",
+      "cinema_id": "CGV_BINH_DUONG_SQUARE",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BINH_DUONG_SQUARE_ROOM_06",
+      "cinema_id": "CGV_BINH_DUONG_SQUARE",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_CANARY_ROOM_01",
+      "cinema_id": "CGV_AEON_CANARY",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_CANARY_ROOM_02",
+      "cinema_id": "CGV_AEON_CANARY",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_CANARY_ROOM_03",
+      "cinema_id": "CGV_AEON_CANARY",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_CANARY_ROOM_04",
+      "cinema_id": "CGV_AEON_CANARY",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_CANARY_ROOM_05",
+      "cinema_id": "CGV_AEON_CANARY",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_CANARY_ROOM_06",
+      "cinema_id": "CGV_AEON_CANARY",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BUON_ME_THUOT_ROOM_01",
+      "cinema_id": "CGV_BUON_ME_THUOT",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BUON_ME_THUOT_ROOM_02",
+      "cinema_id": "CGV_BUON_ME_THUOT",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BUON_ME_THUOT_ROOM_03",
+      "cinema_id": "CGV_BUON_ME_THUOT",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BUON_ME_THUOT_ROOM_04",
+      "cinema_id": "CGV_BUON_ME_THUOT",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BUON_ME_THUOT_ROOM_05",
+      "cinema_id": "CGV_BUON_ME_THUOT",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BUON_ME_THUOT_ROOM_06",
+      "cinema_id": "CGV_BUON_ME_THUOT",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRA_VINH_ROOM_01",
+      "cinema_id": "CGV_VINCOM_TRA_VINH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRA_VINH_ROOM_02",
+      "cinema_id": "CGV_VINCOM_TRA_VINH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRA_VINH_ROOM_03",
+      "cinema_id": "CGV_VINCOM_TRA_VINH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRA_VINH_ROOM_04",
+      "cinema_id": "CGV_VINCOM_TRA_VINH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRA_VINH_ROOM_05",
+      "cinema_id": "CGV_VINCOM_TRA_VINH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TRA_VINH_ROOM_06",
+      "cinema_id": "CGV_VINCOM_TRA_VINH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_YEN_BAI_ROOM_01",
+      "cinema_id": "CGV_VINCOM_YEN_BAI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_YEN_BAI_ROOM_02",
+      "cinema_id": "CGV_VINCOM_YEN_BAI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_YEN_BAI_ROOM_03",
+      "cinema_id": "CGV_VINCOM_YEN_BAI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_YEN_BAI_ROOM_04",
+      "cinema_id": "CGV_VINCOM_YEN_BAI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_YEN_BAI_ROOM_05",
+      "cinema_id": "CGV_VINCOM_YEN_BAI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_YEN_BAI_ROOM_06",
+      "cinema_id": "CGV_VINCOM_YEN_BAI",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VINH_LONG_ROOM_01",
+      "cinema_id": "CGV_VINCOM_VINH_LONG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VINH_LONG_ROOM_02",
+      "cinema_id": "CGV_VINCOM_VINH_LONG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VINH_LONG_ROOM_03",
+      "cinema_id": "CGV_VINCOM_VINH_LONG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VINH_LONG_ROOM_04",
+      "cinema_id": "CGV_VINCOM_VINH_LONG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VINH_LONG_ROOM_05",
+      "cinema_id": "CGV_VINCOM_VINH_LONG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VINH_LONG_ROOM_06",
+      "cinema_id": "CGV_VINCOM_VINH_LONG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_RACH_GIA_ROOM_01",
+      "cinema_id": "CGV_VINCOM_RACH_GIA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_RACH_GIA_ROOM_02",
+      "cinema_id": "CGV_VINCOM_RACH_GIA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_RACH_GIA_ROOM_03",
+      "cinema_id": "CGV_VINCOM_RACH_GIA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_RACH_GIA_ROOM_04",
+      "cinema_id": "CGV_VINCOM_RACH_GIA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_RACH_GIA_ROOM_05",
+      "cinema_id": "CGV_VINCOM_RACH_GIA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_RACH_GIA_ROOM_06",
+      "cinema_id": "CGV_VINCOM_RACH_GIA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VI_THANH_ROOM_01",
+      "cinema_id": "CGV_VINCOM_VI_THANH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VI_THANH_ROOM_02",
+      "cinema_id": "CGV_VINCOM_VI_THANH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VI_THANH_ROOM_03",
+      "cinema_id": "CGV_VINCOM_VI_THANH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VI_THANH_ROOM_04",
+      "cinema_id": "CGV_VINCOM_VI_THANH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VI_THANH_ROOM_05",
+      "cinema_id": "CGV_VINCOM_VI_THANH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_VI_THANH_ROOM_06",
+      "cinema_id": "CGV_VINCOM_VI_THANH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_TINH_ROOM_01",
+      "cinema_id": "CGV_VINCOM_HA_TINH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_TINH_ROOM_02",
+      "cinema_id": "CGV_VINCOM_HA_TINH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_TINH_ROOM_03",
+      "cinema_id": "CGV_VINCOM_HA_TINH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_TINH_ROOM_04",
+      "cinema_id": "CGV_VINCOM_HA_TINH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_TINH_ROOM_05",
+      "cinema_id": "CGV_VINCOM_HA_TINH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_TINH_ROOM_06",
+      "cinema_id": "CGV_VINCOM_HA_TINH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_PHU_YEN_ROOM_01",
+      "cinema_id": "CGV_VINCOM_PHU_YEN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_PHU_YEN_ROOM_02",
+      "cinema_id": "CGV_VINCOM_PHU_YEN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_PHU_YEN_ROOM_03",
+      "cinema_id": "CGV_VINCOM_PHU_YEN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_PHU_YEN_ROOM_04",
+      "cinema_id": "CGV_VINCOM_PHU_YEN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_PHU_YEN_ROOM_05",
+      "cinema_id": "CGV_VINCOM_PHU_YEN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_PHU_YEN_ROOM_06",
+      "cinema_id": "CGV_VINCOM_PHU_YEN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAO_LANH_ROOM_01",
+      "cinema_id": "CGV_VINCOM_CAO_LANH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAO_LANH_ROOM_02",
+      "cinema_id": "CGV_VINCOM_CAO_LANH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAO_LANH_ROOM_03",
+      "cinema_id": "CGV_VINCOM_CAO_LANH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAO_LANH_ROOM_04",
+      "cinema_id": "CGV_VINCOM_CAO_LANH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAO_LANH_ROOM_05",
+      "cinema_id": "CGV_VINCOM_CAO_LANH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_CAO_LANH_ROOM_06",
+      "cinema_id": "CGV_VINCOM_CAO_LANH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_LIEU_ROOM_01",
+      "cinema_id": "CGV_VINCOM_BAC_LIEU",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_LIEU_ROOM_02",
+      "cinema_id": "CGV_VINCOM_BAC_LIEU",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_LIEU_ROOM_03",
+      "cinema_id": "CGV_VINCOM_BAC_LIEU",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_LIEU_ROOM_04",
+      "cinema_id": "CGV_VINCOM_BAC_LIEU",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_LIEU_ROOM_05",
+      "cinema_id": "CGV_VINCOM_BAC_LIEU",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_LIEU_ROOM_06",
+      "cinema_id": "CGV_VINCOM_BAC_LIEU",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_ECOPARK_HUNG_YEN_ROOM_01",
+      "cinema_id": "CGV_ECOPARK_HUNG_YEN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_ECOPARK_HUNG_YEN_ROOM_02",
+      "cinema_id": "CGV_ECOPARK_HUNG_YEN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_ECOPARK_HUNG_YEN_ROOM_03",
+      "cinema_id": "CGV_ECOPARK_HUNG_YEN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_ECOPARK_HUNG_YEN_ROOM_04",
+      "cinema_id": "CGV_ECOPARK_HUNG_YEN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_ECOPARK_HUNG_YEN_ROOM_05",
+      "cinema_id": "CGV_ECOPARK_HUNG_YEN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_ECOPARK_HUNG_YEN_ROOM_06",
+      "cinema_id": "CGV_ECOPARK_HUNG_YEN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_CITY_ROOM_01",
+      "cinema_id": "CGV_VINCOM_OCEAN_CITY",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_CITY_ROOM_02",
+      "cinema_id": "CGV_VINCOM_OCEAN_CITY",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_CITY_ROOM_03",
+      "cinema_id": "CGV_VINCOM_OCEAN_CITY",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_CITY_ROOM_04",
+      "cinema_id": "CGV_VINCOM_OCEAN_CITY",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_CITY_ROOM_05",
+      "cinema_id": "CGV_VINCOM_OCEAN_CITY",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_CITY_ROOM_06",
+      "cinema_id": "CGV_VINCOM_OCEAN_CITY",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_NHA_TRANG_ROOM_01",
+      "cinema_id": "CGV_BIG_C_NHA_TRANG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_NHA_TRANG_ROOM_02",
+      "cinema_id": "CGV_BIG_C_NHA_TRANG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_NHA_TRANG_ROOM_03",
+      "cinema_id": "CGV_BIG_C_NHA_TRANG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_NHA_TRANG_ROOM_04",
+      "cinema_id": "CGV_BIG_C_NHA_TRANG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_NHA_TRANG_ROOM_05",
+      "cinema_id": "CGV_BIG_C_NHA_TRANG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_BIG_C_NHA_TRANG_ROOM_06",
+      "cinema_id": "CGV_BIG_C_NHA_TRANG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_KON_TUM_ROOM_01",
+      "cinema_id": "CGV_VINCOM_KON_TUM",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_KON_TUM_ROOM_02",
+      "cinema_id": "CGV_VINCOM_KON_TUM",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_KON_TUM_ROOM_03",
+      "cinema_id": "CGV_VINCOM_KON_TUM",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_KON_TUM_ROOM_04",
+      "cinema_id": "CGV_VINCOM_KON_TUM",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_KON_TUM_ROOM_05",
+      "cinema_id": "CGV_VINCOM_KON_TUM",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_KON_TUM_ROOM_06",
+      "cinema_id": "CGV_VINCOM_KON_TUM",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANG_SON_ROOM_01",
+      "cinema_id": "CGV_VINCOM_LANG_SON",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANG_SON_ROOM_02",
+      "cinema_id": "CGV_VINCOM_LANG_SON",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANG_SON_ROOM_03",
+      "cinema_id": "CGV_VINCOM_LANG_SON",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANG_SON_ROOM_04",
+      "cinema_id": "CGV_VINCOM_LANG_SON",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANG_SON_ROOM_05",
+      "cinema_id": "CGV_VINCOM_LANG_SON",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_LANG_SON_ROOM_06",
+      "cinema_id": "CGV_VINCOM_LANG_SON",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_CENTRE_ROOM_01",
+      "cinema_id": "CGV_VINH_CENTRE",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_CENTRE_ROOM_02",
+      "cinema_id": "CGV_VINH_CENTRE",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_CENTRE_ROOM_03",
+      "cinema_id": "CGV_VINH_CENTRE",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_CENTRE_ROOM_04",
+      "cinema_id": "CGV_VINH_CENTRE",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_CENTRE_ROOM_05",
+      "cinema_id": "CGV_VINH_CENTRE",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINH_CENTRE_ROOM_06",
+      "cinema_id": "CGV_VINH_CENTRE",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HAPPYLAND_VIET_TRI_ROOM_01",
+      "cinema_id": "CGV_HAPPYLAND_VIET_TRI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HAPPYLAND_VIET_TRI_ROOM_02",
+      "cinema_id": "CGV_HAPPYLAND_VIET_TRI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HAPPYLAND_VIET_TRI_ROOM_03",
+      "cinema_id": "CGV_HAPPYLAND_VIET_TRI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HAPPYLAND_VIET_TRI_ROOM_04",
+      "cinema_id": "CGV_HAPPYLAND_VIET_TRI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HAPPYLAND_VIET_TRI_ROOM_05",
+      "cinema_id": "CGV_HAPPYLAND_VIET_TRI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_HAPPYLAND_VIET_TRI_ROOM_06",
+      "cinema_id": "CGV_HAPPYLAND_VIET_TRI",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_QUANG_NGAI_ROOM_01",
+      "cinema_id": "CGV_VINCOM_QUANG_NGAI",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_QUANG_NGAI_ROOM_02",
+      "cinema_id": "CGV_VINCOM_QUANG_NGAI",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_QUANG_NGAI_ROOM_03",
+      "cinema_id": "CGV_VINCOM_QUANG_NGAI",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_QUANG_NGAI_ROOM_04",
+      "cinema_id": "CGV_VINCOM_QUANG_NGAI",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_QUANG_NGAI_ROOM_05",
+      "cinema_id": "CGV_VINCOM_QUANG_NGAI",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_QUANG_NGAI_ROOM_06",
+      "cinema_id": "CGV_VINCOM_QUANG_NGAI",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SOC_TRANG_ROOM_01",
+      "cinema_id": "CGV_VINCOM_SOC_TRANG",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SOC_TRANG_ROOM_02",
+      "cinema_id": "CGV_VINCOM_SOC_TRANG",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SOC_TRANG_ROOM_03",
+      "cinema_id": "CGV_VINCOM_SOC_TRANG",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SOC_TRANG_ROOM_04",
+      "cinema_id": "CGV_VINCOM_SOC_TRANG",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SOC_TRANG_ROOM_05",
+      "cinema_id": "CGV_VINCOM_SOC_TRANG",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SOC_TRANG_ROOM_06",
+      "cinema_id": "CGV_VINCOM_SOC_TRANG",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SON_LA_ROOM_01",
+      "cinema_id": "CGV_VINCOM_SON_LA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SON_LA_ROOM_02",
+      "cinema_id": "CGV_VINCOM_SON_LA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SON_LA_ROOM_03",
+      "cinema_id": "CGV_VINCOM_SON_LA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SON_LA_ROOM_04",
+      "cinema_id": "CGV_VINCOM_SON_LA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SON_LA_ROOM_05",
+      "cinema_id": "CGV_VINCOM_SON_LA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_SON_LA_ROOM_06",
+      "cinema_id": "CGV_VINCOM_SON_LA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TAY_NINH_ROOM_01",
+      "cinema_id": "CGV_VINCOM_TAY_NINH",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TAY_NINH_ROOM_02",
+      "cinema_id": "CGV_VINCOM_TAY_NINH",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TAY_NINH_ROOM_03",
+      "cinema_id": "CGV_VINCOM_TAY_NINH",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TAY_NINH_ROOM_04",
+      "cinema_id": "CGV_VINCOM_TAY_NINH",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TAY_NINH_ROOM_05",
+      "cinema_id": "CGV_VINCOM_TAY_NINH",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_TAY_NINH_ROOM_06",
+      "cinema_id": "CGV_VINCOM_TAY_NINH",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THAI_NGUYEN_ROOM_01",
+      "cinema_id": "CGV_VINCOM_THAI_NGUYEN",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THAI_NGUYEN_ROOM_02",
+      "cinema_id": "CGV_VINCOM_THAI_NGUYEN",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THAI_NGUYEN_ROOM_03",
+      "cinema_id": "CGV_VINCOM_THAI_NGUYEN",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THAI_NGUYEN_ROOM_04",
+      "cinema_id": "CGV_VINCOM_THAI_NGUYEN",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THAI_NGUYEN_ROOM_05",
+      "cinema_id": "CGV_VINCOM_THAI_NGUYEN",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_THAI_NGUYEN_ROOM_06",
+      "cinema_id": "CGV_VINCOM_THAI_NGUYEN",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_THANH_HOA_ROOM_01",
+      "cinema_id": "CGV_AEON_THANH_HOA",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_THANH_HOA_ROOM_02",
+      "cinema_id": "CGV_AEON_THANH_HOA",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_THANH_HOA_ROOM_03",
+      "cinema_id": "CGV_AEON_THANH_HOA",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_THANH_HOA_ROOM_04",
+      "cinema_id": "CGV_AEON_THANH_HOA",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_THANH_HOA_ROOM_05",
+      "cinema_id": "CGV_AEON_THANH_HOA",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_AEON_THANH_HOA_ROOM_06",
+      "cinema_id": "CGV_AEON_THANH_HOA",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GO_MY_THO_ROOM_01",
+      "cinema_id": "CGV_GO_MY_THO",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GO_MY_THO_ROOM_02",
+      "cinema_id": "CGV_GO_MY_THO",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GO_MY_THO_ROOM_03",
+      "cinema_id": "CGV_GO_MY_THO",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GO_MY_THO_ROOM_04",
+      "cinema_id": "CGV_GO_MY_THO",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GO_MY_THO_ROOM_05",
+      "cinema_id": "CGV_GO_MY_THO",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_GO_MY_THO_ROOM_06",
+      "cinema_id": "CGV_GO_MY_THO",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MY_THO_ROOM_01",
+      "cinema_id": "CGV_VINCOM_MY_THO",
+      "name": "Cinema 1",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MY_THO_ROOM_02",
+      "cinema_id": "CGV_VINCOM_MY_THO",
+      "name": "Cinema 2",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MY_THO_ROOM_03",
+      "cinema_id": "CGV_VINCOM_MY_THO",
+      "name": "Cinema 3",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MY_THO_ROOM_04",
+      "cinema_id": "CGV_VINCOM_MY_THO",
+      "name": "Cinema 4",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MY_THO_ROOM_05",
+      "cinema_id": "CGV_VINCOM_MY_THO",
+      "name": "Cinema 5",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "CGV_VINCOM_MY_THO_ROOM_06",
+      "cinema_id": "CGV_VINCOM_MY_THO",
+      "name": "Cinema 6",
+      "room_type": "STANDARD",
+      "template_code": "STANDARD_80",
+      "status": "ACTIVE"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+﻿external_id,name,city,address,latitude,longitude,phone
+GLX_THISO_MALL_SALA,Galaxy CineX Thiso Mall Sala,Hồ Chí Minh,"Tầng 3, TTTM Thiso Mall Sala - Số 10 Đường Mai Chí Thọ, Phường An Khánh, TP.HCM",10.77180618,106.7217778,19002224
+GLX_GO_AN_LAC,Galaxy CineO GO! An Lạc,Hồ Chí Minh,"TTTM GO! An Lạc, 1231 Quốc Lộ 1A, Phường An Lạc, Thành phố Hồ Chí Minh",10.73076239,106.60405,19002224
+GLX_COOP_QUANG_TRUNG,Galaxy CineO Coop Quang Trung,Hồ Chí Minh,"Tầng 3,TTTM Co.opmart Quang Trung - 304A Quang Trung, Phường Thông Tây Hội, TP.HCM",10.83486948,106.6622981,19002224
+GLX_PARC_MALL,Galaxy Cine+ Parc Mall,Hồ Chí Minh,"Tầng 4, TTTM Parc Mall - 547-549 Tạ Quang Bửu, Phường Chánh Hưng, TP.HCM",10.74061614,106.6787347,19002224
+GLX_THISO_PHAN_HUY_ICH,Galaxy Cine+ Thiso Mall Phan Huy Ích,Hồ Chí Minh,"Tầng 4, TTTM Thiso Mall Trường Chinh - Phan Huy Ích - 385 Phan Huy Ích, Phường An Hội Tây, TP.HCM",10.84175864,106.6373087,19002224
+GLX_KINH_DUONG_VUONG,Galaxy Cinema Kinh Dương Vương,Hồ Chí Minh,"718 Bis Kinh Dương Vương, Phường Phú Lâm, TP.HCM",10.750677,106.6283135,19002224
+GLX_TAN_BINH,Galaxy Cinema Tân Bình,Hồ Chí Minh,"246 Nguyễn Hồng Đào, Phường Tân Bình, TP.HCM",10.79072939,106.6409026,19002224
+GLX_TRUNG_CHANH,Galaxy Cinema Trung Chánh,Hồ Chí Minh,"TTVH Quận 12 - Số 09, Quốc Lộ 22, Phường Trung Mỹ Tây, TP.HCM",10.85564065,106.6084293,19002224
+GLX_NGUYEN_VAN_QUA,Galaxy Cinema Nguyễn Văn Quá,Hồ Chí Minh,"119B Nguyễn Văn Quá, Phường Đông Hưng Thuận, TP. HCM",10.8472686,106.634054,19002224
+GLX_NGUYEN_DU,Galaxy Cinema Nguyễn Du,Hồ Chí Minh,"116 Nguyễn Du, Phường Bến Thành, TP.HCM",10.77348644,106.6932841,19002224
+GLX_COOP_TRUONG_CHINH,Galaxy Cinema Coop Trường Chinh,Hồ Chí Minh,"Tầng 3, TTTM Co.opmart Thắng Lợi - Số 02 Trường Chinh, Phường Tây Thạnh, TP.HCM",10.81834218,106.6309833,19002224
+GLX_COOPXTRA_LINH_TRUNG,Galaxy Cinema Co.opXtra Linh Trung,Hồ Chí Minh,"Tầng Trệt, TTTM Co.opXtra Linh Trung - 934 Quốc Lộ 1A, Phường Linh Xuân, TP.HCM",10.86851998,106.7766369,19002224
+GLX_COOP_HUYNH_TAN_PHAT,Galaxy Cinema Coop Huỳnh Tấn Phát,Hồ Chí Minh,"Tầng 2, TTTM Co.opmart Huỳnh Tấn Phát - 1362 Huỳnh Tấn Phát, Phường Tân Mỹ, TP. HCM",10.71252901,106.7362764,19002224
+GLX_AEON_THANH_KHE,Galaxy CineX AEON Mall Thanh Khê,Đà Nẵng,"Tầng 4, Trung tâm thương mại Aeon Mall Thanh Khê - 46 đường Điện Biên Phủ, Thanh Khê, Đà Nẵng",16.06678139,108.2041838,19002224
+GLX_COOP_DA_NANG,Galaxy Cinema Đà Nẵng,Đà Nẵng,"Tầng 3, TTTM Co.opmart Đà Nẵng - 478 Điện Biên Phủ, Phường Thanh Khê, TP. Đà Nẵng",16.06690456,108.1870229,19002224
+GLX_GOLD_COAST_NHA_TRANG,Galaxy Cine+ Gold Coast Nha Trang,Khánh Hòa,"Tầng 8, TTTM Gold Coast - Số 1 Trần Hưng Đạo, Phường Nha Trang, Tỉnh Khánh Hòa",12.24824052,109.1949905,19002224
+GLX_NHA_TRANG_CENTER,Galaxy Cinema Nha Trang Center,Khánh Hòa,"Tầng 3, TTTM Nha Trang Center - Số 20 Trần Phú, Phường Nha Trang, Tỉnh Khánh Hòa",12.24825604,109.195995,19002224
+GLX_VINCOM_VINH,Galaxy Cine+ Vincom Vinh,Nghệ An,"Tầng 05, TTTM Vincom Plaza Vinh​, Đường Quang Trung, Thành phố Vinh, Tỉnh Nghệ An",18.8710282,105.6869494,19002224
+GLX_VINH_HUB,Galaxy Cinema Vinh,Nghệ An,"Tầng 5 - 6, Tòa nhà City HUB - Số 01 Lê Hồng Phong, Phường Thành Vinh, Tỉnh Nghệ An",18.67675895,105.6774703,19002224
+GLX_AEON_MALL_HUE,Galaxy Cinema AEON Mall Huế,Thừa Thiên Huế,"Tầng 4, TTTM AEON Mall Huế, Số 8 Đường Võ Nguyên Giáp, Phường An Cựu, TP.Huế",16.45498008,107.615336,19002224
+GLX_COOP_BUON_MA_THUOT,Galaxy Cinema Coop Buôn Ma Thuột,Đắk Lắk,"Tầng Trệt, TTTM Co.opmart Buôn Ma Thuột - 71 Nguyễn Tất Thành, Phường Tân An, Tỉnh Đắk Lắk",12.69270575,108.0625223,19002224
+GLX_GO_BEN_TRE,Galaxy CineO GO! Bến Tre,Bến Tre,"Tầng 2, TTTM GO! Bến Tre, khu phố 1, đường Võ Nguyên Giáp, phường Sơn Đông, tỉnh Vĩnh Long",10.25466052,106.3604095,19002224
+GLX_SENSE_CITY_BEN_TRE,Galaxy Cinema Sense City Bến Tre,Bến Tre,"Tầng 1, TTTM Sense City Bến Tre - Số 26A Trần Quốc Tuấn, Phường An Hội, Tỉnh Vĩnh Long",10.24135214,106.3767492,19002224
+GLX_LONG_XUYEN,Galaxy Cinema Long Xuyên,An Giang,"Tầng 1, TTTM Nguyễn Kim - Số 01 Trần Hưng Đạo, Phường Long Xuyên, Tỉnh An Giang",10.38383446,105.4367677,19002224
+GLX_SENSE_CITY_CA_MAU,Galaxy Cinema Sense City Cà Mau,Cà Mau,"Tầng 2, TTTM Co.opmart Cà Mau - Số 09 Trần Hưng Đạo, Phường Tân Thành, Tỉnh Cà Mau",9.17817882,105.1544938,19002224
+GLX_HANOI_CENTRE,Galaxy CineX Hanoi Centre,Hà Nội,"Tầng 3, tòa Nam, Trung tâm thương mại Hanoi Centre (Tiến Bộ plaza) – Số 175 Nguyễn Thái Học, phường Ô Chợ Dừa, Hà Nội",21.03221015,105.8304325,19002224
+GLX_VINCOM_DAN_PHUONG,Galaxy CineO Vincom Đan Phượng,Hà Nội,"Tầng 4, TTTM Vincom Plaza Đan Phượng, Đan Phượng - Hà Nội",21.09512162,105.7060942,19002224
+GLX_MIPEC_LONG_BIEN,Galaxy Cinema Mipec Long Biên,Hà Nội,"Tầng 6, Mipec Riverside Long Biên - Số 02 Long Biên, Phường Bồ Đề, Hà Nội",21.04578549,105.8662309,19002224
+GLX_AEON_TAN_AN,Galaxy Cinema AEON Mall Tân An,Long An,"Tầng 02, TTTM AEON Tân An​Số 84 Tuyến tránh Quốc lộ 1, Khu phố Bình Cư 3, Phường Long An, Tỉnh Tây Ninh",10.55072028,106.3976745,19002224
+GLX_GO_BA_RIA,Galaxy Cinema GO! Bà Rịa,Bà Rịa - Vũng Tàu,"Tầng 3, TTTM GO! Mall Bà Rịa - Số 2A Nguyễn Đình Chiểu, Phường Bà Rịa, TP.HCM",10.49277804,107.1693573,19002224
+GLX_HAI_PHONG,Galaxy Cinema Hải Phòng,Hải Phòng,"Tầng 7, TTTM Nguyễn Kim - 104 Lương Khánh Thiện, Phường Gia Viên, TP. Hải Phòng",20.85643283,106.6865594,19002224

@@ -1,0 +1,30 @@
+{
+  "provider_code": "MEGAGS",
+  "provider_name": "Mega GS Cinemas",
+  "email": "CSKH@megags.vn",
+  "total_cinemas": 2,
+  "cinemas": [
+    {
+      "external_id": "MEGAGS_LY_CHINH_THANG",
+      "name": "Mega GS Lý Chính Thắng",
+      "city": "Hồ Chí Minh",
+      "address": "212 Lý Chính Thắng, Phường Nhiêu Lộc, TP.HCM",
+      "latitude": 10.780839250004066,
+      "longitude": 106.6824397576719,
+      "phone": "028 6282 3737",
+      "email": "CSKH@megags.vn",
+      "rooms": []
+    },
+    {
+      "external_id": "MEGAGS_CAO_THANG",
+      "name": "Mega GS Cao Thắng",
+      "city": "Hồ Chí Minh",
+      "address": "Lầu 6 - 7, 19 Cao Thắng, Phường Bàn Cờ, TP. Hồ Chí Minh",
+      "latitude": 10.769264136890483,
+      "longitude": 106.68301470185172,
+      "phone": "(+84.28) 6264.9911",
+      "email": "CSKH@megags.vn",
+      "rooms": []
+    }
+  ]
+}

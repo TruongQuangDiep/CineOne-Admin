@@ -1,0 +1,868 @@
+{
+  "provider_code": "CGV",
+  "provider_name": "CGV Cinemas Vietnam",
+  "hotline": "19006017",
+  "total_cinemas": 82,
+  "cinemas": [
+    {
+      "external_id": "CGV_HUNG_VUONG_PLAZA",
+      "name": "CGV Hùng Vương Plaza",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 7, Hùng Vương Plaza, 126 Hồng Bàng, Phường 12, Quận 5, TP. Hồ Chí Minh",
+      "latitude": 10.756410752250261,
+      "longitude": 106.6631634677711,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_CRESCENT_MALL",
+      "name": "CGV Crescent Mall",
+      "city": "Hồ Chí Minh",
+      "address": "Lầu 5, Crescent Mall, Đại lộ Nguyễn Văn Linh, Phú Mỹ Hưng, Quận 7, TP. Hồ Chí Minh",
+      "latitude": 10.729109378848039,
+      "longitude": 106.71883534232873,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_THAO_DIEN_PEARL",
+      "name": "CGV Thảo Điền Pearl",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 2, Thảo Điền Mall, 12 Quốc Hương, Phường Thảo Điền, TP. Thủ Đức, TP. Hồ Chí Minh",
+      "latitude": 10.801648954263262,
+      "longitude": 106.73304412698616,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_THU_DUC",
+      "name": "CGV Vincom Thủ Đức",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 5, TTTM Vincom Thủ Đức, 216 Võ Văn Ngân, Phường Bình Thọ, TP. Thủ Đức, TP. Hồ Chí Minh",
+      "latitude": 10.850189938872996,
+      "longitude": 106.76528901534255,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VIVO_CITY",
+      "name": "CGV SC VivoCity",
+      "city": "Hồ Chí Minh",
+      "address": "Lầu 5, TTTM SC VivoCity, 1058 Nguyễn Văn Linh, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh",
+      "latitude": 10.729900913195408,
+      "longitude": 106.70338592883563,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_PEARL_PLAZA",
+      "name": "CGV Pearl Plaza",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 5, Pearl Plaza, 561A Điện Biên Phủ, Phường 25, Quận Bình Thạnh, TP. Hồ Chí Minh",
+      "latitude": 10.800209090107368,
+      "longitude": 106.71837671534256,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_LIBERTY_CITYPOINT",
+      "name": "CGV Liberty Citypoint",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng M - 1, Khách sạn Liberty Central Saigon Citypoint, 59 - 61 Pasteur, Quận 1, TP. Hồ Chí Minh",
+      "latitude": 10.774883144439483,
+      "longitude": 106.70070990185073,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_DONG_KHOI",
+      "name": "CGV Vincom Đồng Khởi",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 3, TTTM Vincom Center Đồng Khởi, 72 Lê Thánh Tôn & 45A Lý Tự Trọng, Quận 1, TP. Hồ Chí Minh",
+      "latitude": 10.778181619415708,
+      "longitude": 106.70197425767131,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_MENAS_MALL",
+      "name": "CGV Menas Mall (CGV CT Plaza)",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 10, TTTM Menas Mall, 60A Trường Sơn, Phường 2, Quận Tân Bình, TP. Hồ Chí Minh",
+      "latitude": 10.813167482600592,
+      "longitude": 106.66606456876812,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_PANDORA_CITY",
+      "name": "CGV Pandora City",
+      "city": "Hồ Chí Minh",
+      "address": "Lầu 3, Pandora City, 1/1 Trường Chinh, Phường Tây Thạnh, Quận Tân Phú, TP. Hồ Chí Minh",
+      "latitude": 10.806562286428079,
+      "longitude": 106.6341818558218,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_AEON_TAN_PHU",
+      "name": "CGV Aeon Tân Phú",
+      "city": "Hồ Chí Minh",
+      "address": "Lầu 3, Aeon Mall Tân Phú Celadon, 30 Bờ Bao Tân Thắng, Phường Sơn Kỳ, Quận Tân Phú, TP. Hồ Chí Minh",
+      "latitude": 10.801875889142279,
+      "longitude": 106.61793168465744,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_GO_VAP",
+      "name": "CGV Vincom Gò Vấp",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 5, TTTM Vincom Plaza Gò Vấp, 12 Phan Văn Trị, Phường 7, Quận Gò Vấp, TP. Hồ Chí Minh",
+      "latitude": 10.827382514955765,
+      "longitude": 106.68931388650653,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_HOANG_VAN_THU",
+      "name": "CGV Hoàng Văn Thụ",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 1 và 2, Gala Center, 415 Hoàng Văn Thụ, Phường 2, Quận Tân Bình, TP. Hồ Chí Minh",
+      "latitude": 10.79895270157869,
+      "longitude": 106.66013737116437,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_AEON_BINH_TAN",
+      "name": "CGV Aeon Bình Tân",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 3, TTTM Aeon Mall Bình Tân, Số 1 Đường Số 17A, Phường Bình Trị Đông B, Quận Bình Tân, TP. Hồ Chí Minh",
+      "latitude": 10.743499126769887,
+      "longitude": 106.61292265767128,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_SAIGONRES_NGUYEN_XI",
+      "name": "CGV Saigonres Nguyễn Xí",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 4-5, Saigonres Plaza, 188 Nguyễn Xí, Phường 26, Quận Bình Thạnh, TP. Hồ Chí Minh",
+      "latitude": 10.816709662745872,
+      "longitude": 106.70721617116436,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_SU_VAN_HANH",
+      "name": "CGV Sư Vạn Hạnh",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 6, Vạn Hạnh Mall, 11 Sư Vạn Hạnh, Phường 12, Quận 10, TP. Hồ Chí Minh",
+      "latitude": 10.770792686772394,
+      "longitude": 106.66954085582181,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_LANDMARK_81",
+      "name": "CGV Vincom Center Landmark 81",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng B1, TTTM Vincom Center Landmark 81, 772 Điện Biên Phủ, Phường 22, Quận Bình Thạnh, TP. Hồ Chí Minh",
+      "latitude": 10.794727815301306,
+      "longitude": 106.7220989,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_SATRA_CU_CHI",
+      "name": "CGV Satra Củ Chi",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 3, TTTM Satra Củ Chi, Số 1239 Tỉnh Lộ 8, Ấp Thạnh An, Xã Trung An, Huyện Củ Chi, TP. Hồ Chí Minh",
+      "latitude": 10.984030979669438,
+      "longitude": 106.5797239981505,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_GIGAMALL_THU_DUC",
+      "name": "CGV Gigamall Thủ Đức",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 6, TTTM GIGAMALL, 240-242 Phạm Văn Đồng, Phường Hiệp Bình Chánh, TP. Thủ Đức, TP. Hồ Chí Minh",
+      "latitude": 10.82781632541693,
+      "longitude": 106.72125611534256,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_LY_CHINH_THANG",
+      "name": "CGV Lý Chính Thắng",
+      "city": "Hồ Chí Minh",
+      "address": "Tầng 3, 83 Lý Chính Thắng, Phường 8, Quận 3, TP. Hồ Chí Minh",
+      "latitude": 10.789264457259561,
+      "longitude": 106.6856824865069,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_GRAND_PARK",
+      "name": "CGV Vincom Mega Mall Grand Park",
+      "city": "Hồ Chí Minh",
+      "address": "Lô L5-01, Tầng L5, TTTM Vincom Mega Mall Grand Park, 88 Phước Thiện, Phường Long Bình, TP. Thủ Đức, TP. Hồ Chí Minh",
+      "latitude": 10.843271651549001,
+      "longitude": 106.8426054576713,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_BA_TRIEU",
+      "name": "CGV Vincom Center Bà Triệu",
+      "city": "Hà Nội",
+      "address": "Tầng 6, Toà nhà Vincom Center Hà Nội, 191 Bà Triệu, Phường Lê Đại Hành, Quận Hai Bà Trưng, Hà Nội",
+      "latitude": 21.011218309016446,
+      "longitude": 105.8495858018478,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_HO_GUOM_PLAZA",
+      "name": "CGV Hồ Gươm Plaza",
+      "city": "Hà Nội",
+      "address": "Tầng 3, TTTM Hồ Gươm Plaza, 110 Trần Phú, Phường Mỗ Lao, Quận Hà Đông, Hà Nội",
+      "latitude": 20.979186973301672,
+      "longitude": 105.78566755767127,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_AEON_LONG_BIEN",
+      "name": "CGV Aeon Long Biên",
+      "city": "Hà Nội",
+      "address": "Tầng 4, TTTM AEON Mall Long Biên, Số 27 Cổ Linh, Phường Long Biên, Quận Long Biên, Hà Nội",
+      "latitude": 21.02629765460359,
+      "longitude": 105.89933605952073,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_NGUYEN_CHI_THANH",
+      "name": "CGV Vincom Nguyễn Chí Thanh",
+      "city": "Hà Nội",
+      "address": "Số 54A Nguyễn Chí Thanh, Phường Láng Thượng, Quận Đống Đa, Hà Nội",
+      "latitude": 21.023631000354104,
+      "longitude": 105.8091244,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_INDOCHINA_PLAZA",
+      "name": "CGV Indochina Plaza Hà Nội",
+      "city": "Hà Nội",
+      "address": "Tầng 4, Indochina Plaza Hà Nội, 241 Xuân Thủy, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội",
+      "latitude": 21.03648158628196,
+      "longitude": 105.7822535423321,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_RICE_CITY",
+      "name": "CGV Rice City",
+      "city": "Hà Nội",
+      "address": "Tầng 2 và 4, Tòa nhà Trung - RICE CITY Linh Đàm, Phường Hoàng Liệt, Quận Hoàng Mai, Hà Nội",
+      "latitude": 20.96355545773302,
+      "longitude": 105.82293868465744,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_HA_NOI_CENTERPOINT",
+      "name": "CGV Hà Nội Centerpoint",
+      "city": "Hà Nội",
+      "address": "Tầng 5, TTTM Hà Nội Centerpoint, 27 Lê Văn Lương, Phường Nhân Chính, Quận Thanh Xuân, Hà Nội",
+      "latitude": 21.005124884872306,
+      "longitude": 105.8047055883564,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_ROYAL_CITY",
+      "name": "CGV Vincom Royal City",
+      "city": "Hà Nội",
+      "address": "Tầng B2 - Khu R4, TTTM Vincom Mega Mall Royal City, 72A Nguyễn Trãi, Phường Thượng Đình, Quận Thanh Xuân, Hà Nội",
+      "latitude": 21.003298644365536,
+      "longitude": 105.8154419,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_TIMES_CITY",
+      "name": "CGV Vincom Times City",
+      "city": "Hà Nội",
+      "address": "Tầng B1, TTTM Vincom Mega Mall Times City, 458 Minh Khai, Phường Vĩnh Tuy, Quận Hai Bà Trưng, Hà Nội",
+      "latitude": 20.993841324693047,
+      "longitude": 105.8681014441782,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_LONG_BIEN",
+      "name": "CGV Vincom Long Biên",
+      "city": "Hà Nội",
+      "address": "Tầng 5, TTTM Vincom Plaza Long Biên, KĐT Vinhomes Riverside, Phường Phúc Lợi, Quận Long Biên, Hà Nội",
+      "latitude": 21.05091182429081,
+      "longitude": 105.91675005767127,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_MAC_PLAZA",
+      "name": "CGV Mac Plaza (Machinco)",
+      "city": "Hà Nội",
+      "address": "Tầng 7, TTTM Mac Plaza, 10 Trần Phú, Phường Mỗ Lao, Quận Hà Đông, Hà Nội",
+      "latitude": 20.98390940162714,
+      "longitude": 105.79154241904148,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_TRUONG_DINH_PLAZA",
+      "name": "CGV Trương Định Plaza",
+      "city": "Hà Nội",
+      "address": "Tầng 5, TTTM Trương Định Plaza, 461 Trương Định, Phường Tân Mai, Quận Hoàng Mai, Hà Nội",
+      "latitude": 20.985533395535054,
+      "longitude": 105.84672206876812,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_TRANG_TIEN_PLAZA",
+      "name": "CGV Tràng Tiền Plaza",
+      "city": "Hà Nội",
+      "address": "Tầng 5, TTTM Tràng Tiền Plaza, 24 Hai Bà Trưng, Phường Tràng Tiền, Quận Hoàn Kiếm, Hà Nội",
+      "latitude": 21.02446208460742,
+      "longitude": 105.85341947301382,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_THUY_KHUE",
+      "name": "CGV Sun Grand Thụy Khuê",
+      "city": "Hà Nội",
+      "address": "Tầng 5.1 - 5.2, Sun Grand City Thuy Khue Residence, 69B Thụy Khuê, Phường Thụy Khuê, Quận Tây Hồ, Hà Nội",
+      "latitude": 21.041008157369067,
+      "longitude": 105.82617637116437,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_SUN_GRAND_LUONG_YEN",
+      "name": "CGV Sun Grand Lương Yên",
+      "city": "Hà Nội",
+      "address": "Tầng 4 - 5, Sun Grand City Ancora Residences, Số 3 Lương Yên, Phường Bạch Đằng, Quận Hai Bà Trưng, Hà Nội",
+      "latitude": 21.01163929419058,
+      "longitude": 105.86303912883564,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_TU_LIEM",
+      "name": "CGV Vincom Bắc Từ Liêm",
+      "city": "Hà Nội",
+      "address": "Tòa nhà 21B5, 234 Phạm Văn Đồng, Phường Cổ Nhuế 1, Quận Bắc Từ Liêm, Hà Nội",
+      "latitude": 21.05244210062962,
+      "longitude": 105.78106321534256,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_METROPOLIS",
+      "name": "CGV Vincom Metropolis Liễu Giai",
+      "city": "Hà Nội",
+      "address": "Tầng 3, TTTM Vincom Center Metropolis, 29 Liễu Giai, Phường Ngọc Khánh, Quận Ba Đình, Hà Nội",
+      "latitude": 21.031658732826433,
+      "longitude": 105.8147113558218,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_XUAN_DIEU",
+      "name": "CGV Xuân Diệu",
+      "city": "Hà Nội",
+      "address": "Tầng 2, Tòa nhà D’. Le Roi Soleil, Số 59 Xuân Diệu, Phường Quảng An, Quận Tây Hồ, Hà Nội",
+      "latitude": 21.06535111397556,
+      "longitude": 105.8271329134931,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_SKY_LAKE",
+      "name": "CGV Vincom Sky Lake Phạm Hùng",
+      "city": "Hà Nội",
+      "address": "Tầng 3, TTTM Vincom Plaza Skylake, Đường Phạm Hùng, Phường Mỹ Đình 1, Quận Nam Từ Liêm, Hà Nội",
+      "latitude": 21.020218189679603,
+      "longitude": 105.7809415337618,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_TRAN_DUY_HUNG",
+      "name": "CGV Vincom Trần Duy Hưng",
+      "city": "Hà Nội",
+      "address": "Tầng 5, TTTM Vincom Center Trần Duy Hưng, Đường Trần Duy Hưng, Phường Trung Hòa, Quận Cầu Giấy, Hà Nội",
+      "latitude": 21.006717539431758,
+      "longitude": 105.79536724232871,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_AEON_HA_DONG",
+      "name": "CGV Aeon Hà Đông",
+      "city": "Hà Nội",
+      "address": "Tầng 3 & 4, TTTM AEON Mall Hà Đông, Phường Dương Nội, Quận Hà Đông, Hà Nội",
+      "latitude": 20.988617431526077,
+      "longitude": 105.75061647116436,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_PARK",
+      "name": "CGV Vincom Ocean Park",
+      "city": "Hà Nội",
+      "address": "Tầng 4, TTTM Vincom Mega Mall Ocean Park, Xã Đa Tốn, Huyện Gia Lâm, Hà Nội",
+      "latitude": 20.994645773833152,
+      "longitude": 105.95906581534256,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINH_TRUNG_PLAZA",
+      "name": "CGV Vĩnh Trung Plaza",
+      "city": "Đà Nẵng",
+      "address": "255-257 Hùng Vương, Phường Vĩnh Trung, Quận Thanh Khê, TP. Đà Nẵng",
+      "latitude": 16.066681176737966,
+      "longitude": 108.2137565441782,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_DA_NANG",
+      "name": "CGV Vincom Đà Nẵng",
+      "city": "Đà Nẵng",
+      "address": "Tầng 4, TTTM Vincom Plaza Ngô Quyền, Đường Ngô Quyền, Phường An Hải Bắc, Quận Sơn Trà, TP. Đà Nẵng",
+      "latitude": 16.07158181661656,
+      "longitude": 108.22998875767128,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_MM_SUPERCENTER_DA_NANG",
+      "name": "CGV MM Supercenter Đà Nẵng",
+      "city": "Đà Nẵng",
+      "address": "Tầng 3, TTTM MM Mega Market Đà Nẵng, 167 Nguyễn Sinh Sắc, Phường Hòa Khánh Nam, Quận Liên Chiểu, TP. Đà Nẵng",
+      "latitude": 16.06784884916237,
+      "longitude": 108.15579207116436,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_SENSE_CITY",
+      "name": "CGV Sense City",
+      "city": "Cần Thơ",
+      "address": "Lầu 3, TTTM Sense City, Số 1 Đại lộ Hòa Bình, Phường Tân An, Quận Ninh Kiều, TP. Cần Thơ",
+      "latitude": 10.03429594744668,
+      "longitude": 105.78611158650689,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_XUAN_KHANH",
+      "name": "CGV Vincom Xuân Khánh",
+      "city": "Cần Thơ",
+      "address": "Tầng 5, Tòa nhà 209, Đường 30/4, Phường Xuân Khánh, Quận Ninh Kiều, TP. Cần Thơ",
+      "latitude": 10.025071183074509,
+      "longitude": 105.7748027,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_HUNG_VUONG_CAN_THO",
+      "name": "CGV Vincom Hùng Vương",
+      "city": "Cần Thơ",
+      "address": "Số 2 Hùng Vương, Phường Thới Bình, Quận Ninh Kiều, TP. Cần Thơ",
+      "latitude": 10.045468711969306,
+      "longitude": 105.7796049,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_COOPMART_BIEN_HOA",
+      "name": "CGV Coopmart Biên Hòa",
+      "city": "Đồng Nai",
+      "address": "Tầng 3, Co.opmart Biên Hòa, 121 Phạm Văn Thuận, Phường Tân Tiến, TP. Biên Hòa, Đồng Nai",
+      "latitude": 10.958758064455154,
+      "longitude": 106.83412987116436,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_BIG_C_DONG_NAI",
+      "name": "CGV Big C Đồng Nai",
+      "city": "Đồng Nai",
+      "address": "Siêu thị Big C Đồng Nai, Khu phố 1, Phường Long Bình Tân, TP. Biên Hòa, Đồng Nai",
+      "latitude": 10.906949603181527,
+      "longitude": 106.85090530184947,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_HAI_PHONG",
+      "name": "CGV Vincom Hải Phòng",
+      "city": "Hải Phòng",
+      "address": "Tầng 4, Vincom Plaza Imperia Hải Phòng, KĐT Vinhomes Imperia, Phường Thượng Lý, Quận Hồng Bàng, Hải Phòng",
+      "latitude": 20.863410970962185,
+      "longitude": 106.6625381,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_AEON_MALL_HAI_PHONG",
+      "name": "CGV Aeon Mall Hải Phòng",
+      "city": "Hải Phòng",
+      "address": "Tầng 3, TTTM AEON Mall Hải Phòng Lê Chân, Số 10 Võ Nguyên Giáp, Phường Kênh Dương, Quận Lê Chân, Hải Phòng",
+      "latitude": 20.83273648952913,
+      "longitude": 106.68070971534254,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_LONG",
+      "name": "CGV Vincom Hạ Long",
+      "city": "Quảng Ninh",
+      "address": "Tầng 4, TTTM Vincom Plaza Hạ Long, Khu Cột Đồng Hồ, Phường Bạch Đằng, TP. Hạ Long, Quảng Ninh",
+      "latitude": 20.95032392284668,
+      "longitude": 107.08412860369896,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_MONG_CAI",
+      "name": "CGV Vincom Móng Cái",
+      "city": "Quảng Ninh",
+      "address": "Tầng 3 & 4, Vincom Plaza Móng Cái, Phường Trần Phú, TP. Móng Cái, Quảng Ninh",
+      "latitude": 21.533004831151437,
+      "longitude": 107.97341028650692,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_CAM_PHA",
+      "name": "CGV Vincom Cẩm Phả",
+      "city": "Quảng Ninh",
+      "address": "Tầng 4, TTTM Vincom Plaza Cẩm Phả, Phường Cẩm Bình, TP. Cẩm Phả, Quảng Ninh",
+      "latitude": 21.005221214451186,
+      "longitude": 107.29041515582182,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_LAM_SON_SQUARE",
+      "name": "CGV Lam Sơn Square",
+      "city": "Bà Rịa - Vũng Tàu",
+      "address": "Tầng 4, TTTM Lam Sơn Square, 9 Lê Lợi, Phường 1, TP. Vũng Tàu, Bà Rịa - Vũng Tàu",
+      "latitude": 10.348765989193758,
+      "longitude": 107.07413463068511,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_LAPEN_CENTER_VUNG_TAU",
+      "name": "CGV Lapen Center Vũng Tàu",
+      "city": "Bà Rịa - Vũng Tàu",
+      "address": "Lapen Center Mall, Số 33A Đường 30/4, Phường 9, TP. Vũng Tàu, Bà Rịa - Vũng Tàu",
+      "latitude": 10.370299177157726,
+      "longitude": 107.08483344232873,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_KIM_CUC_PLAZA",
+      "name": "CGV Kim Cúc Plaza",
+      "city": "Bình Định",
+      "address": "Tầng 3, Kim Cúc Plaza (Big C Quy Nhơn), KĐT Vũng Chua, Phường Ghềnh Ráng, TP. Quy Nhơn, Bình Định",
+      "latitude": 13.75417931913703,
+      "longitude": 109.2076249,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_BINH_DUONG_SQUARE",
+      "name": "CGV Bình Dương Square",
+      "city": "Bình Dương",
+      "address": "Tầng 3, Bình Dương Square, Số 1 Phú Lợi, Phường Phú Lợi, TP. Thủ Dầu Một, Bình Dương",
+      "latitude": 10.984703350122992,
+      "longitude": 106.66746261534254,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_AEON_CANARY",
+      "name": "CGV Aeon Canary",
+      "city": "Bình Dương",
+      "address": "Tầng 2, TTTM AEON Mall Bình Dương Canary, Đại lộ Bình Dương, Phường Bình Hòa, TP. Thuận An, Bình Dương",
+      "latitude": 10.9311505480197,
+      "longitude": 106.71197704417818,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_BUON_ME_THUOT",
+      "name": "CGV Buôn Mê Thuột",
+      "city": "Đắk Lắk",
+      "address": "Tầng 4, TTTM Nguyễn Kim, Số 1 Nguyễn Chí Thanh, Phường Tân An, TP. Buôn Ma Thuột, Đắk Lắk",
+      "latitude": 12.6935759665373,
+      "longitude": 108.06428748650693,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_TRA_VINH",
+      "name": "CGV Vincom Trà Vinh",
+      "city": "Trà Vinh",
+      "address": "Tầng 4, TTTM Vincom Plaza Trà Vinh, Số 24 Nguyễn Thị Minh Khai, Phường 2, TP. Trà Vinh, Trà Vinh",
+      "latitude": 9.936088378113597,
+      "longitude": 106.33703875767128,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_YEN_BAI",
+      "name": "CGV Vincom Yên Bái",
+      "city": "Yên Bái",
+      "address": "Tầng 4, TTTM Vincom Plaza Yên Bái, Bán Đảo Công Viên Yên Hòa, Phường Nguyễn Thái Học, TP. Yên Bái, Yên Bái",
+      "latitude": 21.708646229251418,
+      "longitude": 104.8818737558218,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_VINH_LONG",
+      "name": "CGV Vincom Vĩnh Long",
+      "city": "Vĩnh Long",
+      "address": "Tầng 4, TTTM Vincom Plaza Vĩnh Long, Số 55 Phạm Thái Bường, Phường 4, TP. Vĩnh Long, Vĩnh Long",
+      "latitude": 10.246328418128689,
+      "longitude": 105.97738534417817,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_RACH_GIA",
+      "name": "CGV Vincom Rạch Giá",
+      "city": "Kiên Giang",
+      "address": "Tầng 5, TTTM Vincom Plaza Kiên Giang, Lô A12 Cô Bắc, Phường Vĩnh Bảo, TP. Rạch Giá, Kiên Giang",
+      "latitude": 10.003401797539164,
+      "longitude": 105.08108014047926,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_VI_THANH",
+      "name": "CGV Vincom Vi Thanh",
+      "city": "Hậu Giang",
+      "address": "Tầng 4, TTTM Vincom Plaza Hậu Giang, Số 1 Đường 3 Tháng 2, Phường 5, TP. Vị Thanh, Hậu Giang",
+      "latitude": 9.784132414953564,
+      "longitude": 105.46935535952075,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_HA_TINH",
+      "name": "CGV Vincom Ha Tinh",
+      "city": "Hà Tĩnh",
+      "address": "Tầng 3, TTTM Vincom Plaza Hà Tĩnh, Ngã tư Hàm Nghi & Hà Huy Tập, Phường Hà Huy Tập, TP. Hà Tĩnh, Hà Tĩnh",
+      "latitude": 18.33747067263429,
+      "longitude": 105.8956655,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_PHU_YEN",
+      "name": "CGV Vincom Phú Yên",
+      "city": "Phú Yên",
+      "address": "Tầng 4, TTTM Vincom Plaza Tuy Hòa, Ngã tư Hùng Vương & Trần Phú, Phường 7, TP. Tuy Hòa, Phú Yên",
+      "latitude": 13.09027857607918,
+      "longitude": 109.30872521534255,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_CAO_LANH",
+      "name": "CGV Vincom Cao Lãnh",
+      "city": "Đồng Tháp",
+      "address": "Tầng 5, TTTM Vincom Plaza Cao Lãnh, Số 2 Đường 30 Tháng 4, Phường 1, TP. Cao Lãnh, Đồng Tháp",
+      "latitude": 10.456342835384797,
+      "longitude": 105.63373572883563,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_BAC_LIEU",
+      "name": "CGV Vincom Bạc Liêu",
+      "city": "Bạc Liêu",
+      "address": "Lô L4-01, Tầng 4, TTTM Vincom Plaza Bạc Liêu, Đường Trần Huỳnh, Phường 7, TP. Bạc Liêu, Bạc Liêu",
+      "latitude": 9.293106006623617,
+      "longitude": 105.71786391534256,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_ECOPARK_HUNG_YEN",
+      "name": "CGV Ecopark Hưng Yên",
+      "city": "Hưng Yên",
+      "address": "Tầng 1, Tòa Lake 1, KĐT Ecopark, Xã Xuân Quan, Huyện Văn Giang, Hưng Yên",
+      "latitude": 20.952673578497812,
+      "longitude": 105.93739008465745,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_OCEAN_CITY",
+      "name": "CGV Vincom Mega Mall Ocean City",
+      "city": "Hưng Yên",
+      "address": "Vinhomes Ocean Park 2, Xã Nghĩa Trụ, Huyện Văn Giang, Hưng Yên",
+      "latitude": 20.953006897457293,
+      "longitude": 105.97554694417818,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_BIG_C_NHA_TRANG",
+      "name": "CGV Big C Nha Trang",
+      "city": "Khánh Hòa",
+      "address": "Tầng Trệt, TTTM Big C Nha Trang, Lô số 4 Đường 19/5, KĐT Vĩnh Điềm Trung, Xã Vĩnh Hiệp, TP. Nha Trang, Khánh Hòa",
+      "latitude": 12.25692522776417,
+      "longitude": 109.1701178,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_KON_TUM",
+      "name": "CGV Vincom Kon Tum",
+      "city": "Kon Tum",
+      "address": "Tầng 3 & 4, TTTM Vincom Plaza Kon Tum, Số 2 Phan Đình Phùng, Phường Quyết Thắng, TP. Kon Tum, Kon Tum",
+      "latitude": 14.348815786000065,
+      "longitude": 108.00062515952075,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_LANG_SON",
+      "name": "CGV Vincom Lạng Sơn",
+      "city": "Lạng Sơn",
+      "address": "Tầng 3, TTTM Vincom Plaza Lạng Sơn, Đường Hùng Vương, Phường Chi Lăng, TP. Lạng Sơn, Lạng Sơn",
+      "latitude": 21.8482477445468,
+      "longitude": 106.75797376713284,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINH_CENTRE",
+      "name": "CGV Vinh Centre",
+      "city": "Nghệ An",
+      "address": "Tầng 4, TTTM Vinh Centre, 69 Hồ Tùng Mậu, Phường Trường Thi, TP. Vinh, Nghệ An",
+      "latitude": 18.672616371955765,
+      "longitude": 105.69147601534254,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_HAPPYLAND_VIET_TRI",
+      "name": "CGV Happyland Việt Trì",
+      "city": "Phú Thọ",
+      "address": "Tầng 3, Tòa nhà Happyland, 1606A Đại lộ Hùng Vương, Phường Gia Cẩm, TP. Việt Trì, Phú Thọ",
+      "latitude": 21.321902019911732,
+      "longitude": 105.38588649815054,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_QUANG_NGAI",
+      "name": "CGV Vincom Quảng Ngãi",
+      "city": "Quảng Ngãi",
+      "address": "Tầng 4, TTTM Vincom Plaza Quảng Ngãi, 26 Lê Thánh Tôn, Phường Nghĩa Chánh Nam, TP. Quảng Ngãi, Quảng Ngãi",
+      "latitude": 15.113595133651366,
+      "longitude": 108.81045048835637,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_SOC_TRANG",
+      "name": "CGV Vincom Sóc Trăng",
+      "city": "Sóc Trăng",
+      "address": "Tầng 3 & 4, TTTM Vincom Plaza Sóc Trăng, Số 22 Trần Hưng Đạo, Phường 2, TP. Sóc Trăng, Sóc Trăng",
+      "latitude": 9.597374677553411,
+      "longitude": 105.9706235,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_SON_LA",
+      "name": "CGV Vincom Sơn La",
+      "city": "Sơn La",
+      "address": "Tầng 3, TTTM Vincom Plaza Sơn La, Đường Trường Chinh, Phường Quyết Thắng, TP. Sơn La, Sơn La",
+      "latitude": 21.323853201034634,
+      "longitude": 103.91722286931488,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_TAY_NINH",
+      "name": "CGV Vincom Tây Ninh",
+      "city": "Tây Ninh",
+      "address": "54 Đặng Ngọc Chinh, Khu phố 1, Phường 3, TP. Tây Ninh, Tây Ninh",
+      "latitude": 11.320226344682688,
+      "longitude": 106.10034159020586,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_THAI_NGUYEN",
+      "name": "CGV Vincom Thái Nguyên",
+      "city": "Thái Nguyên",
+      "address": "Tầng 4, TTTM Vincom Plaza Thái Nguyên, 286 Lương Ngọc Quyến, Phường Quang Trung, TP. Thái Nguyên, Thái Nguyên",
+      "latitude": 21.59110340880947,
+      "longitude": 105.82616504787713,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_AEON_THANH_HOA",
+      "name": "CGV Aeon Thanh Hóa",
+      "city": "Thanh Hóa",
+      "address": "Lô T501, Tầng 5, TTTM KĐT Nam Thành Phố, Phường Quảng Phú, TP. Thanh Hóa, Thanh Hóa",
+      "latitude": 19.794002375364116,
+      "longitude": 105.7788292529073,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_GO_MY_THO",
+      "name": "CGV GO! Mỹ Tho",
+      "city": "Tiền Giang",
+      "address": "Tầng 3, TTTM GO! Mỹ Tho, 545 Lê Văn Phẩm, Phường 5, TP. Mỹ Tho, Tiền Giang",
+      "latitude": 10.359255156080044,
+      "longitude": 106.3409454,
+      "phone": "19006017",
+      "rooms": []
+    },
+    {
+      "external_id": "CGV_VINCOM_MY_THO",
+      "name": "CGV Vincom Mỹ Tho",
+      "city": "Tiền Giang",
+      "address": "Tầng 5, TTTM Vincom Plaza Mỹ Tho, Số 1A Hùng Vương, Phường 1, TP. Mỹ Tho, Tiền Giang",
+      "latitude": 10.357944902981718,
+      "longitude": 106.3639332,
+      "phone": "19006017",
+      "rooms": []
+    }
+  ]
+}
