@@ -1,0 +1,103 @@
+{
+  "provider_code": "CGV",
+  "provider_name": "CGV Cinemas Vietnam",
+  "note": "day_offset: 0 là hôm nay, 1 là ngày mai, 2 là ngày kia",
+  "showtimes": [
+    {
+      "external_id": "ST_CGV_DK_01",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "room_name": "Cinema 1",
+      "room_type": "STANDARD",
+      "tmdb_id": 1022789,
+      "format": "2D Phụ Đề",
+      "duration_minutes": 110,
+      "day_offset": 0,
+      "start_time_slot": "09:30",
+      "base_price": 85000
+    },
+    {
+      "external_id": "ST_CGV_DK_02",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "room_name": "Cinema 1",
+      "room_type": "STANDARD",
+      "tmdb_id": 1022789,
+      "format": "2D Phụ Đề",
+      "duration_minutes": 110,
+      "day_offset": 0,
+      "start_time_slot": "14:15",
+      "base_price": 105000
+    },
+    {
+      "external_id": "ST_CGV_DK_03",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "room_name": "Cinema 1",
+      "room_type": "STANDARD",
+      "tmdb_id": 693134,
+      "format": "2D Lồng Tiếng",
+      "duration_minutes": 138,
+      "day_offset": 0,
+      "start_time_slot": "19:00",
+      "base_price": 125000
+    },
+    {
+      "external_id": "ST_CGV_DK_04",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "room_name": "IMAX Cinema",
+      "room_type": "IMAX",
+      "tmdb_id": 693134,
+      "format": "IMAX 2D Phụ Đề",
+      "duration_minutes": 166,
+      "day_offset": 0,
+      "start_time_slot": "20:30",
+      "base_price": 185000
+    },
+    {
+      "external_id": "ST_CGV_DK_05",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "room_name": "Cinema 2",
+      "room_type": "STANDARD",
+      "tmdb_id": 1022789,
+      "format": "2D Phụ Đề",
+      "duration_minutes": 110,
+      "day_offset": 1,
+      "start_time_slot": "10:30",
+      "base_price": 95000
+    },
+    {
+      "external_id": "ST_CGV_DK_06",
+      "cinema_id": "CGV_VINCOM_DONG_KHOI",
+      "room_name": "Cinema 2",
+      "room_type": "STANDARD",
+      "tmdb_id": 693134,
+      "format": "2D Phụ Đề",
+      "duration_minutes": 166,
+      "day_offset": 1,
+      "start_time_slot": "18:45",
+      "base_price": 125000
+    },
+    {
+      "external_id": "ST_CGV_SVH_01",
+      "cinema_id": "CGV_SU_VAN_HANH",
+      "room_name": "Cinema 1",
+      "room_type": "STANDARD",
+      "tmdb_id": 1022789,
+      "format": "2D Lồng Tiếng",
+      "duration_minutes": 110,
+      "day_offset": 0,
+      "start_time_slot": "13:30",
+      "base_price": 105000
+    },
+    {
+      "external_id": "ST_CGV_SVH_02",
+      "cinema_id": "CGV_SU_VAN_HANH",
+      "room_name": "Cinema 2",
+      "room_type": "STANDARD",
+      "tmdb_id": 693134,
+      "format": "2D Phụ Đề",
+      "duration_minutes": 166,
+      "day_offset": 0,
+      "start_time_slot": "19:15",
+      "base_price": 125000
+    }
+  ]
+}
