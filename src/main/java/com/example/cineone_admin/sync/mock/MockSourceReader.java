@@ -55,7 +55,15 @@ public final class MockSourceReader {
                     row.put("seat_type", source.get("type"));
                     result.add(row);
                 }
-            } else result.add(fields(node, required));
+            } else {
+                try { result.add(fields(node, required)); }
+                catch (IllegalArgumentException ex) {
+                    Map<String, String> invalid = new LinkedHashMap<>();
+                    invalid.put("external_id", node.path("external_id").asString(""));
+                    invalid.put("__record_error", ex.getMessage());
+                    result.add(invalid);
+                }
+            }
         }
         return result;
     }
@@ -85,9 +93,12 @@ public final class MockSourceReader {
                 throw new IllegalArgumentException("CSV thiếu cột bắt buộc: " + required);
             List<Map<String, String>> result = new ArrayList<>();
             for (CSVRecord record : parser) {
-                if (!record.isConsistent())
-                    throw new IllegalArgumentException("CSV sai số cột tại bản ghi " + record.getRecordNumber());
-                result.add(record.toMap());
+                if (!record.isConsistent()) {
+                    Map<String, String> invalid = new LinkedHashMap<>();
+                    invalid.put("external_id", record.isSet("external_id") ? record.get("external_id") : "");
+                    invalid.put("__record_error", "CSV sai số cột tại bản ghi " + record.getRecordNumber());
+                    result.add(invalid);
+                } else result.add(record.toMap());
             }
             return result;
         }

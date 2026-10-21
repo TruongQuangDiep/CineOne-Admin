@@ -125,6 +125,44 @@ class MockCinemaAdapterTests {
         assertFalse(result.errors().getFirst().message().isBlank());
     }
 
+    private void assertPartial(SyncResultDTO result) {
+        assertFalse(result.isSuccessful());
+        assertTrue(result.successCount() > 0, "Valid rows must survive a malformed record");
+        assertTrue(result.failureCount() > 0);
+        assertEquals(result.data().size(), result.successCount());
+        assertFalse(result.errors().getFirst().message().isBlank());
+    }
+
+    @Test void serviceReferenceDateOverridesAdapterClockWithoutAddingOffsetTwice() {
+        var adapter = adapter("CGV");
+        var normal = adapter.sync(request(Set.of(SHOWTIME))).data().showtimes();
+        var shifted = adapter.sync(request(Set.of(SHOWTIME)), LocalDate.of(2026, 10, 25)).data().showtimes();
+        assertEquals(normal.size(), shifted.size());
+        for (int i = 0; i < normal.size(); i++) {
+            assertEquals(normal.get(i).startTime().plusDays(4), shifted.get(i).startTime());
+            assertEquals(normal.get(i).endTime().plusDays(4), shifted.get(i).endTime());
+            assertNotEquals(normal.get(i).externalId(), shifted.get(i).externalId());
+        }
+    }
+
+    @Test void invalidShowtimeIsIdentifiedAndOtherSevenRowsRemain() throws Exception {
+        var adapter = copied("CGV");
+        edit("cgv/showtimes.json", s -> s.replaceFirst("09:30", "25:00"));
+        var result = adapter.sync(request(Set.of(SHOWTIME)));
+        assertEquals(7, result.successCount()); assertEquals(1, result.failureCount());
+        assertEquals(SHOWTIME, result.errors().getFirst().entityType());
+        assertNotNull(result.errors().getFirst().externalId());
+        assertTrue(result.data().showtimes().stream().noneMatch(s ->
+                s.externalId().startsWith(result.errors().getFirst().externalId() + "::")));
+    }
+
+    @Test void missingRequiredJsonFieldIsAnIndividualRecordError() throws Exception {
+        var adapter = copied("CGV");
+        edit("cgv/cinemas.json", s -> s.replaceFirst("\"address\"", "\"missing_address\""));
+        var result = adapter.sync(request(Set.of(CINEMA)));
+        assertEquals(85, result.successCount()); assertEquals(1, result.failureCount());
+    }
+
     @Test void malformedJsonAndMissingFileFailWithoutPartialSnapshot() throws Exception {
         var adapter = copied("CGV");
         edit("cgv/cinemas.json", s -> "{");
@@ -145,13 +183,13 @@ class MockCinemaAdapterTests {
     void rejectsBrokenRoomReferences(String field) throws Exception {
         var adapter = copied("BETA");
         edit("beta/rooms.json", s -> s.replaceFirst("\"" + field + "\": \"[^\"]+\"", "\"" + field + "\": \"UNKNOWN\""));
-        assertFailed(adapter.sync(request(ALL)));
+        assertPartial(adapter.sync(request(ALL)));
     }
 
     @Test void rejectsDuplicateRoomIds() throws Exception {
         var adapter = copied("BETA");
         edit("beta/rooms.json", s -> s.replace("BETA_THANH_XUAN_ROOM_02", "BETA_THANH_XUAN_ROOM_01"));
-        assertFailed(adapter.sync(request(ALL)));
+        assertPartial(adapter.sync(request(ALL)));
     }
 
     @Test void rejectsDuplicateSeats() throws Exception {
@@ -164,14 +202,14 @@ class MockCinemaAdapterTests {
     void rejectsInvalidPrices(String price) throws Exception {
         var adapter = copied("GALAXY");
         edit("galaxy/fnb.csv", s -> s.replaceFirst(",85000,", "," + price + ","));
-        assertFailed(adapter.sync(request(Set.of(FNB_ITEM))));
+        assertPartial(adapter.sync(request(Set.of(FNB_ITEM))));
     }
 
     @ParameterizedTest @ValueSource(strings = {"25:00", "9:30", "09:99"})
     void rejectsInvalidShowtimeSlots(String slot) throws Exception {
         var adapter = copied("CGV");
         edit("cgv/showtimes.json", s -> s.replace("09:30", slot));
-        assertFailed(adapter.sync(request(Set.of(SHOWTIME))));
+        assertPartial(adapter.sync(request(Set.of(SHOWTIME))));
     }
 
     @Test void computesEndTimeAcrossMidnight() throws Exception {
@@ -221,12 +259,12 @@ class MockCinemaAdapterTests {
         assertTrue(result.isSuccessful(), result.errors().toString());
         assertEquals("9999999999.99", result.data().fnbItems().getFirst().price().toPlainString());
         edit("cgv/fnb.json", s -> s.replaceFirst("9999999999.99", "9999999999.991"));
-        assertFailed(adapter.sync(request(Set.of(FNB_ITEM))));
+        assertPartial(adapter.sync(request(Set.of(FNB_ITEM))));
     }
 
     @Test void rejectsBooleanStatusInsteadOfDefaultingToActive() throws Exception {
         var adapter = copied("CGV");
         edit("cgv/fnb.json", s -> s.replaceFirst("\"status\": \"ACTIVE\"", "\"status\": true"));
-        assertFailed(adapter.sync(request(Set.of(FNB_ITEM))));
+        assertPartial(adapter.sync(request(Set.of(FNB_ITEM))));
     }
 }
