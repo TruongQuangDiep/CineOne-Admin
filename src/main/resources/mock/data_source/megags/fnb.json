@@ -1,0 +1,97 @@
+{
+  "provider_code": "MEGAGS",
+  "provider_name": "Mega GS Cinemas",
+  "total_items": 10,
+  "items": [
+    {
+      "external_id": "MEGAGS_FNB_COMBO_SOLO",
+      "name": "Mega Combo 1 (Solo)",
+      "category": "COMBO",
+      "price": 79000,
+      "description": "1 Bắp ngọt vừa (60oz) + 1 Nước ngọt có gas vừa (22oz)",
+      "image_url": "https://images.unsplash.com/photo-1572177191856-3cde618dee1f?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_FNB_COMBO_COUPLE",
+      "name": "Mega Combo 2 (Couple)",
+      "category": "COMBO",
+      "price": 105000,
+      "description": "1 Bắp ngọt lớn (85oz) + 2 Nước ngọt có gas lớn (32oz)",
+      "image_url": "https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_FNB_COMBO_PREMIUM",
+      "name": "Mega VIP Combo",
+      "category": "COMBO",
+      "price": 135000,
+      "description": "1 Bắp phô mai đặc biệt (85oz) + 2 Nước ngọt lớn + 1 Snack khoai tây",
+      "image_url": "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_FNB_COMBO_FAMILY",
+      "name": "Mega Party Combo",
+      "category": "COMBO",
+      "price": 179000,
+      "description": "2 Bắp lớn tự chọn vị + 4 Nước ngọt lớn (32oz)",
+      "image_url": "https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_FNB_POPCORN_SWEET",
+      "name": "Bắp Rang Bơ Ngọt (Lớn)",
+      "category": "POPCORN",
+      "price": 50000,
+      "description": "Bắp rang bơ truyền thống vị ngọt thơm giòn rụm",
+      "image_url": "https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_FNB_POPCORN_CHEESE",
+      "name": "Bắp Rang Vị Phô Mai (Lớn)",
+      "category": "POPCORN",
+      "price": 60000,
+      "description": "Bắp rang lắc bột phô mai béo mặn giòn tan",
+      "image_url": "https://images.unsplash.com/photo-1585647347384-2593bc35786b?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_FNB_POPCORN_CARAMEL",
+      "name": "Bắp Rang Vị Caramel (Lớn)",
+      "category": "POPCORN",
+      "price": 60000,
+      "description": "Bắp rang áo sốt đường caramel nâu thơm béo đậm vị",
+      "image_url": "https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_FNB_DRINK_COKE",
+      "name": "Coca-Cola Tươi (32oz)",
+      "category": "DRINK",
+      "price": 32000,
+      "description": "Nước ngọt có gas Coca-Cola mát lạnh sảng khoái cỡ lớn",
+      "image_url": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_FNB_DRINK_SPRITE",
+      "name": "Sprite Chanh (32oz)",
+      "category": "DRINK",
+      "price": 32000,
+      "description": "Nước giải khát có gas Sprite hương chanh thanh mát cỡ lớn",
+      "image_url": "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "MEGAGS_FNB_SNACK_HOTDOG",
+      "name": "Xúc Xích Lắc Phô Mai Nướng",
+      "category": "SNACK",
+      "price": 38000,
+      "description": "Xúc xích Đức nướng xông khói thơm lừng kẹp sốt phô mai và tương cà",
+      "image_url": "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "provider_code": "BETA",
+  "provider_name": "Beta Cinemas",
+  "total_items": 10,
+  "items": [
+    {
+      "external_id": "BETA_FNB_COMBO_SOLO",
+      "name": "Combo Beta Solo",
+      "category": "COMBO",
+      "price": 65000,
+      "description": "1 Bắp ngọt vừa (44oz) + 1 Nước ngọt có gas (22oz)",
+      "image_url": "https://images.unsplash.com/photo-1572177191856-3cde618dee1f?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_FNB_COMBO_COUPLE",
+      "name": "Combo Beta Couple",
+      "category": "COMBO",
+      "price": 89000,
+      "description": "1 Bắp ngọt lớn (64oz) + 2 Nước ngọt có gas (22oz)",
+      "image_url": "https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_FNB_COMBO_CHEESE_LOVER",
+      "name": "Combo Phô Mai Siêu Hời",
+      "category": "COMBO",
+      "price": 109000,
+      "description": "1 Bắp phô mai lớn + 2 Nước ngọt có gas + 1 Snack que giòn",
+      "image_url": "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_FNB_COMBO_FAMILY",
+      "name": "Combo Beta Party",
+      "category": "COMBO",
+      "price": 149000,
+      "description": "2 Bắp ngọt lớn + 3 Nước ngọt có gas + 1 Xúc xích nướng",
+      "image_url": "https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_FNB_POPCORN_SWEET",
+      "name": "Bắp Rang Bơ Ngọt (Lớn)",
+      "category": "POPCORN",
+      "price": 45000,
+      "description": "Bắp rang bơ truyền thống vị ngọt giòn rụm",
+      "image_url": "https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_FNB_POPCORN_CHEESE",
+      "name": "Bắp Rang Lắc Phô Mai (Lớn)",
+      "category": "POPCORN",
+      "price": 55000,
+      "description": "Bắp rang thơm giòn lắc ngập bột phô mai mặn béo",
+      "image_url": "https://images.unsplash.com/photo-1585647347384-2593bc35786b?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_FNB_POPCORN_CARAMEL",
+      "name": "Bắp Rang Vị Caramel (Lớn)",
+      "category": "POPCORN",
+      "price": 55000,
+      "description": "Bắp rang phủ đều lớp đường sốt caramel nâu óng ả",
+      "image_url": "https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_FNB_DRINK_PEPSI",
+      "name": "Pepsi Tươi (22oz)",
+      "category": "DRINK",
+      "price": 28000,
+      "description": "Nước ngọt có gas Pepsi tươi ướp lạnh sảng khoái",
+      "image_url": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_FNB_DRINK_7UP",
+      "name": "7Up Hương Chanh (22oz)",
+      "category": "DRINK",
+      "price": 28000,
+      "description": "Nước giải khát 7Up chanh thanh mát, đã khát",
+      "image_url": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    },
+    {
+      "external_id": "BETA_FNB_SNACK_HOTDOG",
+      "name": "Xúc Xích Đức Nướng",
+      "category": "SNACK",
+      "price": 35000,
+      "description": "Xúc xích Đức xông khói nướng nóng giòn kèm sốt tương cà, mù tạt",
+      "image_url": "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?w=600&auto=format&fit=crop&q=80",
+      "status": "ACTIVE"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+﻿external_id,name,category,price,description,image_url
+GLX_FNB_COMBO_SOLO,Combo Solo,COMBO,85000,1 Bắp ngọt (60oz) + 1 Nước ngọt có gas (32oz),https://images.unsplash.com/photo-1572177191856-3cde618dee1f?w=600&auto=format&fit=crop&q=80
+GLX_FNB_COMBO_COUPLE,Combo Couple,COMBO,115000,1 Bắp lớn (60oz) + 2 Nước ngọt có gas (32oz),https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=600&auto=format&fit=crop&q=80
+GLX_FNB_COMBO_CINEX_VIP,Combo CineX VIP,COMBO,145000,1 Bắp phô mai đặc biệt + 2 Nước ngọt lớn + 1 Snack khoai tây,https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?w=600&auto=format&fit=crop&q=80
+GLX_FNB_COMBO_PARTY,Combo Party 4U,COMBO,199000,2 Bắp ngọt lớn + 4 Nước ngọt lớn tự chọn,https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=600&auto=format&fit=crop&q=80
+GLX_FNB_POPCORN_SWEET,Bắp Rang Bơ Ngọt (Lớn),POPCORN,55000,Bắp rang bơ truyền thống vị ngọt giòn rụm,https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=600&auto=format&fit=crop&q=80
+GLX_FNB_POPCORN_CHEESE,Bắp Rang Vị Phô Mai (Lớn),POPCORN,65000,Bắp rang lắc bột phô mai mặn béo đậm đà,https://images.unsplash.com/photo-1585647347384-2593bc35786b?w=600&auto=format&fit=crop&q=80
+GLX_FNB_POPCORN_CARAMEL,Bắp Rang Vị Caramel (Lớn),POPCORN,65000,Bắp rang giòn thơm lừng áo sốt đường caramel cao cấp,https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=600&auto=format&fit=crop&q=80
+GLX_FNB_DRINK_PEPSI,Pepsi Tươi (32oz),DRINK,35000,Nước ngọt có gas Pepsi tươi mát lạnh cỡ lớn,https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80
+GLX_FNB_DRINK_7UP,7Up Hương Chanh (32oz),DRINK,35000,Nước giải khát 7Up vị chanh mát lạnh có gas cỡ lớn,https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80
+GLX_FNB_SNACK_SAUSAGE,Xúc Xích Nướng Phô Mai,SNACK,42000,Xúc xích xông khói nhân phô mai nướng nóng hổi,https://images.unsplash.com/photo-1619740455993-9e612b1af08a?w=600&auto=format&fit=crop&q=80

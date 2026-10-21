@@ -1,0 +1,11 @@
+﻿external_id,name,category,price,description,image_url
+LOTTE_FNB_COMBO_SOLO,Solo Combo,COMBO,80000,1 Bắp vừa (vị ngọt) + 1 Nước ngọt có gas lớn (32oz),https://images.unsplash.com/photo-1572177191856-3cde618dee1f?w=600&auto=format&fit=crop&q=80
+LOTTE_FNB_COMBO_LOTTE,Lotte Combo,COMBO,110000,1 Bắp lớn (vị ngọt) + 2 Nước ngọt có gas lớn (32oz),https://images.unsplash.com/photo-1585647347483-22b66260dfff?w=600&auto=format&fit=crop&q=80
+LOTTE_FNB_COMBO_HARMONY,Harmony Combo,COMBO,135000,1 Bắp lớn 2 ngăn (Phô mai + Caramel) + 2 Nước ngọt có gas lớn,https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?w=600&auto=format&fit=crop&q=80
+LOTTE_FNB_COMBO_FAMILY,Family Combo,COMBO,189000,2 Bắp lớn tự chọn vị + 4 Nước ngọt có gas lớn (32oz),https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=600&auto=format&fit=crop&q=80
+LOTTE_FNB_POPCORN_SWEET,Bắp Ngọt Truyền Thống (Lớn),POPCORN,55000,Bắp rang bơ giòn xốp vị ngọt béo truyền thống Lotte,https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=600&auto=format&fit=crop&q=80
+LOTTE_FNB_POPCORN_CHEESE,Bắp Lắc Phô Mai (Lớn),POPCORN,65000,Bắp rang bơ lắc đều cùng bột phô mai mặn béo đậm đà,https://images.unsplash.com/photo-1585647347384-2593bc35786b?w=600&auto=format&fit=crop&q=80
+LOTTE_FNB_POPCORN_CARAMEL,Bắp Rang Caramel (Lớn),POPCORN,65000,Bắp rang giòn phủ lớp sốt đường bơ caramel thơm ngậy,https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=600&auto=format&fit=crop&q=80
+LOTTE_FNB_DRINK_PEPSI,Pepsi Tươi (32oz),DRINK,35000,Nước ngọt có gas Pepsi mát lạnh sảng khoái cỡ lớn,https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80
+LOTTE_FNB_DRINK_7UP,7Up Tươi (32oz),DRINK,35000,Nước ngọt có gas 7Up hương chanh thanh mát cỡ lớn,https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=80
+LOTTE_FNB_SNACK_HOTDOG,Hotdog Phô Mai Xông Khói,SNACK,40000,Xúc xích hotdog kẹp sốt mù tạt và sốt phô mai thơm ngon,https://images.unsplash.com/photo-1619740455993-9e612b1af08a?w=600&auto=format&fit=crop&q=80

@@ -1,0 +1,44 @@
+﻿external_id,name,city,address,latitude,longitude,phone
+LOTTE_CANTAVIL,Lotte Cinema Cantavil,Hồ Chí Minh,"Tầng 7, Cantavil Premier, Số 1, đường Song Hành Võ Nguyên Giáp, Khu phố 8, Phường Bình Trưng, Thành phố Hồ Chí Minh",10.80157219,106.7469108,2837752524
+LOTTE_CONG_HOA,Lotte Cinema Cộng Hòa,Hồ Chí Minh,"Tầng 4, PICO Plaza, số 20 Cộng Hòa, Phường Bảy Hiền, Thành Phố Hồ Chí Minh",10.80111871,106.6529919,2837752524
+LOTTE_GO_VAP,Lotte Cinema Gò Vấp,Hồ Chí Minh,"Tầng 3, Lotte Mart Gò Vấp, 242 Nguyễn Văn Lượng, Q.Gò Vấp, TP.HCM",10.83841098,106.6715342,2837752524
+LOTTE_GOLD_VIEW,Lotte Cinema Gold View,Hồ Chí Minh,"Tầng 3 TTTM Goldview, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP.Hồ Chí Minh",10.75649189,106.6917496,2837752524
+LOTTE_MOONLIGHT,Lotte Cinema Moonlight,Hồ Chí Minh,"Tầng 2, TTTM Merry Plaza Moonlight Residences, 102 Đặng Văn Bi, Phường Thủ Đức,Tp. Hồ Chí Minh",10.84438354,106.7626296,2837752524
+LOTTE_NAM_SAI_GON,Lotte Cinema Nam Sài Gòn,Hồ Chí Minh,"Tầng 3, TTTM Lotte, số 469 đường Nguyễn Hữu Thọ, P.Tân Hưng, TP.HCM",10.74144712,106.7020898,2837752524
+LOTTE_PHU_THO,Lotte Cinema Phú Thọ,Hồ Chí Minh,"Tầng 4 Lotte Mart Phú Thọ, Số 968 Đ. 3 Tháng 2, phường Phú Thọ, TP.Hồ Chí Minh, Việt Nam",10.76376419,106.6567393,2837752524
+LOTTE_THU_DUC,Lotte Cinema Thủ Đức,Hồ Chí Minh,"Tầng 2, toà nhà Joy Citipoint, 2, QL1A, Phường Linh Xuân, TP.Hồ Chí Minh, Việt Nam",10.87120697,106.7690791,2837752524
+LOTTE_HA_DONG,Lotte Cinema Hà Đông,Hà Nội,"Tầng 4, Mê Linh Plaza Hà Đông, Đường Tô Hiệu, P.Hà Đông, TP.Hà Nội",20.96434243,105.7713098,2837752524
+LOTTE_KOSMO,Lotte Cinema Kosmo Tây Hồ,Hà Nội,"Tầng 2 toà nhà Novo, chung cư Kosmo Tây Hồ, số 161 Xuân La, phường Xuân Đỉnh, Thành Phố Hà Nội",21.06859144,105.8024231,2837752524
+LOTTE_WEST_LAKE,Lotte Cinema West Lake,Hà Nội,"Tầng 4 Lotte Mall West Lake Hà Nội, Số 272 Võ Chí Công, Phường Tây Hồ, Thành phố Hà Nội, Việt Nam",21.07656214,105.8122484,2837752524
+LOTTE_BAC_GIANG,Lotte Cinema Bắc Giang,Bắc Giang,"Tầng trệt, TTTM Go! Bắc Giang, Phường Tân Tiến, Tỉnh Bắc Ninh, Việt Nam",21.26713535,106.2079941,2837752524
+LOTTE_BAC_NINH,Lotte Cinema Bắc Ninh,Bắc Ninh,"Tầng 3, TTTM Vincom Bắc Ninh, ngã 6, Phường Kinh Bắc, Tỉnh Bắc Ninh, Việt Nam",21.17856575,106.0721765,2837752524
+LOTTE_HAI_DUONG,Lotte Cinema Hải Dương,Hải Dương,"Tầng 4, TTTM Đỗ Gia Palace, số 158, đường Ngô Quyền, P.Thanh Bình, TP.Hải Dương",20.93027885,106.3140158,2837752524
+LOTTE_HAI_PHONG,Lotte Cinema Hải Phòng,Hải Phòng,"Tầng 5 TTM Vincom Hải Phòng, Số 1 Đường Lê Thánh Tông, Phường Ngô Quyền, TP Hải Phòng",20.8754905,106.6936427,2837752524
+LOTTE_NAM_DINH,Lotte Cinema Nam Định,Nam Định,"Tầng 5, TTTM Nam Định Tower, số 91 đường Điện Biên, phường Nam Định, Tỉnh Ninh Bình, Việt Nam",20.43015679,106.1616115,2837752524
+LOTTE_NINH_BINH,Lotte Cinema Ninh Bình,Ninh Bình,"Tầng 1, TTTM Go Ninh Bình, Phường Đông Hoa Lư, Tỉnh Ninh Bình, Việt Nam",20.24281414,106.0041591,2837752524
+LOTTE_PHU_LY,Lotte Cinema Phủ Lý,Ninh Bình,"Tầng 4, TTTM Vincom Plaza Phủ Lý, số 60, đường Biên Hòa, Phường Phủ Lý, Tỉnh Ninh Bình, Việt Nam",20.54353937,105.9171884,2837752524
+LOTTE_THAI_BINH,Lotte Cinema Thái Bình,Thái Bình,"Tầng 5, TTTM Vincom Plaza Lý Bôn, số 460, phố Lý Bôn, phường Trần Hưng Đạo, tỉnh Hưng Yên",20.44509312,106.3369364,2837752524
+LOTTE_HA_LONG,Lotte Cinema Hạ Long,Quảng Ninh,"Tầng 1, TTTM Go! Hạ Long, Cột 5, Phường Hạ Long, Tỉnh Quảng Ninh",20.94236082,107.1103089,2837752524
+LOTTE_TUYEN_QUANG,Lotte Cinema Tuyên Quang,Tuyên Quang,"Tầng 3 Vincom Tuyên Quang, số 260, Đường Quang Trung, P Minh Xuân, TP Tuyên Quang",21.81902391,105.205517,2837752524
+LOTTE_VIET_TRI,Lotte Cinema Việt Trì,Phú Thọ,"Tầng 5 Vincom Việt Trì, phường Thanh Miếu, tỉnh Phú Thọ",21.31239239,105.3958129,2837752524
+LOTTE_DONG_HOI,Lotte Cinema Đồng Hới,Quảng Trị,"Tầng 3, TTTM Vincom Plaza Đồng Hới, Phường Đồng Hới, tỉnh Quảng Trị",17.4654986,106.6265867,2837752524
+LOTTE_HUE,Lotte Cinema Huế,Thừa Thiên Huế,"Tầng 3, Trung tâm thương mại Go! Huế, Phường Thuận Hoá, Thành phố Huế, Việt Nam",16.46060473,107.5995266,2837752524
+LOTTE_THANH_HOA,Lotte Cinema Thanh Hóa,Thanh Hóa,"Tầng 4, TTTM Vincom Plaza Thanh Hoá, số 27 , Đường trần Phú, Phường Hạc Thành, Tỉnh Thanh Hoá",19.8101842,105.7774719,2837752524
+LOTTE_VINH,Lotte Cinema Vinh,Nghệ An,"Tầng 5, Số 1 Phan Bội Châu, Phường Vinh Hưng, T. Nghệ An",18.68790457,105.6657743,2837752524
+LOTTE_BAO_LOC,Lotte Cinema Bảo Lộc,Lâm Đồng,"Tầng 3, TTTM Vincom Plaza Bảo Lộc, Số 83 Lê Hồng Phong, Phường 1, Bảo Lộc, Tỉnh Lâm Đồng, Việt Nam",11.54415307,107.8111611,2837752524
+LOTTE_DA_NANG,Lotte Cinema Đà Nẵng,Đà Nẵng,"Tầng 5 và tầng 6 tòa nhà Lotte Mart Đà Nẵng, số 06 đường Nại Nam, Phường Hoà Cường, Thành phố Đà Nẵng, Việt Nam",16.03487491,108.2293264,2837752524
+LOTTE_HOI_AN,Lotte Cinema Hội An,Quảng Nam,"GL 29, TTTM Hội An Harbor, Khối phố An Bàng, Phường Hội An Tây, Thành phố Đà Nẵng",15.91776384,108.3310989,2837752524
+LOTTE_NHA_TRANG_THAI_NGUYEN,Lotte Cinema Nha Trang Thái Nguyên,Khánh Hòa,"Tầng 5 số 60 Thái Nguyên, Phường Tây Nha Trang, TP.Nha Trang, T.Khánh Hoà, Việt Nam",12.24870846,109.1867458,2837752524
+LOTTE_NHA_TRANG_TRAN_PHU,Lotte Cinema Nha Trang Trần Phú,Khánh Hòa,"Tầng 4, Vincom plaza , số 78-80 Trần Phú, Phường Nha Trang, TP.Nha Trang, T.Khánh Hòa, Việt Nam",12.23334318,109.1970095,2837752524
+LOTTE_PHAN_RANG,Lotte Cinema Phan Rang,Ninh Thuận,"Tầng 3, TTTM Vincom Phan Rang, số 122 đường 16/4, Phường Đông Hải, Tỉnh Khánh Hòa",11.56399787,109.0091237,2837752524
+LOTTE_PHAN_THIET,Lotte Cinema Phan Thiết,Bình Thuận,"Tầng 5, TTTM LOTTE Mart Phan Thiết, KDC Hùng Vương 1, Phường Phú Thủy, Tỉnh Lâm Đồng, Việt Nam.",10.93892137,108.1108311,2837752524
+LOTTE_BIEN_HOA,Lotte Cinema Biên Hòa,Đồng Nai,"Tầng 5 TTTM Vincom, 1096 Phạm Văn Thuận, Phường Tam Hiệp , tỉnh Đồng Nai",10.95781209,106.8436055,2837752524
+LOTTE_BINH_DUONG,Lotte Cinema Bình Dương,Bình Dương,"Tầng 2, Lotte Mart Bình Dương, The Seasons, P. Lái Thiêu, TP. Hồ Chí Minh",10.90500888,106.7116163,2837752524
+LOTTE_DI_AN,Lotte Cinema Dĩ An,Bình Dương,"Tầng 5 TTTM Vincom Plaza Dĩ An, Số 3 DT743, KP.Thống Nhất, Phường Dĩ An, T.p Hồ Chí Minh",10.90859329,106.7413644,2837752524
+LOTTE_DONG_NAI,Lotte Cinema Đồng Nai,Đồng Nai,"Tầng 5 , Lotte Mart Đồng Nai Quốc lộ 1A phường Long Bình , tỉnh Đồng Nai",10.94887996,106.8710052,2837752524
+LOTTE_TAY_NINH,Lotte Cinema Tây Ninh,Tây Ninh,"Tầng 4, TTTM TTC Plaza Tây Ninh,số 217-219,đường 30/04,Phường Tân Ninh,Tỉnh Tây Ninh",11.31275677,106.0956257,2837752524
+LOTTE_VUNG_TAU,Lotte Cinema Vũng Tàu,Bà Rịa - Vũng Tàu,"Tầng 3, TTTM Lotte Mart Vũng Tàu, góc đường 3/2 và Thi Sách, Phường Tam Thắng , TP Hồ Chí Minh",10.35018602,107.0939434,2837752524
+LOTTE_CA_MAU,Lotte Cinema Cà Mau,Cà Mau,"Tầng 4, TTTM Vincom Plaza Cà Mau, đường Lê Duẩn, Phường An Xuyên, tỉnh Cà Mau",9.189530231,105.1401703,2837752524
+LOTTE_CAN_THO_CAI_RANG,Lotte Cinema Cái Răng,Cần Thơ,"Tầng 1, TTTM GO! Cần Thơ, Lô số 1, Khu dân cư Hưng Phú 1, Phường Hưng Phú, TP Cần Thơ",10.01390704,105.7847031,2837752524
+LOTTE_CAN_THO_NINH_KIEU,Lotte Cinema Ninh Kiều,Cần Thơ,"Tầng 3 TTTM Lotte Mart, 84, Mậu Thân, Phường Cái Khế, TP. Cần Thơ, Việt Nam",10.04277685,105.7664789,2837752524
+LOTTE_LONG_XUYEN,Lotte Cinema Long Xuyên,An Giang,"Tầng 5, TTTM Vincom Long Xuyên, 1242 Trần Hưng Đạo, P.Long Xuyên, Tỉnh An Giang",10.38397337,105.4373093,2837752524
