@@ -31,13 +31,17 @@ public final class MockCinemaAdapter implements CinemaSyncAdapter {
     @Override public String providerCode() { return code; }
 
     @Override public SyncResultDTO sync(SyncRequestDTO request) {
+        return sync(request, LocalDate.now(clock));
+    }
+
+    @Override public SyncResultDTO sync(SyncRequestDTO request, LocalDate referenceDate) {
         Objects.requireNonNull(request, "Yêu cầu đồng bộ là bắt buộc");
         if (request.mode() != SyncMode.FULL)
             return failure("Mock không có updated_at; chỉ hỗ trợ FULL, không hỗ trợ INCREMENTAL");
         if (!SUPPORTED.containsAll(request.entityTypes()))
             return failure("Nguồn hãng rạp không cung cấp MOVIE/GENRE; dùng TMDB cho metadata phim");
         try {
-            return normalize(request);
+            return normalize(request, Objects.requireNonNull(referenceDate));
         } catch (IllegalArgumentException | DateTimeException | IOException ex) {
             return failure(ex.getMessage() == null ? "Nguồn mock không hợp lệ" : ex.getMessage());
         }
@@ -47,7 +51,7 @@ public final class MockCinemaAdapter implements CinemaSyncAdapter {
         return SyncResultDTO.of(code, NormalizedCatalogDTO.empty(), List.of(new SyncErrorDTO(null, null, message)));
     }
 
-    private SyncResultDTO normalize(SyncRequestDTO request) throws IOException {
+    private SyncResultDTO normalize(SyncRequestDTO request, LocalDate referenceDate) throws IOException {
         Set<ProviderEntityType> scope = request.entityTypes();
         var brand = new CinemaBrandDTO(code, name, null, CinemaBrandStatus.ACTIVE);
         List<CinemaDTO> cinemas = new ArrayList<>();
@@ -55,11 +59,16 @@ public final class MockCinemaAdapter implements CinemaSyncAdapter {
         List<SeatDTO> seats = new ArrayList<>();
         List<ShowtimeDTO> shows = new ArrayList<>();
         List<FnbDTO> foods = new ArrayList<>();
+        List<SyncErrorDTO> errors = new ArrayList<>();
+        Set<String> seenCinemas = new HashSet<>();
         if (!scope.equals(Set.of(CINEMA_BRAND))) {
             for (var row : source("cinemas", "cinemas", "external_id", "name", "address", "latitude", "longitude", "phone")) {
-                cinemas.add(new CinemaDTO(text(row, "external_id"), ref(CINEMA_BRAND, code), text(row, "name"),
-                        text(row, "address"), coordinate(row, "latitude"), coordinate(row, "longitude"),
-                        optional(row, "phone"), CinemaStatus.valueOf(status(row, "ACTIVE"))));
+                try {
+                    require(seenCinemas.add(text(row, "external_id")), "Trùng ID rạp");
+                    cinemas.add(new CinemaDTO(text(row, "external_id"), ref(CINEMA_BRAND, code), text(row, "name"),
+                            text(row, "address"), coordinate(row, "latitude"), coordinate(row, "longitude"),
+                            optional(row, "phone"), CinemaStatus.valueOf(status(row, "ACTIVE"))));
+                } catch (IllegalArgumentException | DateTimeException ex) { errors.add(error(CINEMA, row, ex)); }
             }
             unique(cinemas.stream().map(CinemaDTO::externalId).toList(), "cinemas.external_id");
         }
@@ -83,66 +92,80 @@ public final class MockCinemaAdapter implements CinemaSyncAdapter {
                 unique(positions, "Ghế trùng trong template " + entry.getKey());
             }
             for (var row : source("rooms", "rooms", "external_id", "cinema_id", "name", "room_type", "template_code")) {
-                String cinemaId = text(row, "cinema_id");
-                require(cinemaIds.contains(cinemaId), "rooms tham chiếu rạp không tồn tại: " + cinemaId);
-                String templateId = text(row, "template_code");
-                var template = templates.get(templateId);
-                require(template != null && !template.isEmpty(), "Không tìm thấy mẫu ghế: " + templateId);
-                String type = text(row, "room_type");
-                require(type.equals(text(template.getFirst(), "room_type")), "Loại phòng không khớp mẫu ghế: " + templateId);
-                var room = new RoomDTO(text(row, "external_id"), ref(CINEMA, cinemaId), text(row, "name"),
-                        RoomType.of(type), RoomStatus.valueOf(status(row, "ACTIVE")));
-                require(roomLookup.putIfAbsent(new RoomKey(cinemaId, room.name()), room) == null,
-                        "Trùng tên phòng trong rạp " + cinemaId + ": " + room.name());
-                rooms.add(room);
-                if (scope.contains(SEAT)) for (var position : template) seats.add(seat(position, room.externalId()));
+                try {
+                    require(rooms.stream().noneMatch(r -> r.externalId().equals(text(row, "external_id"))), "Trùng ID phòng");
+                    String cinemaId = text(row, "cinema_id");
+                    require(cinemaIds.contains(cinemaId), "rooms tham chiếu rạp không tồn tại: " + cinemaId);
+                    String templateId = text(row, "template_code");
+                    var template = templates.get(templateId);
+                    require(template != null && !template.isEmpty(), "Không tìm thấy mẫu ghế: " + templateId);
+                    String type = text(row, "room_type");
+                    require(type.equals(text(template.getFirst(), "room_type")), "Loại phòng không khớp mẫu ghế: " + templateId);
+                    var room = new RoomDTO(text(row, "external_id"), ref(CINEMA, cinemaId), text(row, "name"),
+                            RoomType.of(type), RoomStatus.valueOf(status(row, "ACTIVE")));
+                    require(roomLookup.putIfAbsent(new RoomKey(cinemaId, room.name()), room) == null,
+                            "Trùng tên phòng trong rạp " + cinemaId + ": " + room.name());
+                    rooms.add(room);
+                    if (scope.contains(SEAT)) for (var position : template) seats.add(seat(position, room.externalId()));
+                } catch (IllegalArgumentException | DateTimeException ex) { errors.add(error(ROOM, row, ex)); }
             }
             unique(rooms.stream().map(RoomDTO::externalId).toList(), "rooms.external_id");
         }
         if (scope.contains(SHOWTIME)) {
-            LocalDate today = LocalDate.now(clock); // Chốt một lần để không lệch ngày giữa các bản ghi.
+            LocalDate today = referenceDate; // Chốt một lần để không lệch ngày giữa các bản ghi.
             List<String> sourceIds = new ArrayList<>();
             for (var row : source("showtimes", "showtimes", "external_id", "cinema_id", "room_name", "room_type",
                     "tmdb_id", "day_offset", "start_time_slot", "duration_minutes", "base_price")) {
-                sourceIds.add(text(row, "external_id"));
-                var room = roomLookup.get(new RoomKey(text(row, "cinema_id"), text(row, "room_name")));
-                require(room != null, "Suất chiếu tham chiếu phòng không tồn tại: " + text(row, "external_id"));
-                require(room.roomType().value().equals(text(row, "room_type")), "room_type suất chiếu không khớp phòng");
-                int offset = integer(row, "day_offset", 0);
-                int duration = integer(row, "duration_minutes", 1);
-                String movieId = text(row, "tmdb_id");
-                require(movieId.matches("[1-9][0-9]*"), "tmdb_id phải là số nguyên dương");
-                String time = text(row, "start_time_slot");
-                require(time.matches("[0-9]{2}:[0-9]{2}"), "start_time_slot phải theo HH:mm");
-                var start = today.plusDays(offset).atTime(LocalTime.parse(time));
-                // ID gắn ngày: không di chuyển suất đã có đặt vé sang ngày mới khi mock quay vòng.
-                var show = new ShowtimeDTO(composite(text(row, "external_id"), start.toLocalDate().toString()),
-                        new ProviderReferenceDTO("TMDB", MOVIE, movieId), ref(ROOM, room.externalId()),
-                        start, start.plusMinutes(duration), decimal(row, "base_price"),
-                        ShowtimeStatus.valueOf(status(row, "OPEN")));
-                if (request.fromDate() == null || (!start.toLocalDate().isBefore(request.fromDate())
-                        && !start.toLocalDate().isAfter(request.toDate()))) shows.add(show);
+                try {
+                    require(!sourceIds.contains(text(row, "external_id")), "Trùng ID suất chiếu");
+                    sourceIds.add(text(row, "external_id"));
+                    var room = roomLookup.get(new RoomKey(text(row, "cinema_id"), text(row, "room_name")));
+                    require(room != null, "Suất chiếu tham chiếu phòng không tồn tại: " + text(row, "external_id"));
+                    require(room.roomType().value().equals(text(row, "room_type")), "room_type suất chiếu không khớp phòng");
+                    int offset = integer(row, "day_offset", 0);
+                    int duration = integer(row, "duration_minutes", 1);
+                    String movieId = text(row, "tmdb_id");
+                    require(movieId.matches("[1-9][0-9]*"), "tmdb_id phải là số nguyên dương");
+                    String time = text(row, "start_time_slot");
+                    require(time.matches("[0-9]{2}:[0-9]{2}"), "start_time_slot phải theo HH:mm");
+                    var start = today.plusDays(offset).atTime(LocalTime.parse(time));
+                    // ID gắn ngày: không di chuyển suất đã có đặt vé sang ngày mới khi mock quay vòng.
+                    var show = new ShowtimeDTO(composite(text(row, "external_id"), start.toLocalDate().toString()),
+                            new ProviderReferenceDTO("TMDB", MOVIE, movieId), ref(ROOM, room.externalId()),
+                            start, start.plusMinutes(duration), decimal(row, "base_price"),
+                            ShowtimeStatus.valueOf(status(row, "OPEN")));
+                    if (request.fromDate() == null || (!start.toLocalDate().isBefore(request.fromDate())
+                            && !start.toLocalDate().isAfter(request.toDate()))) shows.add(show);
+                } catch (IllegalArgumentException | DateTimeException ex) { errors.add(error(SHOWTIME, row, ex)); }
             }
             unique(sourceIds, "showtimes.external_id");
         }
         if (scope.contains(FNB_ITEM)) {
             List<String> sourceIds = new ArrayList<>();
             for (var row : source("fnb", "items", "external_id", "name", "price", "description", "image_url")) {
-                String id = text(row, "external_id");
-                sourceIds.add(id);
-                String description = optional(row, "description");
-                require(description == null || description.getBytes(StandardCharsets.UTF_8).length <= 65535,
-                        "Mô tả F&B vượt giới hạn TEXT");
-                for (var cinema : cinemas) foods.add(new FnbDTO(composite(id, cinema.externalId()),
-                        ref(CINEMA_BRAND, code), ref(CINEMA, cinema.externalId()), text(row, "name"), description,
-                        decimal(row, "price"), optional(row, "image_url"), FnbStatus.valueOf(status(row, "ACTIVE"))));
+                try {
+                    String id = text(row, "external_id");
+                    require(!sourceIds.contains(id), "Trùng ID F&B");
+                    sourceIds.add(id);
+                    String description = optional(row, "description");
+                    require(description == null || description.getBytes(StandardCharsets.UTF_8).length <= 65535,
+                            "Mô tả F&B vượt giới hạn TEXT");
+                    for (var cinema : cinemas) foods.add(new FnbDTO(composite(id, cinema.externalId()),
+                            ref(CINEMA_BRAND, code), ref(CINEMA, cinema.externalId()), text(row, "name"), description,
+                            decimal(row, "price"), optional(row, "image_url"), FnbStatus.valueOf(status(row, "ACTIVE"))));
+                } catch (IllegalArgumentException | DateTimeException ex) { errors.add(error(FNB_ITEM, row, ex)); }
             }
             unique(sourceIds, "fnb.external_id");
         }
         var catalog = new NormalizedCatalogDTO(scope.contains(CINEMA) ? cinemas : List.of(),
                 scope.contains(ROOM) ? rooms : List.of(), seats, shows, foods, List.of(),
                 scope.contains(CINEMA_BRAND) ? List.of(brand) : List.of());
-        return SyncResultDTO.of(code, catalog, List.of());
+        return SyncResultDTO.of(code, catalog, errors);
+    }
+
+    private SyncErrorDTO error(ProviderEntityType type, Map<String, String> row, RuntimeException ex) {
+        String message = ex.getMessage() == null ? "Dữ liệu nguồn không hợp lệ" : ex.getMessage();
+        return new SyncErrorDTO(type, optional(row, "external_id"), message);
     }
 
     private SeatDTO seat(Map<String, String> row, String roomId) {
@@ -164,6 +187,7 @@ public final class MockCinemaAdapter implements CinemaSyncAdapter {
     private ProviderReferenceDTO ref(ProviderEntityType type, String id) { return new ProviderReferenceDTO(code, type, id); }
     private record RoomKey(String cinemaId, String name) {}
     private static String text(Map<String, String> row, String field) {
+        if (row.containsKey("__record_error")) throw new IllegalArgumentException(row.get("__record_error"));
         String value = optional(row, field);
         require(value != null, "Trường bắt buộc bị trống hoặc sai kiểu: " + field);
         return value;
