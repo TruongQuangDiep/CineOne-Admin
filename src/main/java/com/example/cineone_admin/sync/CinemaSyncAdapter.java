@@ -9,4 +9,9 @@ public interface CinemaSyncAdapter {
 
     /** Chỉ lấy và chuẩn hóa dữ liệu. Lỗi ở cấp nhà cung cấp được biểu diễn bằng SyncErrorDTO. */
     SyncResultDTO sync(SyncRequestDTO request);
+
+    /** A run fixes the Vietnam reference date before reading any source files. */
+    default SyncResultDTO sync(SyncRequestDTO request, java.time.LocalDate referenceDate) {
+        return sync(request);
+    }
 }
