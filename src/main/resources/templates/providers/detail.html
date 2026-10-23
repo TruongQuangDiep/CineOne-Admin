@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: main-layout(~{::#provider-detail}, 'providers', 'Chi tiết nhà cung cấp')}">
+
+<body>
+    <div id="provider-detail">
+        <!-- Breadcrumb điều hướng -->
+        <nav aria-label="breadcrumb" class="page-breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a th:href="@{/dashboard}">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/providers}">Nhà cung cấp</a></li>
+                <li class="breadcrumb-item active" aria-current="page" th:text="${provider.name}">Chi tiết</li>
+            </ol>
+        </nav>
+
+        <!-- Alert thông báo thành công nếu có -->
+        <div th:if="${success}"
+            class="alert alert-success alert-dismissible fade show shadow-sm border-0 d-flex align-items-center gap-2 mb-4"
+            role="status">
+            <div class="flex-grow-1" th:text="${success}">Thao tác thành công.</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+        </div>
+
+        <!-- Header chi tiết nhà cung cấp (Full-width) -->
+        <div class="card border-0 shadow-sm mb-4 w-100">
+            <div class="card-body p-4">
+                <div
+                    class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="provider-avatar provider-avatar-lg shadow-sm"
+                            th:text="${#strings.substring(provider.name, 0, 1).toUpperCase()}">P</div>
+                        <div>
+                            <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                                <h3 class="fw-bold mb-0 text-dark" th:text="${provider.name}">Tên nhà cung cấp</h3>
+                                <span
+                                    class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1"
+                                    th:text="${provider.code}">CODE</span>
+                                <span class="badge"
+                                    th:classappend="${provider.status == 'ACTIVE' ? 'bg-success-subtle text-success border border-success-subtle' : (provider.status == 'INACTIVE' ? 'bg-secondary-subtle text-secondary border border-secondary-subtle' : 'bg-danger-subtle text-danger border border-danger-subtle')}">
+                                    <span class="status-indicator-dot"
+                                        th:classappend="${provider.status == 'ACTIVE' ? 'active' : (provider.status == 'INACTIVE' ? 'inactive' : 'error')}"></span>
+                                    <span
+                                        th:text="${provider.status == 'ACTIVE' ? 'Đang hoạt động' : (provider.status == 'INACTIVE' ? 'Đã ngừng đồng bộ' : provider.status)}">ACTIVE</span>
+                                </span>
+                            </div>
+                            <div class="text-muted small d-flex align-items-center gap-3 flex-wrap">
+                                <span>ID hệ thống: <strong class="text-dark"
+                                        th:text="${provider.providerId}">1</strong></span>
+                                <span>Loại: <strong class="text-dark"
+                                        th:text="${provider.providerType}">CINEMA</strong></span>
+                                <span>Chế độ: <span class="badge text-bg-light border"
+                                        th:text="${provider.mock ? 'Mock Data' : 'Production API'}">Mock</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nhóm nút hành động chính -->
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <a th:href="@{/providers}" class="btn btn-outline-secondary">Danh sách</a>
+                        <a th:href="@{/providers/{id}/edit(id=${provider.providerId})}" class="btn btn-primary">Chỉnh
+                            sửa</a>
+                        <a th:href="@{/mappings(providerId=${provider.providerId},includeStopped=true)}"
+                            class="btn btn-outline-primary">Xem mapping</a>
+                        <form th:action="@{/providers/{id}/status(id=${provider.providerId})}" method="post"
+                            data-confirm="Đổi trạng thái đồng bộ của nhà cung cấp? Dữ liệu trong CSDL vẫn được giữ nguyên.">
+                            <input type="hidden" name="enabled" th:value="${provider.status != 'ACTIVE'}">
+                            <button class="btn"
+                                th:classappend="${provider.status == 'ACTIVE' ? 'btn-outline-danger' : 'btn-outline-success'}"
+                                type="submit"
+                                th:text="${provider.status == 'ACTIVE' ? 'Ngừng đồng bộ' : 'Bật đồng bộ'}">Ngừng đồng
+                                bộ</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thông báo nếu đang ngừng đồng bộ -->
+        <div th:if="${provider.status == 'INACTIVE'}" class="alert alert-secondary border mb-4 p-3">
+            Đã ngừng đồng bộ. Dữ liệu và mapping được giữ nguyên để sử dụng khi hợp tác lại.
+        </div>
+
+        <!-- Thẻ thông tin chi tiết (Full-width, khớp màn hình) -->
+        <div class="card border-0 shadow-sm w-100">
+            <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                <span class="fw-bold text-dark">THÔNG TIN ĐỊNH DANH ĐỐI TÁC</span>
+                <span class="badge text-bg-light border text-secondary font-monospace"
+                    th:text="${provider.code}">CGV</span>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <div class="info-label">Mã nhà cung cấp (ID)</div>
+                            <div class="info-value font-monospace" th:text="${provider.providerId}">1</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <div class="info-label">Mã nguồn đồng bộ (Code)</div>
+                            <div class="info-value font-monospace text-primary" th:text="${provider.code}">CGV</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <div class="info-label">Tên nhà cung cấp</div>
+                            <div class="info-value" th:text="${provider.name}">CGV Cinemas</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <div class="info-label">Phân loại đối tác</div>
+                            <div class="info-value">
+                                <span class="badge bg-info-subtle text-info border border-info-subtle"
+                                    th:text="${provider.providerType}">CINEMA</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <div class="info-label">Chế độ dữ liệu Mock</div>
+                            <div class="info-value" th:text="${provider.mock ? 'Có' : 'Không'}">Có
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <div class="info-label">Trạng thái hoạt động</div>
+                            <div class="info-value" th:text="${provider.status}">ACTIVE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

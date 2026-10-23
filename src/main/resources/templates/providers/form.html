@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#provider-form-content}, 'providers', 'Cấu hình nhà cung cấp')}">
+<body>
+<div id="provider-form-content">
+    <!-- Breadcrumb điều hướng -->
+    <nav aria-label="breadcrumb" class="page-breadcrumb">
+        <ol class="breadcrumb mb-2">
+            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/providers}">Nhà cung cấp</a></li>
+            <li class="breadcrumb-item active" aria-current="page"
+                th:text="${providerId == null ? 'Thêm mới' : 'Chỉnh sửa'}">Cấu hình</li>
+        </ol>
+    </nav>
+
+    <!-- Header trang form -->
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h3 class="m-0 fw-bold"
+                th:text="${providerId == null ? 'THÊM NHÀ CUNG CẤP' : 'CHỈNH SỬA NHÀ CUNG CẤP'}">
+                CẤU HÌNH NHÀ CUNG CẤP
+            </h3>
+        </div>
+        <a th:href="@{/providers}" class="btn btn-outline-secondary">Quay lại</a>
+    </div>
+
+    <!-- Form cấu hình trải rộng full-width -->
+    <div class="w-100">
+        <form th:action="${providerId == null} ? @{/providers} : @{/providers/{id}(id=${providerId})}"
+              th:object="${providerForm}" method="post" class="card border-0 shadow-sm w-100">
+
+            <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                <span class="fw-bold text-dark">THÔNG TIN CẤU HÌNH</span>
+                <span th:if="${providerId != null}" class="badge bg-secondary-subtle text-secondary border">
+                    ID: <span th:text="${providerId}">1</span>
+                </span>
+            </div>
+
+            <div class="card-body p-4">
+                <!-- Báo lỗi chung nếu có -->
+                <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
+                    <div th:each="err : ${#fields.globalErrors()}" th:text="${err}">Lỗi không thể lưu</div>
+                </div>
+
+                <!-- Lưới các trường nhập liệu 2 cột cân đối -->
+                <div class="row g-4 mb-4">
+                    <!-- Input Code -->
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <label for="code" class="form-label fw-semibold mb-0">
+                                Mã nhà cung cấp <span class="text-danger">*</span>
+                            </label>
+                            <span th:if="${providerId != null}" class="badge bg-warning-subtle text-warning border border-warning-subtle small">
+                                Không thể thay đổi
+                            </span>
+                        </div>
+                        <input id="code" th:field="*{code}" class="form-control" maxlength="50" required
+                               th:readonly="${providerId != null}"
+                               placeholder="Ví dụ: CGV, BETA, LOTTE, TMDB">
+                        <small class="text-muted d-block mt-1">
+                            Mã dùng để định danh duy nhất nguồn đồng bộ và nạp adapter xử lý dữ liệu.
+                        </small>
+                        <div class="text-danger small mt-1" th:errors="*{code}"></div>
+                    </div>
+
+                    <!-- Input Name -->
+                    <div class="col-md-6">
+                        <label for="name" class="form-label fw-semibold mb-1">
+                            Tên nhà cung cấp <span class="text-danger">*</span>
+                        </label>
+                        <input id="name" th:field="*{name}" class="form-control" maxlength="150" required
+                               placeholder="Ví dụ: CGV Cinemas Việt Nam">
+                        <small class="text-muted d-block mt-1">Tên hiển thị công khai trên giao diện quản trị.</small>
+                        <div class="text-danger small mt-1" th:errors="*{name}"></div>
+                    </div>
+
+                    <!-- Input Provider Type -->
+                    <div class="col-md-6">
+                        <label for="providerType" class="form-label fw-semibold mb-1">
+                            Phân loại nhà cung cấp <span class="text-danger">*</span>
+                        </label>
+                        <input id="providerType" th:field="*{providerType}" class="form-control" maxlength="50" required
+                               list="provider-types" placeholder="Chọn hoặc nhập loại (VD: CINEMA, MOVIE)">
+                        <datalist id="provider-types">
+                            <option value="CINEMA">Đối tác rạp chiếu phim (Rạp, Ghế, Suất chiếu, F&B)</option>
+                            <option value="MOVIE">Kho dữ liệu phim (TMDB, IMDb, Phim, Thể loại)</option>
+                        </datalist>
+                        <small class="text-muted d-block mt-1">Chọn từ danh sách gợi ý hoặc nhập phân loại mới.</small>
+                        <div class="text-danger small mt-1" th:errors="*{providerType}"></div>
+                    </div>
+
+                    <!-- Checkbox Mock -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold mb-1">Chế độ kiểm thử dữ liệu</label>
+                        <div class="p-2 px-3 bg-light rounded-3 border">
+                            <div class="form-check form-switch m-0 pt-1">
+                                <input id="mock" th:field="*{mock}" type="checkbox" class="form-check-input" role="switch">
+                                <label for="mock" class="form-check-label fw-semibold text-dark">
+                                    Dùng dữ liệu giả (Mock)
+                                </label>
+                            </div>
+                            <small class="text-muted d-block mt-1 ps-0">
+                                Đọc dữ liệu mẫu từ tệp JSON giả lập nội bộ thay vì gọi trực tiếp API đối tác.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info border-0 bg-info-subtle text-info-emphasis py-2 small mb-0">
+                    Nguồn mới cần được kết nối trước khi có thể đồng bộ dữ liệu.
+                </div>
+            </div>
+
+            <!-- Footer hành động -->
+            <div class="card-footer bg-white border-top p-3 d-flex align-items-center justify-content-between">
+                <a th:href="@{/providers}" class="btn btn-outline-secondary">Hủy</a>
+                <button class="btn btn-primary px-4" type="submit">Lưu nhà cung cấp</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
