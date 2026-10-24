@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#user-detail}, 'users', 'Chi tiết người dùng')}">
+<body>
+<div id="user-detail">
+    <nav aria-label="breadcrumb" class="page-breadcrumb">
+        <ol class="breadcrumb mb-2">
+            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/users}">Người dùng</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${user.fullName}">Chi tiết</li>
+        </ol>
+    </nav>
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show shadow-sm border-0 mb-4" role="status">
+        <span th:text="${success}">Thao tác thành công.</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+
+    <!-- Header chi tiết -->
+    <div class="card border-0 shadow-sm mb-4 w-100">
+        <div class="card-body p-4">
+            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="provider-avatar provider-avatar-lg shadow-sm"
+                         th:text="${#strings.substring(user.fullName, 0, 1).toUpperCase()}">U</div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                            <h3 class="fw-bold mb-0 text-dark" th:text="${user.fullName}">Nguyễn Văn A</h3>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-monospace" th:text="${user.role}">USER</span>
+                            <span class="badge" th:classappend="${user.status == 'ACTIVE' ? 'bg-success-subtle text-success border border-success-subtle' : (user.status == 'LOCKED' ? 'bg-danger-subtle text-danger border border-danger-subtle' : 'bg-secondary-subtle text-secondary border border-secondary-subtle')}">
+                                <span class="status-indicator-dot" th:classappend="${user.status == 'ACTIVE' ? 'active' : (user.status == 'LOCKED' ? 'error' : 'inactive')}"></span>
+                                <span th:text="${user.status == 'ACTIVE' ? 'Hoạt động' : (user.status == 'LOCKED' ? 'Đã khóa' : user.status)}">ACTIVE</span>
+                            </span>
+                        </div>
+                        <p class="text-muted small mb-0 font-monospace" th:text="${user.email}">user@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <a th:href="@{/users}" class="btn btn-outline-secondary">Danh sách</a>
+                    <!-- Nút đổi hạng thành viên -->
+                    <a th:href="@{/users/{id}/edit(id=${user.userId})}" class="btn btn-primary">Đổi hạng thành viên</a>
+                    <form th:action="@{/users/{id}/status(id=${user.userId})}" method="post"
+                          th:data-confirm="${user.status == 'ACTIVE' ? 'Xác nhận KHÓA tài khoản người dùng này?' : 'Xác nhận MỞ KHÓA tài khoản này?'}">
+                        <input type="hidden" name="status" th:value="${user.status == 'ACTIVE' ? 'LOCKED' : 'ACTIVE'}">
+                        <button class="btn" th:classappend="${user.status == 'ACTIVE' ? 'btn-outline-danger' : 'btn-outline-success'}"
+                                type="submit" th:text="${user.status == 'ACTIVE' ? 'Khóa tài khoản' : 'Mở khóa'}">Khóa</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thông số hồ sơ người dùng -->
+    <div class="card border-0 shadow-sm w-100">
+        <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+            <span class="fw-bold text-dark">THÔNG TIN HỒ SƠ TÀI KHOẢN</span>
+            <span class="badge text-bg-light border font-monospace" th:text="${'ID: #' + user.userId}">ID: #1</span>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="info-box">
+                        <div class="info-label">Họ và tên</div>
+                        <div class="info-value" th:text="${user.fullName}">Nguyễn Văn A</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-box">
+                        <div class="info-label">Email tài khoản</div>
+                        <div class="info-value font-monospace" th:text="${user.email}">user@gmail.com</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-box">
+                        <div class="info-label">Số điện thoại</div>
+                        <div class="info-value font-monospace" th:text="${user.phone != null ? user.phone : 'Chưa cập nhật'}">0901234567</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-box">
+                        <div class="info-label">Hạng thành viên</div>
+                        <div class="info-value d-flex align-items-center justify-content-between">
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle fs-6" th:text="${user.membershipTierName}">VIP</span>
+                            <a class="btn btn-sm btn-link p-0 text-decoration-none" th:href="@{/users/{id}/edit(id=${user.userId})}">Thay đổi</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-box">
+                        <div class="info-label">Ngày sinh</div>
+                        <div class="info-value" th:text="${user.dateOfBirth != null ? #temporals.format(user.dateOfBirth, 'dd/MM/yyyy') : 'Chưa cập nhật'}">01/01/2000</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-box">
+                        <div class="info-label">Thời gian đăng ký</div>
+                        <div class="info-value" th:text="${user.createdAt != null ? #temporals.format(user.createdAt, 'dd/MM/yyyy HH:mm') : 'Hệ thống khởi tạo'}">-</div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="info-box">
+                        <div class="info-label">Địa chỉ cư trú</div>
+                        <div class="info-value" th:text="${user.homeAddress != null ? user.homeAddress : 'Chưa có thông tin địa chỉ'}">123 Nguyễn Văn Cừ, Quận 5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
