@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: main-layout(~{::#provider-content}, 'providers', 'Nhà cung cấp')}">
+
+<body>
+    <div id="provider-content">
+        <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <h3 class="m-0 fw-bold">NHÀ CUNG CẤP</h3>
+            </div>
+            <a th:href="@{/providers/new}" class="btn btn-primary">Thêm nhà cung cấp</a>
+        </div>
+
+        <!-- Alert thông báo nếu có -->
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show shadow-sm border-0 mb-4"
+            role="status">
+            <span th:text="${success}">Thao tác thành công.</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+        </div>
+
+        <!-- Thanh tìm kiếm & Bộ lọc -->
+        <div class="card border-0 shadow-sm p-3 mb-4">
+            <form th:action="@{/providers}" method="get" class="d-flex gap-2">
+                <label for="provider-search" class="visually-hidden">Tìm nhà cung cấp</label>
+                <input id="provider-search" class="form-control" name="q" th:value="${q}" maxlength="150"
+                    placeholder="Tìm kiếm theo tên hoặc mã nhà cung cấp...">
+                <button class="btn btn-primary px-4" type="submit">Tìm</button>
+                <a th:if="${q != null and !q.isEmpty()}" th:href="@{/providers}" class="btn btn-outline-secondary">Đặt
+                    lại</a>
+            </form>
+        </div>
+
+        <!-- Bảng danh sách nhà cung cấp -->
+        <div class="card border-0 shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 140px;">Mã nhà cung cấp</th>
+                            <th>Tên nhà cung cấp</th>
+                            <th>Loại</th>
+                            <th>Mock</th>
+                            <th>Trạng thái</th>
+                            <th style="width: 80px;" class="text-end pe-3">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${providers.content}">
+                            <td>
+                                <span class="fw-bold font-monospace text-dark" th:text="${p.providerId}">1</span>
+                                <small class="d-block text-muted font-monospace" th:text="${p.code}">CODE</small>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span
+                                        class="badge rounded-circle bg-light text-dark border d-flex align-items-center justify-content-center"
+                                        style="width: 32px; height: 32px; font-size: 0.85rem;"
+                                        th:text="${#strings.substring(p.name, 0, 1).toUpperCase()}">P</span>
+                                    <a class="fw-semibold text-decoration-none text-dark"
+                                        th:href="@{/providers/{id}(id=${p.providerId})}" th:text="${p.name}">CGV
+                                        Cinemas</a>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-secondary border font-monospace"
+                                    th:text="${p.providerType}">CINEMA</span>
+                            </td>
+                            <td>
+                                <span th:if="${p.mock}"
+                                    class="badge text-bg-warning-subtle text-warning border border-warning-subtle">Có</span>
+                                <span th:unless="${p.mock}" class="badge text-bg-light border text-muted">Không</span>
+                            </td>
+                            <td>
+                                <span class="badge"
+                                    th:classappend="${p.status == 'ACTIVE' ? 'bg-success-subtle text-success border border-success-subtle' : (p.status == 'INACTIVE' ? 'bg-secondary-subtle text-secondary border border-secondary-subtle' : 'bg-danger-subtle text-danger border border-danger-subtle')}">
+                                    <span class="status-indicator-dot"
+                                        th:classappend="${p.status == 'ACTIVE' ? 'active' : (p.status == 'INACTIVE' ? 'inactive' : 'error')}"></span>
+                                    <span
+                                        th:text="${p.status == 'ACTIVE' ? 'Hoạt động' : (p.status == 'INACTIVE' ? 'Đã ngừng' : p.status)}">ACTIVE</span>
+                                </span>
+                            </td>
+                            <td class="text-end pe-3">
+                                <div class="dropdown dropend">
+                                    <button class="btn btn-sm btn-light border" type="button" data-bs-toggle="dropdown"
+                                        data-table-actions aria-expanded="false"
+                                        th:aria-label="${'Thao tác với ' + p.name}">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu table-action-menu dropdown-menu-end shadow-sm">
+                                        <li><a class="dropdown-item"
+                                                th:href="@{/providers/{id}(id=${p.providerId})}">Xem chi tiết</a></li>
+                                        <li><a class="dropdown-item"
+                                                th:href="@{/providers/{id}/edit(id=${p.providerId})}">Chỉnh sửa</a></li>
+                                        <li><a class="dropdown-item"
+                                                th:href="@{/mappings(providerId=${p.providerId},includeStopped=true)}">Xem
+                                                mapping</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <form th:action="@{/providers/{id}/status(id=${p.providerId})}"
+                                                method="post"
+                                                data-confirm="Đổi trạng thái đồng bộ của nhà cung cấp? Dữ liệu trong CSDL vẫn được giữ nguyên.">
+                                                <input type="hidden" name="enabled" th:value="${p.status != 'ACTIVE'}">
+                                                <button class="dropdown-item"
+                                                    th:classappend="${p.status == 'ACTIVE' ? 'text-danger' : 'text-success'}"
+                                                    type="submit"
+                                                    th:text="${p.status == 'ACTIVE' ? 'Ngừng đồng bộ' : 'Bật đồng bộ'}">Bật
+                                                    đồng bộ</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${providers.empty}">
+                            <td colspan="6" class="text-center text-muted py-5">
+                                Không tìm thấy nhà cung cấp.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Phân trang -->
+        <nav class="d-flex align-items-center justify-content-between mt-3 flex-wrap gap-2"
+            aria-label="Phân trang nhà cung cấp">
+            <span class="text-muted small" th:text="${'Tổng ' + providers.totalElements + ' nhà cung cấp'}">Tổng 0 nhà
+                cung cấp</span>
+            <div class="d-flex align-items-center gap-3">
+                <a th:if="${providers.hasPrevious()}" class="btn btn-sm btn-outline-secondary"
+                    th:href="@{/providers(q=${q},page=${providers.number - 1})}">Trước</a>
+                <span class="small text-secondary"
+                    th:text="${'Trang ' + (providers.number + 1) + ' / ' + (providers.totalPages == 0 ? 1 : providers.totalPages)}">Trang
+                    1 / 1</span>
+                <a th:if="${providers.hasNext()}" class="btn btn-sm btn-outline-secondary"
+                    th:href="@{/providers(q=${q},page=${providers.number + 1})}">Sau</a>
+            </div>
+        </nav>
+    </div>
+</body>
+
+</html>
