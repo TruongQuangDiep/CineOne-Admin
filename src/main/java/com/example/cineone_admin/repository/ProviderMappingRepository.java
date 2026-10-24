@@ -7,8 +7,9 @@ import java.util.List;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface ProviderMappingRepository extends JpaRepository<ProviderMapping, Long> {
+public interface ProviderMappingRepository extends JpaRepository<ProviderMapping, Long>, JpaSpecificationExecutor<ProviderMapping> {
     Optional<ProviderMapping> findByProviderProviderIdAndEntityTypeAndExternalId(
             Long providerId, String entityType, String externalId);
 
