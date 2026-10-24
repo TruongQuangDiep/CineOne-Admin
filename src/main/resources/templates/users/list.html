@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#user-content}, 'users', 'Người dùng')}">
+<body>
+<div id="user-content">
+    <!-- Header: Điều hướng sang Hạng thành viên -->
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+        <h3 class="m-0 fw-bold">QUẢN LÝ NGƯỜI DÙNG</h3>
+        <a th:href="@{/memberships}" class="btn btn-outline-primary">Cấu hình Hạng thành viên</a>
+    </div>
+
+    <!-- Alert thông báo -->
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show shadow-sm border-0 mb-4" role="status">
+        <span th:text="${success}">Thao tác thành công.</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+
+    <!-- Bộ lọc tìm kiếm -->
+    <form th:action="@{/users}" method="get" class="card border-0 shadow-sm p-3 mb-4">
+        <div class="row g-3">
+            <div class="col-md-5">
+                <input class="form-control" name="q" th:value="${q}" maxlength="150"
+                       placeholder="Tìm kiếm theo họ tên, email hoặc số điện thoại...">
+            </div>
+            <div class="col-md-3">
+                <select name="tierId" class="form-select">
+                    <option value="">Tất cả hạng thành viên</option>
+                    <option th:each="t : ${tiers}" th:value="${t.membershipTierId}" th:text="${t.name}"
+                            th:selected="${tierId == t.membershipTierId}"></option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="status" class="form-select">
+                    <option value="">Tất cả trạng thái</option>
+                    <option value="ACTIVE" th:selected="${status == 'ACTIVE'}">Hoạt động</option>
+                    <option value="LOCKED" th:selected="${status == 'LOCKED'}">Đã khóa</option>
+                    <option value="INACTIVE" th:selected="${status == 'INACTIVE'}">Chưa kích hoạt</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button class="btn btn-primary flex-grow-1" type="submit">Tìm</button>
+                <a th:if="${(q != null and !q.isEmpty()) or tierId != null or (status != null and !status.isEmpty())}"
+                   th:href="@{/users}" class="btn btn-outline-secondary">Đặt lại</a>
+            </div>
+        </div>
+    </form>
+
+    <!-- Bảng danh sách người dùng -->
+    <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th style="width: 80px;">ID</th>
+                    <th>Người dùng</th>
+                    <th>Số điện thoại</th>
+                    <th>Hạng</th>
+                    <th>Vai trò</th>
+                    <th>Trạng thái</th>
+                    <th style="width: 80px;" class="text-end pe-3">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u : ${users.content}">
+                    <td class="font-monospace text-secondary" th:text="${u.userId}">1</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="provider-avatar" style="width: 36px; height: 36px; font-size: 0.95rem;"
+                                 th:text="${#strings.substring(u.fullName, 0, 1).toUpperCase()}">U</div>
+                            <div>
+                                <a class="fw-semibold text-dark text-decoration-none d-block"
+                                   th:href="@{/users/{id}(id=${u.userId})}" th:text="${u.fullName}">Nguyễn Văn A</a>
+                                <small class="text-muted" th:text="${u.email}">user@gmail.com</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="font-monospace text-secondary" th:text="${u.phone != null ? u.phone : '-'}">0901234567</td>
+                    <td>
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle" th:text="${u.membershipTierName}">VIP</span>
+                    </td>
+                    <td>
+                        <span class="badge text-bg-light border font-monospace" th:text="${u.role}">USER</span>
+                    </td>
+                    <td>
+                        <span class="badge" th:classappend="${u.status == 'ACTIVE' ? 'bg-success-subtle text-success border border-success-subtle' : (u.status == 'LOCKED' ? 'bg-danger-subtle text-danger border border-danger-subtle' : 'bg-secondary-subtle text-secondary border border-secondary-subtle')}">
+                            <span class="status-indicator-dot" th:classappend="${u.status == 'ACTIVE' ? 'active' : (u.status == 'LOCKED' ? 'error' : 'inactive')}"></span>
+                            <span th:text="${u.status == 'ACTIVE' ? 'Hoạt động' : (u.status == 'LOCKED' ? 'Đã khóa' : u.status)}">ACTIVE</span>
+                        </span>
+                    </td>
+                    <td class="text-end pe-3">
+                        <div class="dropdown dropend">
+                            <button class="btn btn-sm btn-light border" type="button" data-bs-toggle="dropdown" data-table-actions aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu table-action-menu dropdown-menu-end shadow-sm">
+                                <li><a class="dropdown-item" th:href="@{/users/{id}(id=${u.userId})}">Xem chi tiết</a></li>
+                                <li><a class="dropdown-item" th:href="@{/users/{id}/edit(id=${u.userId})}">Đổi hạng thành viên</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form th:action="@{/users/{id}/status(id=${u.userId})}" method="post"
+                                          th:data-confirm="${u.status == 'ACTIVE' ? 'Bạn có chắc chắn muốn KHÓA tài khoản này?' : 'Bạn muốn MỞ KHÓA tài khoản này?'}">
+                                        <input type="hidden" name="status" th:value="${u.status == 'ACTIVE' ? 'LOCKED' : 'ACTIVE'}">
+                                        <button class="dropdown-item" th:classappend="${u.status == 'ACTIVE' ? 'text-danger' : 'text-success'}"
+                                                type="submit" th:text="${u.status == 'ACTIVE' ? 'Khóa tài khoản' : 'Mở khóa tài khoản'}">Khóa</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${users.empty}">
+                    <td colspan="7" class="text-center text-muted py-5">Không tìm thấy người dùng phù hợp.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Phân trang -->
+    <nav class="d-flex align-items-center justify-content-between mt-3 flex-wrap gap-2" aria-label="Phân trang người dùng">
+        <span class="small text-muted" th:text="${'Tổng ' + users.totalElements + ' người dùng'}">Tổng 0 người dùng</span>
+        <div class="d-flex align-items-center gap-3">
+            <a th:if="${users.hasPrevious()}" class="btn btn-sm btn-outline-secondary"
+               th:href="@{/users(q=${q},tierId=${tierId},status=${status},page=${users.number - 1})}">Trước</a>
+            <span class="small text-secondary" th:text="${'Trang ' + (users.number + 1) + ' / ' + (users.totalPages == 0 ? 1 : users.totalPages)}">Trang 1 / 1</span>
+            <a th:if="${users.hasNext()}" class="btn btn-sm btn-outline-secondary"
+               th:href="@{/users(q=${q},tierId=${tierId},status=${status},page=${users.number + 1})}">Sau</a>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

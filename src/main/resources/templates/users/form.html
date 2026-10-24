@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#user-form-content}, 'users', 'Điều chỉnh hạng thành viên')}">
+<body>
+<div id="user-form-content">
+    <nav aria-label="breadcrumb" class="page-breadcrumb">
+        <ol class="breadcrumb mb-2">
+            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/users}">Người dùng</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/users/{id}(id=${userId})}" th:text="${user.fullName}">Chi tiết</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Điều chỉnh hạng</li>
+        </ol>
+    </nav>
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h3 class="m-0 fw-bold">ĐIỀU CHỈNH HẠNG THÀNH VIÊN</h3>
+        <a th:href="@{/users/{id}(id=${userId})}" class="btn btn-outline-secondary">Quay lại</a>
+    </div>
+
+    <!-- Tóm tắt thông tin người dùng (Readonly) -->
+    <div class="card border-0 shadow-sm mb-4 w-100">
+        <div class="card-header bg-white py-3 border-bottom">
+            <span class="fw-bold text-dark">THÔNG TIN KHÁCH HÀNG</span>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="info-label">Khách hàng</div>
+                    <div class="info-value" th:text="${user.fullName}">Nguyễn Văn A</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-label">Email</div>
+                    <div class="info-value font-monospace text-secondary" th:text="${user.email}">user@gmail.com</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-label">Số điện thoại</div>
+                    <div class="info-value font-monospace" th:text="${user.phone != null ? user.phone : 'Chưa cập nhật'}">0901234567</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-label">Hạng hiện tại</div>
+                    <div class="info-value">
+                        <span class="badge bg-secondary-subtle text-secondary border fs-6" th:text="${user.membershipTierName}">NORMAL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Biểu mẫu chọn Hạng thành viên mới -->
+    <form th:action="@{/users/{id}(id=${userId})}" th:object="${userForm}" method="post" class="card border-0 shadow-sm w-100">
+        <div class="card-header bg-white py-3 border-bottom">
+            <span class="fw-bold text-dark">CẬP NHẬT HẠNG THÀNH VIÊN MỚI</span>
+        </div>
+        <div class="card-body p-4">
+            <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
+                <div th:each="err : ${#fields.globalErrors()}" th:text="${err}">Lỗi không thể lưu</div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label for="membershipTierId" class="form-label fw-semibold">Chọn hạng thành viên mới <span class="text-danger">*</span></label>
+                    <select id="membershipTierId" th:field="*{membershipTierId}" class="form-select form-select-lg" required>
+                        <option th:each="t : ${tiers}" th:value="${t.membershipTierId}"
+                                th:text="${t.name + ' (Chi tiêu tối thiểu: ' + #numbers.formatDecimal(t.minSpending, 0, 'POINT', 0, 'POINT') + ' đ)'}">
+                        </option>
+                    </select>
+                    <small class="text-muted d-block mt-2">
+                        Việc thay đổi hạng thủ công áp dụng khi cần điều chỉnh đặc cách cho khách hàng.
+                    </small>
+                    <div class="text-danger small mt-1" th:errors="*{membershipTierId}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-white border-top p-3 d-flex justify-content-between">
+            <a th:href="@{/users/{id}(id=${userId})}" class="btn btn-outline-secondary">Hủy</a>
+            <button class="btn btn-primary px-4" type="submit">Lưu hạng mới</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
