@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#membership-form-content}, 'users', 'Cấu hình hạng thành viên')}">
+<body>
+<div id="membership-form-content">
+    <nav aria-label="breadcrumb" class="page-breadcrumb">
+        <ol class="breadcrumb mb-2">
+            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/users}">Người dùng</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/memberships}">Hạng thành viên</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${tierId == null ? 'Thêm mới' : 'Chỉnh sửa'}">Cấu hình</li>
+        </ol>
+    </nav>
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h3 class="m-0 fw-bold" th:text="${tierId == null ? 'THÊM HẠNG THÀNH VIÊN' : 'CHỈNH SỬA HẠNG THÀNH VIÊN'}">CẤU HÌNH HẠNG</h3>
+        <a th:href="@{/memberships}" class="btn btn-outline-secondary">Quay lại</a>
+    </div>
+
+    <form th:action="${tierId == null} ? @{/memberships} : @{/memberships/{id}(id=${tierId})}"
+          th:object="${tierForm}" method="post" class="card border-0 shadow-sm w-100">
+        <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+            <span class="fw-bold text-dark">THÔNG TIN HẠNG</span>
+            <span th:if="${tierId != null}" class="badge bg-secondary-subtle text-secondary border font-monospace" th:text="${'ID: ' + tierId}">ID: 1</span>
+        </div>
+        <div class="card-body p-4">
+            <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
+                <div th:each="err : ${#fields.globalErrors()}" th:text="${err}">Lỗi không thể lưu</div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label for="name" class="form-label fw-semibold">Tên hạng thành viên <span class="text-danger">*</span></label>
+                    <input id="name" th:field="*{name}" class="form-control" maxlength="30" required placeholder="Ví dụ: NORMAL, VIP, PLATINUM">
+                    <div class="text-danger small mt-1" th:errors="*{name}"></div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="minSpending" class="form-label fw-semibold">Mức chi tiêu tối thiểu (VNĐ) <span class="text-danger">*</span></label>
+                    <input id="minSpending" type="number" step="1000" min="0" th:field="*{minSpending}" class="form-control" required placeholder="0">
+                    <div class="text-danger small mt-1" th:errors="*{minSpending}"></div>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="description" class="form-label fw-semibold">Mô tả quyền lợi</label>
+                    <textarea id="description" th:field="*{description}" class="form-control" rows="3" maxlength="1000"
+                              placeholder="Mô tả các ưu đãi: giảm 5% hóa đơn, tích lũy điểm thưởng..."></textarea>
+                    <div class="text-danger small mt-1" th:errors="*{description}"></div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="status" class="form-label fw-semibold">Trạng thái áp dụng</label>
+                    <select id="status" th:field="*{status}" class="form-select">
+                        <option value="ACTIVE">ACTIVE (Đang áp dụng)</option>
+                        <option value="INACTIVE">INACTIVE (Tạm ngưng)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-white border-top p-3 d-flex justify-content-between">
+            <a th:href="@{/memberships}" class="btn btn-outline-secondary">Hủy</a>
+            <button class="btn btn-primary px-4" type="submit">Lưu hạng thành viên</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
