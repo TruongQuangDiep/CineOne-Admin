@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><body>
+<div th:fragment="heading(title)" class="d-flex align-items-center justify-content-between mb-4 gap-2 flex-wrap">
+    <h3 class="m-0 fw-bold" th:text="${title}"></h3>
+    <a class="btn btn-outline-primary" th:href="@{/sync-logs}"><i class="bi bi-arrow-repeat"></i> Đồng bộ</a>
+</div>
+<span th:fragment="status(value)" class="badge border catalog-status"
+      th:classappend="${value == 'ACTIVE' or value == 'OPEN' or value == 'NOW_SHOWING' ? 'bg-success-subtle text-success' : (value == 'CANCELLED' or value == 'MAINTENANCE' ? 'bg-danger-subtle text-danger' : 'bg-light text-secondary')}"
+      th:text="${value}"></span>
+<span th:fragment="image(url, label)" class="catalog-image-wrap">
+    <img th:if="${url != null and (url.startsWith('https://') or url.startsWith('http://'))}" th:src="${url}"
+         th:alt="${label}" class="catalog-image" loading="lazy" referrerpolicy="no-referrer">
+    <span class="catalog-image-placeholder" aria-hidden="true"><i class="bi bi-image"></i></span>
+</span>
+<td th:fragment="action(url, label)" class="text-end">
+    <div class="dropdown">
+        <button class="btn btn-sm btn-light border" data-bs-toggle="dropdown" data-table-actions
+                type="button" aria-expanded="false" th:aria-label="${label}"><i class="bi bi-three-dots-vertical"></i></button>
+        <ul class="dropdown-menu dropdown-menu-end table-action-menu shadow-sm">
+            <li><a class="dropdown-item" th:href="${url}" th:text="${label}"></a></li>
+        </ul>
+    </div>
+</td>
+<div th:fragment="pagination(items, url)" class="d-flex justify-content-between align-items-center p-3 gap-3 flex-wrap">
+    <nav aria-label="Phân trang" th:if="${items.totalPages > 1 and !items.empty}">
+        <ul class="pagination pagination-sm m-0">
+            <li class="page-item" th:classappend="${items.first ? 'disabled' : ''}"><a class="page-link"
+                th:href="${items.first ? null : url + '&page=' + (items.number - 1)}" aria-label="Trang trước">‹</a></li>
+            <li class="page-item" th:each="n : ${#numbers.sequence(T(java.lang.Math).max(0, items.number - 2), T(java.lang.Math).min(items.totalPages - 1, items.number + 2))}"
+                th:classappend="${n == items.number ? 'active' : ''}"><a class="page-link" th:href="${url + '&page=' + n}"
+                th:text="${n + 1}" th:attr="aria-current=${n == items.number ? 'page' : null}"></a></li>
+            <li class="page-item" th:classappend="${items.last ? 'disabled' : ''}"><a class="page-link"
+                th:href="${items.last ? null : url + '&page=' + (items.number + 1)}" aria-label="Trang sau">›</a></li>
+        </ul>
+    </nav>
+    <small class="text-secondary ms-auto" th:text="${'Hiển thị ' + (items.empty ? 0 : items.number * items.size + 1) + '–' + (items.empty ? 0 : items.number * items.size + items.numberOfElements) + ' / ' + items.totalElements}"></small>
+</div>
+</body></html>

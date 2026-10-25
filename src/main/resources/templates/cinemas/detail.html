@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: main-layout(~{::#catalog-content}, 'cinemas', 'Chi tiết rạp')}">
+<body><div id="catalog-content">
+    <a th:href="@{/cinemas}" class="btn btn-outline-secondary mb-3">← Danh sách rạp</a>
+    <div th:replace="~{catalog/fragments :: heading('CHI TIẾT RẠP')}"></div>
+    <div class="card border-0 shadow-sm p-4 mb-4"><h4 th:text="${cinema.name}"></h4>
+        <dl class="row catalog-details mt-3"><dt class="col-sm-3">Hãng rạp</dt><dd class="col-sm-9" th:text="${cinema.brand.name}"></dd>
+            <dt class="col-sm-3">Địa chỉ</dt><dd class="col-sm-9" th:text="${cinema.address}"></dd>
+            <dt class="col-sm-3">Số điện thoại</dt><dd class="col-sm-9" th:text="${cinema.phone ?: '—'}"></dd>
+            <dt class="col-sm-3">Trạng thái</dt><dd class="col-sm-9"><span th:replace="~{catalog/fragments :: status(${cinema.status})}"></span></dd></dl>
+        <div><a class="btn btn-outline-primary" th:href="@{/fnb(cinemaId=${cinema.cinemaId})}">Menu F&B tại rạp</a></div>
+    </div>
+    <div class="card border-0 shadow-sm"><h5 class="p-3 mb-0">Phòng chiếu</h5><div class="table-responsive"><table class="table table-hover align-middle mb-0">
+        <thead class="table-light"><tr><th>Tên phòng</th><th>Loại</th><th>Số ghế</th><th>Trạng thái</th><th><span class="visually-hidden">Thao tác</span></th></tr></thead>
+        <tbody><tr th:each="row : ${items.content}" th:with="r=${row.room}">
+            <td><a th:href="@{/cinemas/{cid}/rooms/{rid}(cid=${cinema.cinemaId},rid=${r.roomId})}" th:text="${r.name}"></a></td>
+            <td th:text="${r.roomType.databaseValue}"></td><td th:text="${row.seatCount}"></td><td><span th:replace="~{catalog/fragments :: status(${r.status})}"></span></td>
+            <td th:replace="~{catalog/fragments :: action(@{/cinemas/{cid}/rooms/{rid}(cid=${cinema.cinemaId},rid=${r.roomId})}, 'Chi tiết phòng')}"></td>
+        </tr><tr th:if="${items.empty}"><td colspan="5" class="text-center text-secondary py-5">Chưa có phòng chiếu được đồng bộ.</td></tr></tbody>
+    </table></div><div th:replace="~{catalog/fragments :: pagination(${items}, @{/cinemas/{id}(id=${cinema.cinemaId},view='rooms')})}"></div></div>
+</div></body></html>

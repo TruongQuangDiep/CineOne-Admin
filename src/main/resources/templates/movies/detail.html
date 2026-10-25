@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: main-layout(~{::#catalog-content}, 'movies', 'Chi tiết phim')}">
+<body><div id="catalog-content" th:with="m=${item.movie}">
+    <a th:href="@{/movies}" class="btn btn-outline-secondary mb-3">← Danh sách phim</a>
+    <div th:replace="~{catalog/fragments :: heading('CHI TIẾT PHIM')}"></div>
+    <div class="card border-0 shadow-sm p-4"><div class="d-flex gap-4 flex-wrap">
+        <div class="catalog-poster"><span th:replace="~{catalog/fragments :: image(${m.posterUrl}, ${m.title})}"></span></div>
+        <div class="flex-grow-1"><h4 th:text="${m.title}"></h4><span th:replace="~{catalog/fragments :: status(${m.status})}"></span>
+            <dl class="row mt-4 catalog-details"><dt class="col-sm-3">Thể loại</dt><dd class="col-sm-9" th:text="${item.genres}"></dd>
+                <dt class="col-sm-3">Thời lượng</dt><dd class="col-sm-9" th:text="${m.duration + ' phút'}"></dd>
+                <dt class="col-sm-3">Độ tuổi</dt><dd class="col-sm-9" th:text="${m.ageRating ?: '—'}"></dd>
+                <dt class="col-sm-3">Quốc gia</dt><dd class="col-sm-9" th:text="${m.country ?: '—'}"></dd>
+                <dt class="col-sm-3">Ngày phát hành</dt><dd class="col-sm-9" th:text="${m.releaseDate != null ? #temporals.format(m.releaseDate, 'dd/MM/yyyy') : '—'}"></dd>
+                <dt class="col-sm-3">Đạo diễn</dt><dd class="col-sm-9" th:text="${m.director ?: '—'}"></dd>
+                <dt class="col-sm-3">Diễn viên</dt><dd class="col-sm-9" th:text="${m.castInfo ?: '—'}"></dd>
+                <dt class="col-sm-3">Mô tả</dt><dd class="col-sm-9 catalog-description" th:text="${m.description ?: 'Chưa có mô tả.'}"></dd>
+            </dl>
+            <a th:if="${m.trailerUrl != null and (m.trailerUrl.startsWith('https://') or m.trailerUrl.startsWith('http://'))}" th:href="${m.trailerUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary">Xem trailer</a>
+        </div>
+    </div></div>
+</div></body></html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: main-layout(~{::#catalog-content}, 'movies', 'Tra cứu phim')}">
+<body><div id="catalog-content">
+    <div th:replace="~{catalog/fragments :: heading('QUẢN LÝ PHIM')}"></div>
+    <form th:action="@{/movies}" method="get" class="card border-0 shadow-sm p-3 mb-4 catalog-filters">
+        <div><label for="q" class="form-label">Tên phim</label><input id="q" name="q" th:value="${q}" maxlength="255" class="form-control" placeholder="Tìm tên phim..."></div>
+        <div><label for="status" class="form-label">Trạng thái</label><select id="status" name="status" class="form-select"><option value="">Tất cả</option><option th:each="s : ${ {'COMING_SOON','SNEAK_SHOW','NOW_SHOWING','END'} }" th:value="${s}" th:text="${s}" th:selected="${status == s}"></option></select></div>
+        <div><label for="genreId" class="form-label">Thể loại</label><select id="genreId" name="genreId" class="form-select"><option value="">Tất cả</option><option th:each="g : ${genres}" th:value="${g.genreId}" th:text="${g.name}" th:selected="${genreId == g.genreId}"></option></select></div>
+        <div class="d-flex gap-2 align-items-end"><button class="btn btn-primary">Lọc</button><a th:href="@{/movies}" class="btn btn-outline-secondary">Đặt lại</a></div>
+    </form>
+    <div class="card border-0 shadow-sm"><div class="table-responsive"><table class="table table-hover align-middle mb-0">
+        <thead class="table-light"><tr><th>Poster</th><th>Tên phim</th><th>Thể loại</th><th>Thời lượng</th><th>Khởi chiếu</th><th>Trạng thái</th><th><span class="visually-hidden">Thao tác</span></th></tr></thead>
+        <tbody><tr th:each="row : ${items.content}" th:with="m=${row.movie}">
+            <td><span th:replace="~{catalog/fragments :: image(${m.posterUrl}, ${m.title})}"></span></td>
+            <td><a th:href="@{/movies/{id}(id=${m.movieId})}" th:text="${m.title}" class="fw-semibold text-decoration-none"></a></td>
+            <td th:text="${row.genres}"></td><td class="text-nowrap" th:text="${m.duration + ' phút'}"></td>
+            <td th:text="${m.releaseDate != null ? #temporals.format(m.releaseDate, 'dd/MM/yyyy') : '—'}"></td>
+            <td><span th:replace="~{catalog/fragments :: status(${m.status})}"></span></td>
+            <td th:replace="~{catalog/fragments :: action(@{/movies/{id}(id=${m.movieId})}, 'Chi tiết phim')}"></td>
+        </tr><tr th:if="${items.empty}"><td colspan="7" class="text-center text-secondary py-5">Không tìm thấy phim phù hợp.</td></tr></tbody>
+    </table></div><div th:replace="~{catalog/fragments :: pagination(${items}, @{/movies(q=${q},status=${status},genreId=${genreId})})}"></div></div>
+</div></body></html>
