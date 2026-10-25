@@ -34,6 +34,12 @@ public class CinemaSyncService {
         var provider = providers.findByCode(providerCode).orElseThrow(
                 () -> new IllegalArgumentException("Nhà cung cấp chưa được cấu hình: " + providerCode));
         Long logId = logs.start(provider.getProviderId()); // Fail before writes if logging is unavailable.
+        return syncStarted(providerCode, request, logId);
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public SyncRunResult syncStarted(String providerCode, SyncRequestDTO request, Long logId) {
+        var provider = providers.findByCode(providerCode).orElseThrow();
         long started = System.nanoTime();
         LocalDate date = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         var run = new Run(provider.getProviderId(), providerCode);
