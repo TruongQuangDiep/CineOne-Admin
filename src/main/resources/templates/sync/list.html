@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#sync-content}, 'sync-logs', 'Lịch sử đồng bộ')}">
+<body>
+<div id="sync-content">
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+        <h3 class="m-0 fw-bold">LỊCH SỬ ĐỒNG BỘ</h3>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sync-start-modal">
+            <i class="bi bi-arrow-repeat me-1"></i>Đồng bộ ngay
+        </button>
+    </div>
+    <div id="sync-feedback" class="alert alert-info d-none" role="status" aria-live="polite"></div>
+    <div class="card border-0 shadow-sm p-3 mb-4">
+        <form th:action="@{/sync-logs}" method="get" class="row g-3 align-items-end" id="sync-filter">
+            <div class="col-md-3"><label for="filter-provider" class="form-label">Nhà cung cấp</label>
+                <select id="filter-provider" name="providerId" class="form-select">
+                    <option value="">Tất cả</option>
+                    <option th:each="p : ${providers}" th:value="${p.id}" th:text="${p.name}" th:selected="${p.id == providerId}"></option>
+                </select>
+            </div>
+            <div class="col-md-2"><label for="filter-status" class="form-label">Trạng thái</label>
+                <select id="filter-status" name="status" class="form-select">
+                    <option value="">Tất cả</option>
+                    <option value="SUCCESS" th:selected="${status == 'SUCCESS'}">Thành công</option>
+                    <option value="FAILED" th:selected="${status == 'FAILED'}">Thất bại</option>
+                    <option value="PROCESSING" th:selected="${status == 'PROCESSING'}">Đang xử lý</option>
+                </select>
+            </div>
+            <div class="col-md-2"><label for="from-date" class="form-label">Từ ngày</label>
+                <input id="from-date" type="date" name="fromDate" class="form-control" th:value="${fromDate}" max="9998-12-31"></div>
+            <div class="col-md-2"><label for="to-date" class="form-label">Đến ngày</label>
+                <input id="to-date" type="date" name="toDate" class="form-control" th:value="${toDate}" max="9998-12-31"></div>
+            <div class="col-md-3 d-flex gap-2"><button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Lọc</button>
+                <a class="btn btn-outline-secondary" th:href="@{/sync-logs}">Đặt lại</a></div>
+        </form>
+    </div>
+    <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light"><tr><th>Thời gian</th><th>Nhà cung cấp</th><th>Trạng thái</th><th>Thông điệp</th><th class="text-end pe-3">Thao tác</th></tr></thead>
+                <tbody>
+                <tr th:each="log : ${logs.content}" th:attr="data-sync-log=${log.id},data-sync-status=${log.status}">
+                    <td th:text="${log.createdAt == null ? '—' : #temporals.format(log.createdAt, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                    <td th:text="${log.providerName}"></td>
+                    <td><span data-log-status class="badge" th:classappend="${log.status == 'SUCCESS' ? 'text-bg-success' : (log.status == 'FAILED' ? 'text-bg-danger' : 'text-bg-warning')}"
+                              th:text="${log.status == 'SUCCESS' ? 'Thành công' : (log.status == 'FAILED' ? 'Thất bại' : 'Đang xử lý')}"></span></td>
+                    <td data-log-summary th:text="${log.summary}"></td>
+                    <td class="text-end pe-3"><button type="button" class="btn btn-sm btn-outline-secondary" th:attr="data-log-detail=${log.id}">Xem chi tiết</button></td>
+                </tr>
+                <tr th:if="${logs.empty}"><td colspan="5" class="text-center text-muted py-5">Không có nhật ký đồng bộ phù hợp.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center p-3 flex-wrap gap-2">
+            <small class="text-muted" th:text="|Tổng ${logs.totalElements} lượt đồng bộ|">Tổng 0 lượt đồng bộ</small>
+            <nav aria-label="Phân trang nhật ký" th:if="${logs.totalPages > 1}"><ul class="pagination pagination-sm mb-0">
+                <li class="page-item" th:classappend="${logs.first ? 'disabled' : ''}"><a class="page-link" th:href="@{/sync-logs(providerId=${providerId},status=${status},fromDate=${fromDate},toDate=${toDate},page=${logs.number - 1})}">Trước</a></li>
+                <li class="page-item disabled"><span class="page-link" th:text="|${logs.number + 1} / ${logs.totalPages}|"></span></li>
+                <li class="page-item" th:classappend="${logs.last ? 'disabled' : ''}"><a class="page-link" th:href="@{/sync-logs(providerId=${providerId},status=${status},fromDate=${fromDate},toDate=${toDate},page=${logs.number + 1})}">Sau</a></li>
+            </ul></nav>
+        </div>
+    </div>
+    <div class="modal fade" id="sync-start-modal" tabindex="-1" aria-labelledby="sync-start-title" aria-hidden="true">
+        <div class="modal-dialog"><div class="modal-content">
+            <form id="sync-start-form" method="post" th:action="@{/sync-logs/start}">
+                <div class="modal-header"><h5 class="modal-title" id="sync-start-title">Đồng bộ ngay</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button></div>
+                <div class="modal-body">
+                    <label for="start-provider" class="form-label">Nhà cung cấp</label>
+                    <select id="start-provider" name="providerId" class="form-select" required>
+                        <option value="">Chọn nhà cung cấp</option>
+                        <option th:each="p : ${providers}" th:if="${p.eligible}" th:value="${p.id}" th:disabled="${p.processing}"
+                                th:text="${p.name + (p.processing ? ' — Đang đồng bộ' : '')}"></option>
+                    </select>
+                    <p class="text-muted small mt-3 mb-0">Đồng bộ toàn bộ hãng, rạp, phòng, ghế, F&amp;B và suất chiếu. Các bản ghi thành công vẫn được lưu nếu có bản ghi lỗi.</p>
+                    <p class="text-muted small mt-2 mb-0">Chỉ hiển thị nhà cung cấp đang hoạt động và đã hỗ trợ đồng bộ.</p>
+                    <div id="sync-start-error" class="text-danger mt-2" role="alert"></div>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button><button id="sync-submit" class="btn btn-primary" type="submit">Xác nhận đồng bộ</button></div>
+            </form>
+        </div></div>
+    </div>
+    <div class="modal fade" id="sync-detail-modal" tabindex="-1" aria-labelledby="sync-detail-title" aria-hidden="true">
+        <div class="modal-dialog modal-lg"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="sync-detail-title">Chi tiết nhật ký đồng bộ</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button></div>
+            <div class="modal-body"><p id="sync-detail-summary" role="status"></p><pre id="sync-detail-body" class="bg-light p-3 rounded text-break" style="white-space:pre-wrap;max-height:55vh;overflow:auto"></pre></div>
+        </div></div>
+    </div>
+    <script th:src="@{/js/sync-history.js}" defer></script>
+</div>
+</body>
+</html>

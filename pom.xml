@@ -135,7 +135,12 @@
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<version>0.8.13</version>
 						<configuration>
-							<append>false</append><includes><include>com/example/cineone_admin/sync/**</include></includes>
+							<append>false</append><includes>
+								<include>com/example/cineone_admin/sync/**</include>
+								<include>com/example/cineone_admin/service/SyncHistoryService*</include>
+								<include>com/example/cineone_admin/controller/SyncHistoryController*</include>
+								<include>com/example/cineone_admin/config/ManualSyncConfiguration*</include>
+							</includes>
 						</configuration>
 						<executions>
 							<execution><goals><goal>prepare-agent</goal></goals></execution>
