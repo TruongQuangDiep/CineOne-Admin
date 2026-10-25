@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#support-detail-content}, 'support', 'Chi tiết yêu cầu hỗ trợ')}">
+<body>
+<div id="support-detail-content">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h3 class="m-0 fw-bold" th:text="|CHI TIẾT YÊU CẦU #SR-${supportRequest.requestId}|"></h3>
+        <a class="btn btn-outline-secondary" th:href="@{/support}">
+            <i class="bi bi-arrow-left me-1"></i>Quay lại danh sách
+        </a>
+    </div>
+
+    <!-- Thông báo -->
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-1"></i><span th:text="${successMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle me-1"></i><span th:text="${errorMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+
+    <div class="row g-4">
+        <!-- Thông tin yêu cầu từ khách -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm p-4 h-100">
+                <h5 class="fw-bold mb-3 border-bottom pb-2">Thông tin người gửi &amp; Yêu cầu</h5>
+
+                <div class="mb-3">
+                    <label class="text-muted small d-block">Khách hàng</label>
+                    <div class="fw-bold" th:text="${supportRequest.user != null ? supportRequest.user.fullName : '—'}"></div>
+                    <div class="text-primary" th:text="${supportRequest.user != null ? supportRequest.user.email : '—'}"></div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <label class="text-muted small d-block">Loại yêu cầu</label>
+                        <span class="badge text-bg-secondary fs-6" th:text="${supportRequest.type}"></span>
+                    </div>
+                    <div class="col-6">
+                        <label class="text-muted small d-block">Vấn đề</label>
+                        <span class="badge text-bg-light border fs-6" th:text="${supportRequest.category}"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3" th:if="${supportRequest.booking != null}">
+                    <label class="text-muted small d-block">Đơn đặt vé liên quan</label>
+                    <a th:href="@{/bookings/{id}(id=${supportRequest.booking.bookingId})}" class="fw-bold text-decoration-none">
+                        <i class="bi bi-ticket-perforated me-1"></i>Mã đơn #<span th:text="${supportRequest.booking.bookingId}"></span>
+                    </a>
+                </div>
+
+                <div class="mb-3">
+                    <label class="text-muted small d-block">Thời gian gửi</label>
+                    <div class="fw-semibold" th:text="${supportRequest.createdAt != null ? #temporals.format(supportRequest.createdAt, 'dd/MM/yyyy HH:mm:ss') : '—'}"></div>
+                </div>
+
+                <div class="mb-0">
+                    <label class="text-muted small d-block mb-1">Nội dung chi tiết</label>
+                    <div class="p-3 bg-light rounded text-break" style="white-space: pre-wrap;" th:text="${supportRequest.content}"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phản hồi từ Admin -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm p-4 h-100">
+                <h5 class="fw-bold mb-3 border-bottom pb-2">Phản hồi &amp; Xử lý yêu cầu</h5>
+
+                <form th:action="@{/support/{id}/respond(id=${supportRequest.requestId})}" method="post">
+                    <div class="mb-3">
+                        <label for="support-status" class="form-label fw-semibold">Cập nhật trạng thái <span class="text-danger">*</span></label>
+                        <select id="support-status" name="status" class="form-select" required>
+                            <option value="PENDING" th:selected="${supportRequest.status == 'PENDING'}">Chờ xử lý (PENDING)</option>
+                            <option value="IN_PROGRESS" th:selected="${supportRequest.status == 'IN_PROGRESS'}">Đang xử lý (IN_PROGRESS)</option>
+                            <option value="RESOLVED" th:selected="${supportRequest.status == 'RESOLVED'}">Đã giải quyết (RESOLVED)</option>
+                            <option value="REJECTED" th:selected="${supportRequest.status == 'REJECTED'}">Từ chối (REJECTED)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="support-response" class="form-label fw-semibold">Nội dung phản hồi khách hàng <span class="text-danger">*</span></label>
+                        <textarea id="support-response" name="response" rows="8" class="form-control"
+                                  placeholder="Nhập câu trả lời giải đáp, hướng xử lý hoặc kết quả giải quyết khiếu nại..."
+                                  required th:text="${supportRequest.response}"></textarea>
+                        <small class="text-muted">Nội dung này sẽ được lưu vết và gửi thông báo/email phản hồi đến khách hàng.</small>
+                    </div>
+
+                    <div class="mb-4" th:if="${supportRequest.respondedAt != null}">
+                        <small class="text-muted">
+                            <i class="bi bi-clock-history me-1"></i>Lần phản hồi gần nhất:
+                            <span class="fw-semibold" th:text="${#temporals.format(supportRequest.respondedAt, 'dd/MM/yyyy HH:mm:ss')}"></span>
+                        </small>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-send me-1"></i>Lưu phản hồi &amp; Cập nhật
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
