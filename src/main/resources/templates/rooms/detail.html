@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: main-layout(~{::#catalog-content}, 'cinemas', 'Sơ đồ phòng chiếu')}">
+<body><div id="catalog-content" th:with="r=${detail.room},c=${detail.cinema}">
+    <a th:href="@{/cinemas/{id}(id=${c.cinemaId})}" class="btn btn-outline-secondary mb-3" th:text="${'← ' + c.name}"></a>
+    <h3 class="fw-bold mb-4" th:text="${'PHÒNG ' + r.name}"></h3>
+    <div class="card border-0 shadow-sm p-4 mb-4"><h5>Thông tin phòng</h5>
+        <dl class="row catalog-details mt-3"><dt class="col-sm-3">Tên phòng</dt><dd class="col-sm-9" th:text="${r.name}"></dd>
+            <dt class="col-sm-3">Loại</dt><dd class="col-sm-9" th:text="${r.roomType.databaseValue}"></dd>
+            <dt class="col-sm-3">Số ghế</dt><dd class="col-sm-9" th:text="${detail.seatCount}"></dd>
+            <dt class="col-sm-3">Trạng thái</dt><dd class="col-sm-9"><span th:replace="~{catalog/fragments :: status(${r.status})}"></span></dd></dl>
+    </div>
+    <div class="card border-0 shadow-sm p-4"><h5>Sơ đồ ghế</h5>
+        <p class="text-secondary">Bố trí theo hàng và số ghế đã đồng bộ. Trạng thái dưới đây là trạng thái ghế trong danh mục.</p>
+        <div th:if="${detail.seatCount == 0}" class="text-center text-secondary py-5">Chưa có dữ liệu ghế cho phòng này.</div>
+        <div th:unless="${detail.seatCount == 0}" class="catalog-seat-scroll" tabindex="0" aria-label="Sơ đồ ghế, cuộn ngang để xem toàn bộ">
+            <div class="catalog-seat-map"><div class="catalog-screen">Màn hình</div>
+                <div class="catalog-seat-row" th:each="entry : ${detail.rows}">
+                    <strong class="catalog-row-label" th:text="${entry.key}"></strong>
+                    <div class="catalog-seat-grid" th:style="${'grid-template-columns: repeat(' + detail.columns + ', 38px)'}">
+                        <span th:each="s : ${entry.value}" class="catalog-seat" th:classappend="${s.seatType.name() + ' ' + s.status.name()}"
+                              th:style="${'grid-column: ' + s.seatNumber}" th:text="${s.seatRow + s.seatNumber}"
+                              th:title="${s.seatRow + s.seatNumber + ' · ' + s.seatType + ' · ' + s.status}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex gap-3 flex-wrap mt-4 catalog-legend"><span><i class="catalog-key NORMAL"></i> Thường</span><span><i class="catalog-key VIP"></i> VIP</span><span><i class="catalog-key SWEETBOX"></i> Sweetbox</span><span><i class="catalog-key INACTIVE"></i> Ngừng sử dụng</span><span><i class="catalog-key MAINTENANCE"></i> Bảo trì</span></div>
+    </div>
+</div></body></html>

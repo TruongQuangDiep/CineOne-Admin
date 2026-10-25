@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: main-layout(~{::#catalog-content}, 'cinemas', 'Tra cứu rạp và phòng')}">
+<body><div id="catalog-content">
+    <div th:replace="~{catalog/fragments :: heading('QUẢN LÝ RẠP & PHÒNG')}"></div>
+    <form th:action="@{/cinemas}" method="get" class="card border-0 shadow-sm p-3 mb-4 catalog-filters">
+        <div><label for="q" class="form-label">Tên rạp</label><input id="q" name="q" th:value="${q}" maxlength="255" class="form-control" placeholder="Tìm rạp..."></div>
+        <div><label for="providerId" class="form-label">Nhà cung cấp</label><select id="providerId" name="providerId" class="form-select"><option value="">Tất cả</option><option th:each="p : ${providers}" th:value="${p.providerId}" th:text="${p.name}" th:selected="${providerId == p.providerId}"></option></select></div>
+        <div><label for="status" class="form-label">Trạng thái</label><select id="status" name="status" class="form-select"><option value="">Tất cả</option><option th:each="s : ${ {'ACTIVE','INACTIVE'} }" th:value="${s}" th:text="${s}" th:selected="${status == s}"></option></select></div>
+        <div class="d-flex gap-2 align-items-end"><button class="btn btn-primary">Lọc</button><a th:href="@{/cinemas}" class="btn btn-outline-secondary">Đặt lại</a></div>
+    </form>
+    <div class="card border-0 shadow-sm"><div class="table-responsive"><table class="table table-hover align-middle mb-0">
+        <thead class="table-light"><tr><th>Rạp</th><th>Hãng rạp</th><th>Địa chỉ</th><th>Phòng</th><th>Trạng thái</th><th><span class="visually-hidden">Thao tác</span></th></tr></thead>
+        <tbody><tr th:each="row : ${items.content}" th:with="c=${row.cinema}">
+            <td><div class="d-flex align-items-center gap-3"><span th:replace="~{catalog/fragments :: image(${c.brand.logoUrl}, ${c.brand.name})}"></span><a th:href="@{/cinemas/{id}(id=${c.cinemaId})}" th:text="${c.name}" class="fw-semibold text-decoration-none"></a></div></td>
+            <td th:text="${c.brand.name}"></td><td class="catalog-address" th:text="${c.address}"></td><td th:text="${row.roomCount}"></td>
+            <td><span th:replace="~{catalog/fragments :: status(${c.status})}"></span></td>
+            <td th:replace="~{catalog/fragments :: action(@{/cinemas/{id}(id=${c.cinemaId})}, 'Chi tiết rạp')}"></td>
+        </tr><tr th:if="${items.empty}"><td colspan="6" class="text-center text-secondary py-5">Không tìm thấy rạp phù hợp.</td></tr></tbody>
+    </table></div><div th:replace="~{catalog/fragments :: pagination(${items}, @{/cinemas(q=${q},status=${status},providerId=${providerId})})}"></div></div>
+</div></body></html>
