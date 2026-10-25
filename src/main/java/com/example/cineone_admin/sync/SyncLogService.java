@@ -16,6 +16,12 @@ public class SyncLogService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Long start(Long providerId) {
+        // Serialize claims across HTTP requests and application instances.
+        var provider = em.find(DataProvider.class, providerId, jakarta.persistence.LockModeType.PESSIMISTIC_WRITE);
+        if (provider == null) throw new IllegalArgumentException("Không tìm thấy nhà cung cấp");
+        if (em.createQuery("select count(l) from ProviderSyncLog l where l.provider.providerId = :id and l.status = 'PROCESSING'", Long.class)
+                .setParameter("id", providerId).getSingleResult() > 0)
+            throw new SyncAlreadyRunningException();
         var log = new ProviderSyncLog();
         log.setProvider(em.getReference(DataProvider.class, providerId));
         log.setStatus("PROCESSING");
@@ -23,6 +29,15 @@ public class SyncLogService {
         em.persist(log);
         em.flush();
         return log.getSyncLogId();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void failUnfinished(Long id) {
+        var log = em.find(ProviderSyncLog.class, id);
+        if (log != null && "PROCESSING".equals(log.getStatus())) {
+            log.setStatus("FAILED");
+            log.setMessage("{\"errors\":[{\"reason\":\"Lượt đồng bộ bị gián đoạn. Hãy kiểm tra dữ liệu và nhật ký máy chủ trước khi chạy lại.\"}]}");
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

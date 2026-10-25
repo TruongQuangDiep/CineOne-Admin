@@ -29,4 +29,6 @@ public class CinemaSyncAdapterFactory {
         if (adapter == null) throw new IllegalArgumentException("Chưa đăng ký Adapter cho nhà cung cấp: " + providerCode);
         return adapter;
     }
+
+    public boolean supports(String providerCode) { return adapters.containsKey(providerCode); }
 }
