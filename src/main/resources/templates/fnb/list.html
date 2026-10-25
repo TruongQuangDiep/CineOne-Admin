@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: main-layout(~{::#catalog-content}, 'fnb', 'Tra cứu F&B')}">
+<body><div id="catalog-content">
+    <div th:replace="~{catalog/fragments :: heading('QUẢN LÝ F&B')}"></div>
+    <div th:if="${selectedCinema != null}" class="mb-3"><a th:href="@{/cinemas/{id}(id=${selectedCinema.cinemaId})}" class="btn btn-outline-secondary btn-sm">← Chi tiết rạp</a> <strong th:text="${selectedCinema.name}"></strong></div>
+    <form th:action="@{/fnb}" method="get" class="card border-0 shadow-sm p-3 mb-4 catalog-filters">
+        <input th:if="${cinemaId != null}" type="hidden" name="cinemaId" th:value="${cinemaId}">
+        <div><label for="q" class="form-label">Tên món</label><input id="q" name="q" th:value="${q}" maxlength="255" class="form-control" placeholder="Tìm món..."></div>
+        <div><label for="cinema" class="form-label">Tên rạp</label><input id="cinema" name="cinema" th:value="${cinema}" maxlength="255" class="form-control" placeholder="Tìm rạp..."></div>
+        <div><label for="status" class="form-label">Trạng thái</label><select id="status" name="status" class="form-select"><option value="">Tất cả</option><option th:each="s : ${ {'ACTIVE','INACTIVE','OUT_OF_STOCK'} }" th:value="${s}" th:text="${s}" th:selected="${status == s}"></option></select></div>
+        <div class="d-flex gap-2 align-items-end"><button class="btn btn-primary">Lọc</button><a th:href="@{/fnb(cinemaId=${cinemaId})}" class="btn btn-outline-secondary">Đặt lại</a></div>
+    </form>
+    <div class="card border-0 shadow-sm"><div class="table-responsive"><table class="table table-hover align-middle mb-0">
+        <thead class="table-light"><tr><th>Ảnh</th><th>Tên món</th><th>Rạp</th><th>Giá</th><th>Trạng thái</th></tr></thead>
+        <tbody><tr th:each="f : ${items.content}">
+            <td><span th:replace="~{catalog/fragments :: image(${f.imageUrl}, ${f.name})}"></span></td>
+            <td><strong th:text="${f.name}"></strong><small class="d-block text-secondary catalog-description" th:text="${f.description}"></small></td>
+            <td><a th:href="@{/cinemas/{id}(id=${f.cinema.cinemaId})}" th:text="${f.cinema.name}"></a></td>
+            <td class="text-nowrap" th:text="${#numbers.formatDecimal(f.price, 1, 'POINT', 0, 'COMMA') + ' ₫'}"></td>
+            <td><span th:replace="~{catalog/fragments :: status(${f.status})}"></span></td>
+        </tr><tr th:if="${items.empty}"><td colspan="5" class="text-center text-secondary py-5">Không tìm thấy món F&B phù hợp.</td></tr></tbody>
+    </table></div><div th:replace="~{catalog/fragments :: pagination(${items}, @{/fnb(q=${q},cinema=${cinema},cinemaId=${cinemaId},status=${status})})}"></div></div>
+</div></body></html>
