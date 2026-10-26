@@ -1,0 +1,6 @@
+@baseUrl = http://localhost:8080
+
+# Quick smoke test: JSON API for currently held seats.
+# Start the Spring Boot application before sending this request.
+GET {{baseUrl}}/api/v1/seats/held?showtimeId=1
+Accept: application/json

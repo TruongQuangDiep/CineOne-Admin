@@ -20,7 +20,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            // Tắt CSRF đối với toàn bộ REST API để Mobile và Postman gọi được bình thường
+            .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
             .authorizeHttpRequests(auth -> auth
+                // [SCRUM-29] TẠM THỜI mở permitAll() để test Engine giữ ghế (SCRUM-21).
+                .requestMatchers("/api/**").permitAll() // Mở quyền các API Mobile
                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/favicon.ico", "/webjars/**").permitAll()
                 .anyRequest().hasRole("ADMIN")
             )

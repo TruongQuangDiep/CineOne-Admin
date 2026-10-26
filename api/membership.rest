@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:8080
+@tierId = 1
+
+### Danh sách hạng thành viên (HTML)
+GET {{baseUrl}}/memberships
+Accept: text/html
+
+### Form tạo hạng thành viên (HTML)
+GET {{baseUrl}}/memberships/new
+Accept: text/html
+
+### Form sửa hạng thành viên (HTML)
+GET {{baseUrl}}/memberships/{{tierId}}/edit
+Accept: text/html
+
+### Tạo hạng thành viên (form POST; ghi dữ liệu)
+POST {{baseUrl}}/memberships
+Content-Type: application/x-www-form-urlencoded
+
+name=DEMO&minSpending=0&description=Test&status=ACTIVE
+
+### Cập nhật hạng thành viên (form POST; ghi dữ liệu)
+POST {{baseUrl}}/memberships/{{tierId}}
+Content-Type: application/x-www-form-urlencoded
+
+name=DEMO&minSpending=0&description=Test&status=ACTIVE
+
+### Bật/tắt hạng thành viên (form POST; ghi dữ liệu)
+POST {{baseUrl}}/memberships/{{tierId}}/status
+Content-Type: application/x-www-form-urlencoded
+
+enabled=true
