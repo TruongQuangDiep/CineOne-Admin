@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:8080
+
+### Danh sách suất chiếu (HTML)
+GET {{baseUrl}}/showtimes?cinema=&movie=&status=&page=0
+Accept: text/html
+
+### Lọc suất chiếu theo ngày (yyyy-MM-dd)
+GET {{baseUrl}}/showtimes?cinema=&movie=&date=2026-10-26&status=&page=0
+Accept: text/html

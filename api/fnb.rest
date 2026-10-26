@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:8080
+
+### Danh sách món ăn/thức uống (HTML)
+GET {{baseUrl}}/fnb?q=&cinema=&status=&page=0
+Accept: text/html
+
+### Lọc theo rạp
+GET {{baseUrl}}/fnb?q=&cinema=&cinemaId=1&status=&page=0
+Accept: text/html

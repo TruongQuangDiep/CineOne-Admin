@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:8080
+@cinemaId = 1
+@roomId = 1
+
+### Chi tiết phòng thuộc một rạp (HTML, không phải JSON)
+GET {{baseUrl}}/cinemas/{{cinemaId}}/rooms/{{roomId}}
+Accept: text/html
+
+# RoomController hiện chưa khai báo API tạo/sửa/xóa phòng.

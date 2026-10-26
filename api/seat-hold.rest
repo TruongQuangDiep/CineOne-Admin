@@ -1,0 +1,24 @@
+@baseUrl = http://localhost:8080
+@showtimeId = 1
+@seatId = 1
+@userId = 1
+
+### Xem danh sách ghế đang được giữ (JSON)
+GET {{baseUrl}}/api/v1/seats/held?showtimeId={{showtimeId}}
+Accept: application/json
+
+### Giữ một hoặc nhiều ghế (JSON)
+# Thao tác này tạo hold; dùng showtimeId, seatIds và userId hợp lệ.
+POST {{baseUrl}}/api/v1/seats/hold
+Content-Type: application/json
+Accept: application/json
+
+{
+  "showtimeId": {{showtimeId}},
+  "seatIds": [{{seatId}}],
+  "userId": {{userId}}
+}
+
+### Nhả các ghế đang giữ (JSON)
+POST {{baseUrl}}/api/v1/seats/release?showtimeId={{showtimeId}}&seatIds={{seatId}}&userId={{userId}}
+Accept: application/json
