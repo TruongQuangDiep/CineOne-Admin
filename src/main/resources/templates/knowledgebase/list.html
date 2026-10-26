@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#kb-content}, 'knowledgebase', 'Trợ giúp & Chính sách')}">
+<body>
+<div id="kb-content">
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+        <h3 class="m-0 fw-bold">TRỢ GIÚP &amp; CHÍNH SÁCH (KNOWLEDGE BASE)</h3>
+        <a class="btn btn-primary" th:href="@{/knowledgebase/create}">
+            <i class="bi bi-plus-lg me-1"></i>Thêm bài viết mới
+        </a>
+    </div>
+
+    <!-- Thông báo -->
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-1"></i><span th:text="${successMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle me-1"></i><span th:text="${errorMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+
+    <!-- Bộ lọc -->
+    <div class="card border-0 shadow-sm p-3 mb-4">
+        <form th:action="@{/knowledgebase}" method="get" class="row g-3 align-items-end" id="kb-filter">
+            <div class="col-md-4">
+                <label for="filter-keyword" class="form-label">Tìm kiếm</label>
+                <input id="filter-keyword" type="text" name="keyword" class="form-control"
+                       placeholder="Nhập tiêu đề hoặc nội dung..." th:value="${keyword}">
+            </div>
+            <div class="col-md-3">
+                <label for="filter-category" class="form-label">Danh mục</label>
+                <select id="filter-category" name="category" class="form-select">
+                    <option value="">Tất cả danh mục</option>
+                    <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}"
+                            th:selected="${cat == category}"></option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="filter-status" class="form-label">Trạng thái</label>
+                <select id="filter-status" name="status" class="form-select">
+                    <option value="">Tất cả</option>
+                    <option value="ACTIVE" th:selected="${status == 'ACTIVE'}">Hoạt động</option>
+                    <option value="INACTIVE" th:selected="${status == 'INACTIVE'}">Tạm khóa</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Lọc</button>
+                <a class="btn btn-outline-secondary" th:href="@{/knowledgebase}">Đặt lại</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bảng danh sách -->
+    <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th style="width: 60px;">ID</th>
+                    <th style="width: 250px;">Tiêu đề</th>
+                    <th style="width: 130px;">Danh mục</th>
+                    <th>Nội dung tóm tắt</th>
+                    <th style="width: 130px;">Trạng thái</th>
+                    <th class="text-end pe-3" style="width: 220px;">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${entries.content}">
+                    <td th:text="${item.knowledgeId}" class="fw-semibold text-muted"></td>
+                    <td class="fw-bold text-primary" th:text="${item.title}"></td>
+                    <td>
+                        <span class="badge text-bg-light border" th:text="${item.category}"></span>
+                    </td>
+                    <td class="text-muted" th:text="${#strings.abbreviate(item.content, 100)}"></td>
+                    <td>
+                        <span class="badge"
+                              th:classappend="${item.status == 'ACTIVE' ? 'text-bg-success' : 'text-bg-secondary'}"
+                              th:text="${item.status == 'ACTIVE' ? 'Hoạt động' : 'Tạm khóa'}"></span>
+                    </td>
+                    <td class="text-end pe-3">
+                        <div class="d-inline-flex gap-1">
+                            <a class="btn btn-sm btn-outline-primary"
+                               th:href="@{/knowledgebase/{id}/edit(id=${item.knowledgeId})}">
+                                <i class="bi bi-pencil-square me-1"></i>Sửa
+                            </a>
+                            <form th:action="@{/knowledgebase/{id}/toggle-status(id=${item.knowledgeId})}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-warning"
+                                        th:title="${item.status == 'ACTIVE' ? 'Khóa bài viết' : 'Kích hoạt bài viết'}">
+                                    <i class="bi" th:classappend="${item.status == 'ACTIVE' ? 'bi-lock' : 'bi-unlock'}"></i>
+                                </button>
+                            </form>
+                            <form th:action="@{/knowledgebase/{id}/delete(id=${item.knowledgeId})}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${entries.empty}">
+                    <td colspan="6" class="text-center text-muted py-5">
+                        <i class="bi bi-journal-x fs-2 d-block mb-2"></i>Chưa có bài viết kiến thức nào phù hợp.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Phân trang -->
+        <div class="d-flex justify-content-between align-items-center p-3 flex-wrap gap-2 border-top">
+            <small class="text-muted" th:text="|Tổng ${entries.totalElements} bài viết|">Tổng 0 bài viết</small>
+            <nav aria-label="Phân trang" th:if="${entries.totalPages > 1}">
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item" th:classappend="${entries.first ? 'disabled' : ''}">
+                        <a class="page-link"
+                           th:href="@{/knowledgebase(keyword=${keyword},category=${category},status=${status},page=${entries.number - 1})}">Trước</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link" th:text="|${entries.number + 1} / ${entries.totalPages}|"></span>
+                    </li>
+                    <li class="page-item" th:classappend="${entries.last ? 'disabled' : ''}">
+                        <a class="page-link"
+                           th:href="@{/knowledgebase(keyword=${keyword},category=${category},status=${status},page=${entries.number + 1})}">Sau</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>
