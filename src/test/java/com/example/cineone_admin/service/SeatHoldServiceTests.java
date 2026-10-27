@@ -9,7 +9,9 @@ import com.example.cineone_admin.exception.BusinessException;
 import com.example.cineone_admin.exception.ResourceNotFoundException;
 import com.example.cineone_admin.repository.SeatRepository;
 import com.example.cineone_admin.repository.ShowtimeRepository;
-import com.google.cloud.firestore.Firestore;
+import com.google.api.core.ApiFuture;
+import com.google.api.core.SettableApiFuture;
+import com.google.cloud.firestore.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,8 +23,10 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +51,6 @@ class SeatHoldServiceTests {
 
     @BeforeEach
     void setUp() {
-        // Luôn gán Mock firestore hợp lệ trước mỗi bài test
         ReflectionTestUtils.setField(seatHoldService, "firestore", firestore);
 
         sampleRoom = new Room();
@@ -75,7 +78,6 @@ class SeatHoldServiceTests {
     @Test
     @DisplayName("Ném ngoại lệ khi Firestore chưa được khởi tạo (thiếu file JSON)")
     void holdSeats_ShouldThrowBusinessException_WhenFirestoreIsNull() {
-        // Chỉ riêng test case này set null để kiểm tra nhánh validate cấu hình
         ReflectionTestUtils.setField(seatHoldService, "firestore", null);
 
         SeatHoldRequest request = new SeatHoldRequest();
@@ -85,6 +87,18 @@ class SeatHoldServiceTests {
 
         BusinessException ex = assertThrows(BusinessException.class, () -> seatHoldService.holdSeats(request));
         assertTrue(ex.getMessage().contains("Firestore chưa được cấu hình"));
+    }
+
+    @Test
+    @DisplayName("Ném ngoại lệ khi số lượng ghế giữ vượt quá giới hạn tối đa cho phép (8 ghế)")
+    void holdSeats_ShouldThrowBusinessException_WhenExceedsMaxSeats() {
+        SeatHoldRequest request = new SeatHoldRequest();
+        request.setShowtimeId(100L);
+        request.setSeatIds(List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L));
+        request.setUserId(99L);
+
+        BusinessException ex = assertThrows(BusinessException.class, () -> seatHoldService.holdSeats(request));
+        assertTrue(ex.getMessage().contains("tối đa 8 ghế"));
     }
 
     @Test
@@ -157,5 +171,256 @@ class SeatHoldServiceTests {
     void autoReleaseExpiredHolds_ShouldNotThrow_WhenFirestoreIsNull() {
         ReflectionTestUtils.setField(seatHoldService, "firestore", null);
         assertDoesNotThrow(() -> seatHoldService.autoReleaseExpiredHolds());
+    }
+
+    @Test
+    @DisplayName("Ném ngoại lệ khi số lượng ghế nhả vượt quá giới hạn tối đa cho phép (8 ghế)")
+    void releaseSeats_ShouldThrowBusinessException_WhenExceedsMaxSeats() {
+        BusinessException ex = assertThrows(BusinessException.class, () -> 
+            seatHoldService.releaseSeats(100L, 99L, List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L))
+        );
+        assertTrue(ex.getMessage().contains("vượt quá giới hạn (8 ghế)"));
+    }
+
+    @Test
+    @DisplayName("Ném ngoại lệ khi nhả ghế do người khác giữ")
+    void releaseSeats_ShouldThrowBusinessException_WhenSeatBelongsToDifferentUser() throws Exception {
+        CollectionReference colRef = mock(CollectionReference.class);
+        DocumentReference showtimeDocRef = mock(DocumentReference.class);
+        CollectionReference heldSeatsColRef = mock(CollectionReference.class);
+        DocumentReference seatDocRef = mock(DocumentReference.class);
+        Transaction transaction = mock(Transaction.class);
+        DocumentSnapshot snapshot = mock(DocumentSnapshot.class);
+        ApiFuture<DocumentSnapshot> futureSnapshot = mock(ApiFuture.class);
+
+        when(firestore.collection("showtimes")).thenReturn(colRef);
+        when(colRef.document("100")).thenReturn(showtimeDocRef);
+        when(showtimeDocRef.collection("held_seats")).thenReturn(heldSeatsColRef);
+        when(heldSeatsColRef.document("1")).thenReturn(seatDocRef);
+
+        when(transaction.get(seatDocRef)).thenReturn(futureSnapshot);
+        when(futureSnapshot.get()).thenReturn(snapshot);
+        when(snapshot.exists()).thenReturn(true);
+        when(snapshot.getString("status")).thenReturn("HOLDING"); // Đảm bảo trạng thái hợp lệ
+        when(snapshot.contains("userId")).thenReturn(true);
+        when(snapshot.getLong("userId")).thenReturn(888L); // Ghế đang do user 888 giữ
+
+        when(firestore.runTransaction(any())).thenAnswer(invocation -> {
+            Transaction.Function<?> callback = invocation.getArgument(0);
+            SettableApiFuture<Object> settable = SettableApiFuture.create();
+            try {
+                Object result = callback.updateCallback(transaction);
+                settable.set(result);
+            } catch (Exception e) {
+                settable.setException(new ExecutionException(e));
+            }
+            return settable;
+        });
+
+        BusinessException ex = assertThrows(BusinessException.class, () -> 
+            seatHoldService.releaseSeats(100L, 999L, List.of(1L))
+        );
+
+        assertTrue(ex.getMessage().contains("không thuộc quyền giữ của bạn"));
+        verify(transaction, never()).delete(any());
+    }
+
+    @Test
+    @DisplayName("Ném ngoại lệ và không cho phép nhả ghế khi trạng thái là BOOKED")
+    void releaseSeats_ShouldThrowBusinessException_WhenSeatStatusIsBooked() throws Exception {
+        CollectionReference colRef = mock(CollectionReference.class);
+        DocumentReference showtimeDocRef = mock(DocumentReference.class);
+        CollectionReference heldSeatsColRef = mock(CollectionReference.class);
+        DocumentReference seatDocRef = mock(DocumentReference.class);
+        Transaction transaction = mock(Transaction.class);
+        DocumentSnapshot snapshot = mock(DocumentSnapshot.class);
+        ApiFuture<DocumentSnapshot> futureSnapshot = mock(ApiFuture.class);
+
+        when(firestore.collection("showtimes")).thenReturn(colRef);
+        when(colRef.document("100")).thenReturn(showtimeDocRef);
+        when(showtimeDocRef.collection("held_seats")).thenReturn(heldSeatsColRef);
+        when(heldSeatsColRef.document("1")).thenReturn(seatDocRef);
+
+        when(transaction.get(seatDocRef)).thenReturn(futureSnapshot);
+        when(futureSnapshot.get()).thenReturn(snapshot);
+        when(snapshot.exists()).thenReturn(true);
+        when(snapshot.getString("status")).thenReturn("BOOKED");
+
+        when(firestore.runTransaction(any())).thenAnswer(invocation -> {
+            Transaction.Function<?> callback = invocation.getArgument(0);
+            SettableApiFuture<Object> settable = SettableApiFuture.create();
+            try {
+                Object result = callback.updateCallback(transaction);
+                settable.set(result);
+            } catch (Exception e) {
+                settable.setException(new ExecutionException(e));
+            }
+            return settable;
+        });
+
+        BusinessException ex = assertThrows(BusinessException.class, () -> 
+            seatHoldService.releaseSeats(100L, 99L, List.of(1L))
+        );
+
+        assertTrue(ex.getMessage().contains("không ở trạng thái giữ chỗ hợp lệ"));
+        verify(transaction, never()).delete(any());
+    }
+
+    @Test
+    @DisplayName("Ném ngoại lệ khi nhả ghế có trạng thái status bị null")
+    void releaseSeats_ShouldThrowBusinessException_WhenStatusIsNull() throws Exception {
+        CollectionReference colRef = mock(CollectionReference.class);
+        DocumentReference showtimeDocRef = mock(DocumentReference.class);
+        CollectionReference heldSeatsColRef = mock(CollectionReference.class);
+        DocumentReference seatDocRef = mock(DocumentReference.class);
+        Transaction transaction = mock(Transaction.class);
+        DocumentSnapshot snapshot = mock(DocumentSnapshot.class);
+        ApiFuture<DocumentSnapshot> futureSnapshot = mock(ApiFuture.class);
+
+        when(firestore.collection("showtimes")).thenReturn(colRef);
+        when(colRef.document("100")).thenReturn(showtimeDocRef);
+        when(showtimeDocRef.collection("held_seats")).thenReturn(heldSeatsColRef);
+        when(heldSeatsColRef.document("1")).thenReturn(seatDocRef);
+
+        when(transaction.get(seatDocRef)).thenReturn(futureSnapshot);
+        when(futureSnapshot.get()).thenReturn(snapshot);
+        when(snapshot.exists()).thenReturn(true);
+        when(snapshot.getString("status")).thenReturn(null); // Status null
+
+        when(firestore.runTransaction(any())).thenAnswer(invocation -> {
+            Transaction.Function<?> callback = invocation.getArgument(0);
+            SettableApiFuture<Object> settable = SettableApiFuture.create();
+            try {
+                Object result = callback.updateCallback(transaction);
+                settable.set(result);
+            } catch (Exception e) {
+                settable.setException(new ExecutionException(e));
+            }
+            return settable;
+        });
+
+        BusinessException ex = assertThrows(BusinessException.class, () -> 
+            seatHoldService.releaseSeats(100L, 99L, List.of(1L))
+        );
+
+        assertTrue(ex.getMessage().contains("không ở trạng thái giữ chỗ hợp lệ"));
+        verify(transaction, never()).delete(any());
+    }
+
+    @Test
+    @DisplayName("Ném ngoại lệ khi nhả ghế thiếu hoàn toàn thông tin chủ sở hữu (cả userId và user_id đều null)")
+    void releaseSeats_ShouldThrowBusinessException_WhenOwnerIsMissing() throws Exception {
+        CollectionReference colRef = mock(CollectionReference.class);
+        DocumentReference showtimeDocRef = mock(DocumentReference.class);
+        CollectionReference heldSeatsColRef = mock(CollectionReference.class);
+        DocumentReference seatDocRef = mock(DocumentReference.class);
+        Transaction transaction = mock(Transaction.class);
+        DocumentSnapshot snapshot = mock(DocumentSnapshot.class);
+        ApiFuture<DocumentSnapshot> futureSnapshot = mock(ApiFuture.class);
+
+        when(firestore.collection("showtimes")).thenReturn(colRef);
+        when(colRef.document("100")).thenReturn(showtimeDocRef);
+        when(showtimeDocRef.collection("held_seats")).thenReturn(heldSeatsColRef);
+        when(heldSeatsColRef.document("1")).thenReturn(seatDocRef);
+
+        when(transaction.get(seatDocRef)).thenReturn(futureSnapshot);
+        when(futureSnapshot.get()).thenReturn(snapshot);
+        when(snapshot.exists()).thenReturn(true);
+        when(snapshot.getString("status")).thenReturn("HOLDING");
+        when(snapshot.contains("userId")).thenReturn(false);
+
+        when(firestore.runTransaction(any())).thenAnswer(invocation -> {
+            Transaction.Function<?> callback = invocation.getArgument(0);
+            SettableApiFuture<Object> settable = SettableApiFuture.create();
+            try {
+                Object result = callback.updateCallback(transaction);
+                settable.set(result);
+            } catch (Exception e) {
+                settable.setException(new ExecutionException(e));
+            }
+            return settable;
+        });
+
+        BusinessException ex = assertThrows(BusinessException.class, () -> 
+            seatHoldService.releaseSeats(100L, 99L, List.of(1L))
+        );
+
+        assertTrue(ex.getMessage().contains("không thuộc quyền giữ của bạn"));
+        verify(transaction, never()).delete(any());
+    }
+
+    @Test
+    @DisplayName("Đảm bảo tính nguyên tử: Nếu 1 trong các ghế thuộc người khác, hủy giao dịch và không xóa bất kỳ ghế nào")
+    void releaseSeats_ShouldRollbackEntirely_WhenOneSeatBelongsToAnotherUser() throws Exception {
+        CollectionReference colRef = mock(CollectionReference.class);
+        DocumentReference showtimeDocRef = mock(DocumentReference.class);
+        CollectionReference heldSeatsColRef = mock(CollectionReference.class);
+        DocumentReference seatDoc1 = mock(DocumentReference.class);
+        DocumentReference seatDoc2 = mock(DocumentReference.class);
+        Transaction transaction = mock(Transaction.class);
+        DocumentSnapshot snap1 = mock(DocumentSnapshot.class);
+        DocumentSnapshot snap2 = mock(DocumentSnapshot.class);
+        ApiFuture<DocumentSnapshot> fSnap1 = mock(ApiFuture.class);
+        ApiFuture<DocumentSnapshot> fSnap2 = mock(ApiFuture.class);
+
+        when(firestore.collection("showtimes")).thenReturn(colRef);
+        when(colRef.document("100")).thenReturn(showtimeDocRef);
+        when(showtimeDocRef.collection("held_seats")).thenReturn(heldSeatsColRef);
+        when(heldSeatsColRef.document("1")).thenReturn(seatDoc1);
+        when(heldSeatsColRef.document("2")).thenReturn(seatDoc2);
+
+        when(transaction.get(seatDoc1)).thenReturn(fSnap1);
+        when(fSnap1.get()).thenReturn(snap1);
+        when(snap1.exists()).thenReturn(true);
+        when(snap1.getString("status")).thenReturn("HOLDING");
+        when(snap1.contains("userId")).thenReturn(true);
+        when(snap1.getLong("userId")).thenReturn(99L);
+
+        when(transaction.get(seatDoc2)).thenReturn(fSnap2);
+        when(fSnap2.get()).thenReturn(snap2);
+        when(snap2.exists()).thenReturn(true);
+        when(snap2.getString("status")).thenReturn("HOLDING");
+        when(snap2.contains("userId")).thenReturn(true);
+        when(snap2.getLong("userId")).thenReturn(888L);
+
+        when(firestore.runTransaction(any())).thenAnswer(invocation -> {
+            Transaction.Function<?> callback = invocation.getArgument(0);
+            SettableApiFuture<Object> settable = SettableApiFuture.create();
+            try {
+                Object result = callback.updateCallback(transaction);
+                settable.set(result);
+            } catch (Exception e) {
+                settable.setException(new ExecutionException(e));
+            }
+            return settable;
+        });
+
+        assertThrows(BusinessException.class, () -> 
+            seatHoldService.releaseSeats(100L, 99L, List.of(1L, 2L))
+        );
+
+        verify(transaction, never()).delete(any());
+    }
+
+    @Test
+    @DisplayName("Ném ngoại lệ khi danh sách ghế nhả chứa phần tử null")
+    void releaseSeats_ShouldThrowBusinessException_WhenSeatIdsContainNull() {
+        List<Long> seatIdsWithNull = new java.util.ArrayList<>();
+        seatIdsWithNull.add(1L);
+        seatIdsWithNull.add(null);
+
+        BusinessException ex = assertThrows(BusinessException.class, () -> 
+            seatHoldService.releaseSeats(100L, 99L, seatIdsWithNull)
+        );
+        assertTrue(ex.getMessage().contains("không được chứa giá trị rỗng"));
+    }
+
+    @Test
+    @DisplayName("Ném ngoại lệ khi danh sách ghế nhả chứa ID trùng lặp")
+    void releaseSeats_ShouldThrowBusinessException_WhenSeatIdsContainDuplicates() {
+        BusinessException ex = assertThrows(BusinessException.class, () -> 
+            seatHoldService.releaseSeats(100L, 99L, List.of(1L, 1L))
+        );
+        assertTrue(ex.getMessage().contains("không được chứa ghế trùng lặp"));
     }
 }

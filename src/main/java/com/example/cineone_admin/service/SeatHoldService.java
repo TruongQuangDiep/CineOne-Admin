@@ -35,12 +35,32 @@ public class SeatHoldService {
     private final ShowtimeRepository showtimeRepository;
     private final SeatRepository seatRepository;
 
+    private static final int MAX_SEATS_PER_HOLD = 8;
+    private static final int FIRESTORE_MAX_BATCH_SIZE = 500;
     private static final long HOLD_TTL_MINUTES = 10;
     private static final String COLLECTION_SHOWTIMES = "showtimes";
     private static final String SUB_COLLECTION_HELD_SEATS = "held_seats";
 
     public SeatHoldResponse holdSeats(SeatHoldRequest request) {
         checkFirestoreReady();
+        if (request.getSeatIds() == null || request.getSeatIds().isEmpty()) {
+            throw new BusinessException("Danh sách ghế không được để trống.");
+        }
+        if (request.getSeatIds().size() > MAX_SEATS_PER_HOLD) {
+            throw new BusinessException("Mỗi lần chỉ được giữ tối đa " + MAX_SEATS_PER_HOLD + " ghế.");
+        }
+        
+        // Kiểm tra phần tử null an toàn, không gây NPE với List.of()
+        for (Long seatId : request.getSeatIds()) {
+            if (seatId == null) {
+                throw new BusinessException("Danh sách ghế không được chứa giá trị rỗng.");
+            }
+        }
+
+        // Chặn ghế trùng lặp
+        if (new HashSet<>(request.getSeatIds()).size() != request.getSeatIds().size()) {
+            throw new BusinessException("Danh sách ghế yêu cầu không được chứa ghế trùng lặp.");
+        }
 
         Showtime showtime = showtimeRepository.findById(request.getShowtimeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy suất chiếu ID: " + request.getShowtimeId()));
@@ -74,6 +94,7 @@ public class SeatHoldService {
 
         try {
             firestore.runTransaction(transaction -> {
+                // PHA 1: READS (Đọc toàn bộ document ghế trước khi ghi)
                 Map<DocumentReference, DocumentSnapshot> snapshots = new HashMap<>();
                 for (Long seatId : request.getSeatIds()) {
                     DocumentReference docRef = heldSeatsRef.document(String.valueOf(seatId));
@@ -81,11 +102,12 @@ public class SeatHoldService {
                     snapshots.put(docRef, snapshot);
                 }
 
+                // Kiểm tra trạng thái và điều kiện xung đột
                 for (Map.Entry<DocumentReference, DocumentSnapshot> entry : snapshots.entrySet()) {
                     DocumentSnapshot snap = entry.getValue();
                     if (snap.exists()) {
                         String status = snap.getString("status");
-                        Long holdingUserId = snap.getLong("userId");
+                        Long holdingUserId = snap.contains("userId") ? snap.getLong("userId") : snap.getLong("user_id");
                         Timestamp holdExpiresAt = snap.getTimestamp("holdExpiresAt");
                         String seatCode = snap.getString("seatCode");
 
@@ -93,17 +115,26 @@ public class SeatHoldService {
                             throw new BusinessException("Ghế " + seatCode + " đã được đặt và thanh toán thành công.");
                         }
 
-                        if ("HOLDING".equalsIgnoreCase(status) && holdExpiresAt != null) {
+                        if ("HOLDING".equalsIgnoreCase(status)) {
+                            // Chặn ghi đè khi thiếu hạn giữ chỗ (Fail-closed chống lỗi dữ liệu)
+                            if (holdExpiresAt == null) {
+                                throw new BusinessException("Ghế " + seatCode + " đang ở trạng thái giữ chỗ không hợp lệ. Vui lòng thử lại sau.");
+                            }
+
                             boolean isExpired = holdExpiresAt.compareTo(nowTimestamp) <= 0;
                             boolean isSameUser = Objects.equals(holdingUserId, request.getUserId());
 
                             if (!isExpired && !isSameUser) {
                                 throw new BusinessException("Ghế " + seatCode + " đang được người khác chọn.");
                             }
+                        } else {
+                            // Bất kỳ status lạ nào khác (hoặc status null) đều từ chối để an toàn
+                            throw new BusinessException("Ghế " + seatCode + " đang có trạng thái không xác định (" + status + ").");
                         }
                     }
                 }
 
+                // PHA 2: WRITES (Ghi dữ liệu sau khi toàn bộ ghế hợp lệ)
                 for (Seat seat : seats) {
                     DocumentReference docRef = heldSeatsRef.document(String.valueOf(seat.getSeatId()));
                     Map<String, Object> data = new HashMap<>();
@@ -125,6 +156,9 @@ public class SeatHoldService {
             if (cause instanceof BusinessException be) {
                 throw be;
             }
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
+            }
             log.error("Lỗi Transaction giữ ghế: ", e);
             throw new BusinessException("Xảy ra xung đột khi giữ ghế. Vui lòng thử lại.");
         }
@@ -140,30 +174,79 @@ public class SeatHoldService {
                 .build();
     }
 
-    public void releaseSeats(Long showtimeId, List<Long> seatIds, Long userId) {
+    public void releaseSeats(Long showtimeId, Long userId, List<Long> seatIds) {
         checkFirestoreReady();
-        CollectionReference heldSeatsRef = firestore.collection(COLLECTION_SHOWTIMES)
-                .document(String.valueOf(showtimeId))
-                .collection(SUB_COLLECTION_HELD_SEATS);
+        if (seatIds == null || seatIds.isEmpty()) {
+            return;
+        }
+        if (seatIds.size() > MAX_SEATS_PER_HOLD) {
+            throw new BusinessException("Số lượng ghế yêu cầu nhả vượt quá giới hạn (" + MAX_SEATS_PER_HOLD + " ghế).");
+        }
+
+        // --- BỔ SUNG: Chặn null và ghế trùng lặp ---
+        for (Long seatId : seatIds) {
+            if (seatId == null) {
+                throw new BusinessException("Danh sách ghế nhả không được chứa giá trị rỗng.");
+            }
+        }
+        if (new HashSet<>(seatIds).size() != seatIds.size()) {
+            throw new BusinessException("Danh sách ghế nhả không được chứa ghế trùng lặp.");
+        }
 
         try {
             firestore.runTransaction(transaction -> {
+                List<DocumentReference> refsToDelete = new ArrayList<>();
+
+                // ==========================================
+                // PHA 1: READS & VALIDATION (Đọc toàn bộ trước)
+                // ==========================================
                 for (Long seatId : seatIds) {
-                    DocumentReference docRef = heldSeatsRef.document(String.valueOf(seatId));
-                    DocumentSnapshot snap = transaction.get(docRef).get();
-                    if (snap.exists()) {
-                        Long holdingUserId = snap.getLong("userId");
-                        String status = snap.getString("status");
-                        if ("HOLDING".equalsIgnoreCase(status) && Objects.equals(holdingUserId, userId)) {
-                            transaction.delete(docRef);
+                    DocumentReference seatRef = firestore.collection(COLLECTION_SHOWTIMES)
+                            .document(String.valueOf(showtimeId))
+                            .collection(SUB_COLLECTION_HELD_SEATS)
+                            .document(String.valueOf(seatId));
+
+                    DocumentSnapshot snapshot = transaction.get(seatRef).get();
+
+                    if (snapshot.exists()) {
+                        String status = snapshot.getString("status");
+
+                        // 1. Chỉ chấp nhận nhả khi trạng thái chính xác là HOLDING (chặn status null hoặc BOOKED)
+                        if (!"HOLDING".equalsIgnoreCase(status)) {
+                            throw new BusinessException("Ghế ID " + seatId + " không ở trạng thái giữ chỗ hợp lệ (" + status + "), không thể nhả.");
                         }
+
+                        // 2. Kiểm tra chủ sở hữu: Fail-closed (từ chối xóa nếu thiếu trường user hoặc sai user)
+                        Long heldUserId = snapshot.contains("userId") 
+                                ? snapshot.getLong("userId") 
+                                : snapshot.getLong("user_id");
+
+                        if (heldUserId == null || !heldUserId.equals(userId)) {
+                            throw new BusinessException("Ghế ID " + seatId + " không thuộc quyền giữ của bạn.");
+                        }
+
+                        refsToDelete.add(seatRef);
                     }
                 }
+
+                // ==========================================
+                // PHA 2: WRITES / DELETES (Xóa toàn bộ sau)
+                // ==========================================
+                for (DocumentReference ref : refsToDelete) {
+                    transaction.delete(ref);
+                }
+
                 return null;
             }).get();
-        } catch (Exception e) {
-            log.error("Lỗi khi nhả ghế: ", e);
-            throw new BusinessException("Không thể nhả ghế. Vui lòng thử lại.");
+        } catch (ExecutionException e) {
+            if (e.getCause() instanceof BusinessException be) {
+                throw be;
+            }
+            log.error("Lỗi khi giải phóng ghế: ", e);
+            throw new BusinessException("Lỗi khi giải phóng ghế: " + e.getMessage());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new BusinessException("Xử lý nhả ghế bị gián đoạn.");
         }
     }
 
@@ -182,6 +265,7 @@ public class SeatHoldService {
                 String status = doc.getString("status");
                 Timestamp expiresAt = doc.getTimestamp("holdExpiresAt");
 
+                // Bỏ qua ghế HOLDING đã hết hạn
                 if ("HOLDING".equalsIgnoreCase(status) && expiresAt != null && expiresAt.compareTo(now) <= 0) {
                     continue;
                 }
@@ -190,14 +274,18 @@ public class SeatHoldService {
                         .seatId(doc.getLong("seatId"))
                         .showtimeId(doc.getLong("showtimeId"))
                         .seatCode(doc.getString("seatCode"))
-                        .userId(doc.getLong("userId"))
+                        .userId(doc.contains("userId") ? doc.getLong("userId") : doc.getLong("user_id"))
                         .status(status)
                         .holdExpiresAt(expiresAt)
                         .createdAt(doc.getTimestamp("createdAt"))
                         .build());
             }
-        } catch (Exception e) {
-            log.error("Lỗi lấy danh sách ghế giữ: ", e);
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("Lỗi lấy danh sách ghế giữ cho suất chiếu {}: ", showtimeId, e);
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
+            }
+            throw new BusinessException("Không thể tải danh sách ghế giữ từ Firestore. Vui lòng thử lại sau.");
         }
         return result;
     }
@@ -220,11 +308,15 @@ public class SeatHoldService {
                 return;
             }
 
-            WriteBatch batch = firestore.batch();
-            for (QueryDocumentSnapshot doc : expiredDocs) {
-                batch.delete(doc.getReference());
+            // Chia nhỏ thành các batch tối đa 500 thao tác theo giới hạn của Firestore
+            for (int i = 0; i < expiredDocs.size(); i += FIRESTORE_MAX_BATCH_SIZE) {
+                WriteBatch batch = firestore.batch();
+                List<QueryDocumentSnapshot> chunk = expiredDocs.subList(i, Math.min(i + FIRESTORE_MAX_BATCH_SIZE, expiredDocs.size()));
+                for (QueryDocumentSnapshot doc : chunk) {
+                    batch.delete(doc.getReference());
+                }
+                batch.commit().get();
             }
-            batch.commit().get();
 
             log.info("[SeatHoldWorker] Đã tự động dọn dẹp {} ghế hết hạn giữ (TTL 10 phút).", expiredDocs.size());
         } catch (Exception e) {
