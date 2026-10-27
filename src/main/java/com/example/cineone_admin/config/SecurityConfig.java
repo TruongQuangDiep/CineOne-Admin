@@ -2,6 +2,7 @@ package com.example.cineone_admin.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,11 +21,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Tắt CSRF đối với toàn bộ REST API để Mobile và Postman gọi được bình thường
             .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
             .authorizeHttpRequests(auth -> auth
-                // [SCRUM-29] TẠM THỜI mở permitAll() để test Engine giữ ghế (SCRUM-21).
-                .requestMatchers("/api/**").permitAll() // Mở quyền các API Mobile
+                // Endpoint công khai
+                .requestMatchers(HttpMethod.GET, "/api/v1/seats/held").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/movies/**", "/api/v1/cinemas/**", "/api/v1/showtimes/**").permitAll()
+                
+                // Endpoint giữ / nhả ghế (tạm thời để authenticated hoặc permitAll tùy bạn test)
+                .requestMatchers(HttpMethod.POST, "/api/v1/seats/hold", "/api/v1/seats/release").permitAll()
+
+                // Web Admin & tài nguyên tĩnh
                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/favicon.ico", "/webjars/**").permitAll()
                 .anyRequest().hasRole("ADMIN")
             )
