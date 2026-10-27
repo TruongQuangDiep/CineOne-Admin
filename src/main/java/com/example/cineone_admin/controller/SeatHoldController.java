@@ -30,7 +30,7 @@ public class SeatHoldController {
             @RequestParam Long showtimeId,
             @RequestParam List<Long> seatIds,
             @RequestParam Long userId) {
-        seatHoldService.releaseSeats(showtimeId, seatIds, userId);
+        seatHoldService.releaseSeats(showtimeId, userId, seatIds);
         return ResponseEntity.ok(ApiResponse.success(null, "Nhả ghế thành công"));
     }
 
