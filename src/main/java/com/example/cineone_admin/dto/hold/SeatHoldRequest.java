@@ -16,6 +16,5 @@ public class SeatHoldRequest {
     @NotEmpty(message = "Danh sách seatIds không được để trống")
     private List<Long> seatIds;
 
-    @NotNull(message = "userId không được để trống")
     private Long userId;
 }

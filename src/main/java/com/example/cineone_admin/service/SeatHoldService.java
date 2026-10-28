@@ -264,11 +264,16 @@ public class SeatHoldService {
             for (QueryDocumentSnapshot doc : future.get().getDocuments()) {
                 String status = doc.getString("status");
                 Timestamp expiresAt = doc.getTimestamp("holdExpiresAt");
+                Timestamp createdAt = doc.getTimestamp("createdAt");
 
                 // Bỏ qua ghế HOLDING đã hết hạn
                 if ("HOLDING".equalsIgnoreCase(status) && expiresAt != null && expiresAt.compareTo(now) <= 0) {
                     continue;
                 }
+
+                // Chuyển Timestamp sang String (ISO-8601) an toàn
+                String expiresAtStr = (expiresAt != null) ? expiresAt.toDate().toInstant().toString() : null;
+                String createdAtStr = (createdAt != null) ? createdAt.toDate().toInstant().toString() : null;
 
                 result.add(HeldSeatDTO.builder()
                         .seatId(doc.getLong("seatId"))
@@ -276,8 +281,8 @@ public class SeatHoldService {
                         .seatCode(doc.getString("seatCode"))
                         .userId(doc.contains("userId") ? doc.getLong("userId") : doc.getLong("user_id"))
                         .status(status)
-                        .holdExpiresAt(expiresAt)
-                        .createdAt(doc.getTimestamp("createdAt"))
+                        .holdExpiresAt(expiresAtStr) // Đã chuyển thành String
+                        .createdAt(createdAtStr)     // Đã chuyển thành String
                         .build());
             }
         } catch (InterruptedException | ExecutionException e) {
