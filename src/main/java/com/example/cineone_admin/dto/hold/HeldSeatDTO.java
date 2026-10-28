@@ -14,6 +14,6 @@ public class HeldSeatDTO {
     private String seatCode;
     private Long userId;
     private String status; // HOLDING hoặc BOOKED
-    private Timestamp holdExpiresAt;
-    private Timestamp createdAt;
+    private String holdExpiresAt;
+    private String createdAt;
 }
