@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:8080
+@providerId = 1
+@logId = 1
+
+### Danh sách lịch sử đồng bộ (HTML; cần đăng nhập ADMIN)
+GET {{baseUrl}}/sync-logs?providerId={{providerId}}&status=&page=0
+Accept: text/html
+
+### Lọc lịch sử theo ngày (yyyy-MM-dd)
+GET {{baseUrl}}/sync-logs?providerId={{providerId}}&status=&fromDate=2026-10-01&toDate=2026-10-26&page=0
+Accept: text/html
+
+### Bắt đầu đồng bộ (JSON 202; chạy tác vụ và ghi dữ liệu)
+# Cần provider đang ACTIVE có adapter phù hợp, đăng nhập ADMIN và CSRF token.
+POST {{baseUrl}}/sync-logs/start?providerId={{providerId}}
+Accept: application/json
+X-CSRF-TOKEN: CSRF_TOKEN
+
+### Lấy chi tiết log đồng bộ (JSON; cần đăng nhập ADMIN)
+GET {{baseUrl}}/sync-logs/{{logId}}
+Accept: application/json

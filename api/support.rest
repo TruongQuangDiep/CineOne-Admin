@@ -1,0 +1,22 @@
+@baseUrl = http://localhost:8080
+@requestId = 1
+
+### Danh sách yêu cầu hỗ trợ (HTML)
+GET {{baseUrl}}/support?keyword=&status=&type=&category=&page=0
+Accept: text/html
+
+### Chi tiết yêu cầu hỗ trợ (HTML)
+GET {{baseUrl}}/support/{{requestId}}
+Accept: text/html
+
+### Gửi phản hồi và cập nhật trạng thái (form POST; ghi dữ liệu)
+POST {{baseUrl}}/support/{{requestId}}/respond
+Content-Type: application/x-www-form-urlencoded
+
+response=Da+tiep+nhan&status=IN_PROGRESS
+
+### Cập nhật trạng thái (form POST; ghi dữ liệu)
+POST {{baseUrl}}/support/{{requestId}}/status
+Content-Type: application/x-www-form-urlencoded
+
+status=RESOLVED

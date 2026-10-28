@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:8080
+@entryId = 1
+
+### Danh sách bài viết kiến thức (HTML)
+GET {{baseUrl}}/knowledgebase?keyword=&category=&status=&page=0
+Accept: text/html
+
+### Form tạo bài viết (HTML)
+GET {{baseUrl}}/knowledgebase/create
+Accept: text/html
+
+### Form sửa bài viết (HTML)
+GET {{baseUrl}}/knowledgebase/{{entryId}}/edit
+Accept: text/html
+
+### Tạo bài viết (form POST; ghi dữ liệu)
+POST {{baseUrl}}/knowledgebase/create
+Content-Type: application/x-www-form-urlencoded
+
+title=Demo&category=FAQ&content=Test&status=ACTIVE
+
+### Cập nhật bài viết (form POST; ghi dữ liệu)
+POST {{baseUrl}}/knowledgebase/{{entryId}}/edit
+Content-Type: application/x-www-form-urlencoded
+
+title=Demo&category=FAQ&content=Test&status=ACTIVE
+
+### Đổi trạng thái bài viết (form POST; ghi dữ liệu)
+POST {{baseUrl}}/knowledgebase/{{entryId}}/toggle-status
+
+### Xóa bài viết (form POST; xóa dữ liệu)
+POST {{baseUrl}}/knowledgebase/{{entryId}}/delete

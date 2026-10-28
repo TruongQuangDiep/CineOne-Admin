@@ -1,0 +1,45 @@
+@baseUrl = http://localhost:8080
+@providerId = 1
+@mappingId = 1
+
+### Danh sách nhà cung cấp (HTML)
+GET {{baseUrl}}/providers?q=&page=0
+Accept: text/html
+
+### Form tạo nhà cung cấp (HTML)
+GET {{baseUrl}}/providers/new
+Accept: text/html
+
+### Chi tiết nhà cung cấp (HTML)
+GET {{baseUrl}}/providers/{{providerId}}
+Accept: text/html
+
+### Form sửa nhà cung cấp (HTML)
+GET {{baseUrl}}/providers/{{providerId}}/edit
+Accept: text/html
+
+### Tạo nhà cung cấp (form POST; ghi dữ liệu)
+POST {{baseUrl}}/providers
+Content-Type: application/x-www-form-urlencoded
+
+code=DEMO_PROVIDER&name=Demo+Provider&providerType=CINEMA&mock=true
+
+### Cập nhật nhà cung cấp (form POST; ghi dữ liệu)
+POST {{baseUrl}}/providers/{{providerId}}
+Content-Type: application/x-www-form-urlencoded
+
+code=DEMO_PROVIDER&name=Demo+Provider&providerType=CINEMA&mock=true
+
+### Bật/tắt nhà cung cấp (form POST; ghi dữ liệu)
+POST {{baseUrl}}/providers/{{providerId}}/status
+Content-Type: application/x-www-form-urlencoded
+
+enabled=true
+
+### Danh sách mapping (HTML)
+GET {{baseUrl}}/mappings?providerId={{providerId}}&entity=CINEMA&status=&q=&page=0&includeStopped=false
+Accept: text/html
+
+### Chi tiết mapping (HTML)
+GET {{baseUrl}}/mappings/{{mappingId}}
+Accept: text/html

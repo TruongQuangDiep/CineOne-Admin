@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:8080
+
+### Trang dashboard (các URL dưới đây cùng trỏ đến một trang)
+GET {{baseUrl}}/dashboard
+Accept: text/html
+
+###
+GET {{baseUrl}}/
+Accept: text/html
+
+###
+GET {{baseUrl}}/admin
+Accept: text/html
