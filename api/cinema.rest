@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:8080
+@cinemaId = 1
+
+### Danh sách rạp (HTML)
+GET {{baseUrl}}/cinemas?q=&status=&page=0
+Accept: text/html
+
+### Lọc rạp theo nhà cung cấp
+GET {{baseUrl}}/cinemas?q=&status=&providerId=1&page=0
+Accept: text/html
+
+### Chi tiết rạp và danh sách phòng (HTML)
+GET {{baseUrl}}/cinemas/{{cinemaId}}?page=0
+Accept: text/html

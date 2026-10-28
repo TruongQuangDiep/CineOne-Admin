@@ -1,0 +1,16 @@
+@baseUrl = http://localhost:8080
+@reviewId = 1
+
+### Danh sách đánh giá (HTML)
+GET {{baseUrl}}/reviews?q=&status=&page=0
+Accept: text/html
+
+### Lọc đánh giá theo số sao
+GET {{baseUrl}}/reviews?q=&rating=5&status=&page=0
+Accept: text/html
+
+### Duyệt/ẩn đánh giá (form POST; ghi dữ liệu)
+POST {{baseUrl}}/reviews/{{reviewId}}/status
+Content-Type: application/x-www-form-urlencoded
+
+visible=true

@@ -1,0 +1,30 @@
+@baseUrl = http://localhost:8080
+@userId = 1
+
+### Danh sách người dùng (HTML)
+GET {{baseUrl}}/users?q=&status=&page=0
+Accept: text/html
+
+### Lọc người dùng theo hạng thành viên
+GET {{baseUrl}}/users?q=&tierId=1&status=&page=0
+Accept: text/html
+
+### Chi tiết người dùng (HTML)
+GET {{baseUrl}}/users/{{userId}}
+Accept: text/html
+
+### Form cập nhật người dùng (HTML)
+GET {{baseUrl}}/users/{{userId}}/edit
+Accept: text/html
+
+### Cập nhật hạng thành viên người dùng (form POST; ghi dữ liệu)
+POST {{baseUrl}}/users/{{userId}}
+Content-Type: application/x-www-form-urlencoded
+
+membershipTierId=1
+
+### Cập nhật trạng thái tài khoản (form POST; ghi dữ liệu)
+POST {{baseUrl}}/users/{{userId}}/status
+Content-Type: application/x-www-form-urlencoded
+
+status=LOCKED

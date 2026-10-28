@@ -1,0 +1,22 @@
+@baseUrl = http://localhost:8080
+@email = admin@cineone.vn
+@password = 1234567890
+
+### 1. Lấy trang đăng nhập, session cookie và CSRF token
+GET {{baseUrl}}/login
+Accept: text/html
+
+### 2. Đăng nhập bằng form Spring Security
+# Thay CSRF_TOKEN bằng giá trị input name="_csrf" trong HTML ở bước 1.
+# Gửi cùng session cookie nhận được ở bước 1.
+POST {{baseUrl}}/login
+Content-Type: application/x-www-form-urlencoded
+
+email={{email}}&password={{password}}&_csrf=CSRF_TOKEN
+
+### 3. Đăng xuất (tùy chọn)
+# Gửi cùng session cookie sau khi đăng nhập và CSRF token hợp lệ.
+POST {{baseUrl}}/logout
+Content-Type: application/x-www-form-urlencoded
+
+_csrf=CSRF_TOKEN

@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:8080
+@movieId = 1
+
+### Danh sách phim (HTML), hỗ trợ tìm kiếm/lọc/phân trang
+GET {{baseUrl}}/movies?q=&status=&page=0
+Accept: text/html
+
+### Lọc phim theo thể loại
+GET {{baseUrl}}/movies?q=&status=&genreId=1&page=0
+Accept: text/html
+
+### Chi tiết phim (HTML)
+GET {{baseUrl}}/movies/{{movieId}}
+Accept: text/html
