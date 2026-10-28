@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["movie_title", "genre", "date", "time_range", "location"],
+  "properties": {
+    "movie_title": {"type": ["string", "null"], "description": "Movie title explicitly requested, otherwise null."},
+    "genre": {"type": ["string", "null"], "description": "Requested genre in Vietnamese, otherwise null. Do not infer from a movie title."},
+    "date": {"type": ["string", "null"], "description": "One unambiguous viewing date as YYYY-MM-DD, using the supplied reference date. Otherwise null."},
+    "time_range": {
+      "type": ["object", "null"],
+      "description": "Raw time extraction. Backend normalizes period/approximate expressions and adds bound metadata for consumers.",
+      "additionalProperties": false,
+      "required": ["expression", "start", "end"],
+      "properties": {
+        "expression": {"type": "string", "description": "Time phrase from the request. Retain approximate or period wording."},
+        "start": {"type": ["string", "null"], "description": "Explicit lower bound HH:mm. For an exact time, equal to end. Do not invent bounds for periods or approximate times."},
+        "end": {"type": ["string", "null"], "description": "Explicit upper bound HH:mm. May be before start for a range crossing midnight."}
+      }
+    },
+    "location": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["type", "text"],
+      "properties": {
+        "type": {"type": "string", "enum": ["AREA", "CINEMA", "BRAND", "NEARBY", "HOME"]},
+        "text": {"type": ["string", "null"], "description": "Public area/cinema/brand phrase. For NEARBY or HOME, null; never coordinates or a private address."}
+      }
+    }
+  }
+}
