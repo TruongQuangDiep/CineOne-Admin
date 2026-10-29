@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết giao dịch | CINEONE ADMIN</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="bg-light">
+<div class="d-flex">
+    <div th:replace="~{fragments/sidebar :: sidebar(${activeMenu})}"></div>
+
+    <div class="main-content flex-grow-1 p-4" style="margin-left: 260px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <a th:href="@{/payments}" class="btn btn-sm btn-outline-secondary mb-2"><i class="bi bi-arrow-left"></i> Quay lại</a>
+                <h3 class="fw-bold mb-0">Chi tiết Giao dịch payOS: <span class="text-primary" th:text="${payment.orderCode}"></span></h3>
+            </div>
+            <div>
+                <span th:class="'badge fs-6 ' + 
+                    (${payment.status.name() == 'PAID' or payment.status.name() == 'SUCCESS'} ? 'bg-success' : 
+                    (${payment.status.name() == 'PENDING'} ? 'bg-warning text-dark' : 'bg-danger'))"
+                    th:text="${payment.status}">PAID</span>
+            </div>
+        </div>
+
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show">
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white py-3 fw-bold"><i class="bi bi-credit-card me-1"></i> Thông tin giao dịch đối soát</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="text-muted small">Cổng thanh toán</label>
+                                <div class="fw-bold fs-5 text-primary" th:text="${payment.provider != null ? payment.provider : 'payOS'}">payOS</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-muted small">Số tiền thanh toán</label>
+                                <div class="fw-bold fs-4 text-success"
+                                     th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 0, 'COMMA')} + ' đ'">100.000 đ</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-muted small">Mã đơn hàng đối tác (Order Code)</label>
+                                <div class="fw-semibold font-monospace" th:text="${payment.orderCode}">ORD-123456</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-muted small">Đơn đặt vé liên kết</label>
+                                <div>
+                                    <a th:if="${payment.bookingId != null}" th:href="@{'/bookings/' + ${payment.bookingId}}"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i> Mở đơn vé #<span th:text="${payment.bookingId}"></span>
+                                    </a>
+                                    <span th:if="${payment.bookingId == null}" class="text-muted">Chưa gán đơn vé</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-muted small">Thời gian tạo</label>
+                                <div class="fw-semibold" th:text="${#temporals.format(payment.createdAt, 'dd/MM/yyyy HH:mm:ss')}"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-muted small">Thời gian hoàn tất giao dịch</label>
+                                <div class="fw-semibold text-success"
+                                     th:text="${payment.paidAt != null ? #temporals.format(payment.paidAt, 'dd/MM/yyyy HH:mm:ss') : 'Chưa ghi nhận'}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm" th:if="${payment.paymentUrl != null}">
+                    <div class="card-header bg-white py-3 fw-bold"><i class="bi bi-link-45deg me-1"></i> Đường dẫn thanh toán (Checkout URL)</div>
+                    <div class="card-body">
+                        <input type="text" class="form-control" readonly th:value="${payment.paymentUrl}">
+                        <a th:href="${payment.paymentUrl}" target="_blank" class="btn btn-sm btn-primary mt-2">
+                            <i class="bi bi-box-arrow-up-right"></i> Mở cổng payOS
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white py-3 fw-bold"><i class="bi bi-sliders me-1"></i> Xử lý đối soát thủ công</div>
+                    <div class="card-body">
+                        <form th:action="@{'/payments/' + ${payment.paymentId} + '/status'}" method="post">
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">Cập nhật trạng thái</label>
+                                <select name="status" class="form-select">
+                                    <option th:each="st : ${statuses}" th:value="${st}" th:text="${st}"
+                                            th:selected="${st == payment.status}"></option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100 fw-semibold">
+                                <i class="bi bi-arrow-repeat"></i> Cập nhật trạng thái
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
