@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties({GeminiProperties.class, SearchTimeProperties.class})
 public class GeminiConfiguration {
-    @Bean
-    public CriteriaGenerator criteriaGenerator(GeminiProperties properties) {
+    @Bean(destroyMethod = "close")
+    public GeminiCriteriaGenerator criteriaGenerator(GeminiProperties properties) {
         return new GeminiCriteriaGenerator(properties);
     }
 
