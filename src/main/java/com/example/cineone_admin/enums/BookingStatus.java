@@ -1,5 +1,12 @@
 package com.example.cineone_admin.enums;
 
-public class BookingStatus {
-    
+public enum BookingStatus {
+    HELD,
+    PENDING,
+    CONFIRMED,
+    BOOKED,
+    PAID,
+    CANCELLED,
+    EXPIRED,
+    COMPLETED
 }

@@ -1,5 +1,6 @@
 package com.example.cineone_admin.entity;
 
+import com.example.cineone_admin.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,8 +30,9 @@ public class Payment {
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal amount;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String status = "PENDING";
+    private PaymentStatus status = PaymentStatus.PENDING;
 
     @Column(name = "payment_url", length = 1000)
     private String paymentUrl;

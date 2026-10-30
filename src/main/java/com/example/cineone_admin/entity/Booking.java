@@ -1,5 +1,6 @@
 package com.example.cineone_admin.entity;
 
+import com.example.cineone_admin.enums.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,8 +28,9 @@ public class Booking {
     @Column(name = "booking_code", nullable = false, unique = true, length = 50)
     private String bookingCode;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String status = "HELD";
+    private BookingStatus status = BookingStatus.HELD;
 
     @Column(name = "hold_expires_at")
     private LocalDateTime holdExpiresAt;
