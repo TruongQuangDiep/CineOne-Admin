@@ -1,0 +1,51 @@
+@baseUrl = http://localhost:8080
+@token = <chuoi_jwt>
+
+### Auth - Login
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "email": "user.demo@example.com",
+  "password": "123456"
+}
+
+### Auth - Register
+POST {{baseUrl}}/api/v1/auth/register
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "email": "new.user@example.com",
+  "password": "123456",
+  "fullName": "Nguyen Van A",
+  "phone": "0909123456"
+}
+
+### Profile - Get current user profile
+GET {{baseUrl}}/api/v1/users/profile
+Authorization: Bearer {{token}}
+
+### Profile - Update current user profile
+PUT {{baseUrl}}/api/v1/users/profile
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "fullName": "Nguyen Van A Updated",
+  "phone": "0909123456",
+  "homeAddress": "123 Đường Lê Lợi, Quận 1, TP.HCM"
+}
+
+### Tickets - My tickets
+GET {{baseUrl}}/api/v1/tickets/my-tickets?tab=UPCOMING
+Authorization: Bearer {{token}}
+
+### Tickets - Ticket detail
+GET {{baseUrl}}/api/v1/tickets/101
+Authorization: Bearer {{token}}
+
+### Vouchers - My vouchers
+GET {{baseUrl}}/api/v1/vouchers/my-vouchers
+Authorization: Bearer {{token}}

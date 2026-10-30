@@ -9,8 +9,15 @@ import com.example.cineone_admin.repository.VoucherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +28,34 @@ public class VoucherService {
     @Transactional(readOnly = true)
     public Page<VoucherResponse> getVouchers(String keyword, Pageable pageable) {
         return voucherRepository.searchVouchers(keyword, pageable).map(this::mapToResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public List<VoucherResponse> getMyVouchersMobile() {
+        List<Voucher> vouchers = voucherRepository.findAll();
+        List<VoucherResponse> responseList = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+
+        for (Voucher v : vouchers) {
+            boolean isActive = "ACTIVE".equalsIgnoreCase(v.getStatus());
+            boolean notExpired = v.getEndAt() == null || v.getEndAt().isAfter(now);
+
+            if (isActive && notExpired) {
+                responseList.add(mapToResponse(v));
+            }
+        }
+
+        return responseList;
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<Map<String, Object>> getMyVouchers() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("status", 200);
+        response.put("message", "Lấy danh sách voucher thành công.");
+        response.put("data", getMyVouchersMobile());
+        return ResponseEntity.ok(response);
     }
 
     @Transactional(readOnly = true)
