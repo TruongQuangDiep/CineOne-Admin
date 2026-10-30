@@ -1,5 +1,13 @@
 package com.example.cineone_admin.enums;
 
-public class PaymentStatus {
-    
+public enum PaymentStatus {
+    PENDING,
+    PROCESSING,
+    PAID,
+    SUCCESS,
+    FAILED,
+    CANCELLED,
+    EXPIRED,
+    REFUNDED,
+    COMPLETED
 }

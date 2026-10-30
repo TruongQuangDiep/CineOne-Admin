@@ -136,7 +136,7 @@ public class CatalogService {
     private Map<Long, String> genresFor(List<Long> ids) {
         Map<Long, List<String>> result = new HashMap<>();
         if (!ids.isEmpty()) {
-            var links = em.createQuery("select g from MovieGenre g join fetch g.genre where g.movie.movieId in :ids"
+            List<MovieGenre> links = em.createQuery("select g from MovieGenre g join fetch g.genre where g.movie.movieId in :ids"
                     + " order by g.genre.name", MovieGenre.class).setParameter("ids", ids).getResultList();
             for (MovieGenre link : links) result.computeIfAbsent(link.getMovie().getMovieId(), ignored -> new ArrayList<>())
                     .add(link.getGenre().getName());
