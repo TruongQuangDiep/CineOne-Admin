@@ -1,5 +1,6 @@
 package com.example.cineone_admin.service;
 
+import com.example.cineone_admin.dto.user.UserProfileRequest;
 import com.example.cineone_admin.dto.user.UserRequest;
 import com.example.cineone_admin.dto.user.UserResponse;
 import com.example.cineone_admin.entity.MembershipTier;
@@ -14,6 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -77,6 +81,105 @@ public class UserService {
     @Transactional
     public void setStatus(Long id, String status) {
         getEntity(id).setStatus(status);
+    }
+
+    public Map<String, Object> getProfileMobile() {
+        Map<String, Object> response = new HashMap<>();
+        User user = getAuthenticatedUser();
+
+        if (user == null) {
+            response.put("success", false);
+            response.put("status", 404);
+            response.put("message", "Không tìm thấy người dùng hoặc Token không hợp lệ.");
+            response.put("data", null);
+            return response;
+        }
+
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("userId", user.getUserId());
+        userData.put("email", user.getEmail());
+        userData.put("fullName", user.getFullName());
+        userData.put("phone", user.getPhone());
+        userData.put("homeAddress", user.getHomeAddress());
+        userData.put("membershipTier", user.getMembershipTier() != null ? user.getMembershipTier().getName() : "NORMAL");
+
+        response.put("success", true);
+        response.put("status", 200);
+        response.put("message", "Lấy thông tin cá nhân thành công.");
+        response.put("data", userData);
+
+        return response;
+    }
+
+    @Transactional
+    public Map<String, Object> updateProfileMobile(UserProfileRequest request) {
+        Map<String, Object> response = new HashMap<>();
+        User user = getAuthenticatedUser();
+
+        if (user == null) {
+            response.put("success", false);
+            response.put("status", 404);
+            response.put("message", "Không tìm thấy người dùng hoặc Token không hợp lệ.");
+            response.put("data", null);
+            return response;
+        }
+
+        if (request.getFullName() != null) {
+            user.setFullName(request.getFullName());
+        }
+        if (request.getPhone() != null) {
+            user.setPhone(request.getPhone());
+        }
+        if (request.getHomeAddress() != null) {
+            user.setHomeAddress(request.getHomeAddress());
+        }
+
+        users.save(user);
+
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("userId", user.getUserId());
+        userData.put("email", user.getEmail());
+        userData.put("fullName", user.getFullName());
+        userData.put("phone", user.getPhone());
+        userData.put("homeAddress", user.getHomeAddress());
+        userData.put("membershipTier", user.getMembershipTier() != null ? user.getMembershipTier().getName() : "NORMAL");
+
+        response.put("success", true);
+        response.put("status", 200);
+        response.put("message", "Cập nhật thông tin thành công.");
+        response.put("data", userData);
+
+        return response;
+    }
+
+    public ResponseEntity<Map<String, Object>> getProfile() {
+        Map<String, Object> response = getProfileMobile();
+        return ResponseEntity.status((int) response.getOrDefault("status", 200)).body(response);
+    }
+
+    @Transactional
+    public ResponseEntity<Map<String, Object>> updateProfile(UserProfileRequest request) {
+        Map<String, Object> response = updateProfileMobile(request);
+        return ResponseEntity.status((int) response.getOrDefault("status", 200)).body(response);
+    }
+
+    private User getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+
+        String principal = authentication.getName();
+        if (principal.contains("@")) {
+            return users.findByEmail(principal).orElse(null);
+        }
+
+        try {
+            Long userId = Long.parseLong(principal);
+            return users.findById(userId).orElse(null);
+        } catch (NumberFormatException e) {
+            return users.findByEmail(principal).orElse(null);
+        }
     }
 
     private UserResponse toResponse(User u) {
