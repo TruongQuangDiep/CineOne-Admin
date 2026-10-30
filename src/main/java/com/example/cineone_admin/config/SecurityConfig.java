@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -56,7 +57,11 @@ public class SecurityConfig {
                         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                         response.getWriter().write("{\"status\":401,\"message\":\"Yêu cầu xác thực tài khoản hoặc token không hợp lệ.\",\"data\":null}");
                     },
-                    request -> request.getRequestURI().startsWith("/api/") // Dùng Lambda trực tiếp, không cần AntPathRequestMatcher
+                    request -> request.getRequestURI() != null && request.getRequestURI().startsWith("/api/")
+                )
+                .defaultAuthenticationEntryPointFor(
+                    new LoginUrlAuthenticationEntryPoint("/login"),
+                    request -> true
                 )
             )
             
