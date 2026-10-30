@@ -13,7 +13,7 @@ public class PaymentResponse {
     private Long paymentId;
     private Long bookingId;
     private String provider;
-    private String orderCode;
+    private String orderCode;   
     private BigDecimal amount;
     private PaymentStatus status;
     private String paymentUrl;

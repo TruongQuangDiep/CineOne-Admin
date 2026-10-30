@@ -32,6 +32,7 @@ build/
 ### VS Code ###
 .vscode/
 cay.txt
+.env
 
 .DS_Store
 Thumbs.db

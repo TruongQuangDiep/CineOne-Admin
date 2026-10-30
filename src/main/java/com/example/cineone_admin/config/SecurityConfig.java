@@ -33,14 +33,15 @@ public class SecurityConfig {
             
             // 2. Phân quyền endpoint
             .authorizeHttpRequests(auth -> auth
-                // Endpoint REST API công khai
+                // Endpoint REST API công khai (payOS Webhook gọi từ ngoài vào bắt buộc phải mở permitAll)
                 .requestMatchers("/api/v1/auth/**", "/error").permitAll()
+                .requestMatchers("/api/v1/payments/webhook").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/seats/held").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/movies/**", "/api/v1/cinemas/**", "/api/v1/showtimes/**").permitAll()
 
                 // Endpoint REST API bắt buộc xác thực qua Token
                 .requestMatchers(HttpMethod.POST, "/api/v1/seats/hold", "/api/v1/seats/release").authenticated()
-                .requestMatchers("/api/v1/bookings/**", "/api/v1/vouchers/**", "/api/v1/tickets/**", "/api/v1/users/**").authenticated()
+                .requestMatchers("/api/v1/bookings/**", "/api/v1/vouchers/**", "/api/v1/tickets/**", "/api/v1/users/**", "/api/v1/payments/**").authenticated()
 
                 // Giao diện Web Admin và tài nguyên tĩnh
                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/favicon.ico", "/webjars/**").permitAll()
