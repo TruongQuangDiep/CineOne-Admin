@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
@@ -42,7 +43,7 @@ class PaymentServiceTests {
         mockPayment.setProvider("payOS");
         mockPayment.setOrderCode("PAYOS-998877");
         mockPayment.setAmount(BigDecimal.valueOf(150000));
-        mockPayment.setStatus("PAID");
+        mockPayment.setStatus(PaymentStatus.PAID);
         mockPayment.setPaymentUrl("https://pay.payos.vn/web/test");
         mockPayment.setCreatedAt(LocalDateTime.now());
         mockPayment.setPaidAt(LocalDateTime.now());
@@ -58,7 +59,7 @@ class PaymentServiceTests {
         when(paymentRepository.searchPayments(eq("PAYOS"), eq(PaymentStatus.PAID), eq(pageable)))
                 .thenReturn(new PageImpl<>(List.of(mockPayment)));
 
-        var result = paymentService.getPayments("PAYOS", PaymentStatus.PAID, pageable);
+                Page<PaymentResponse> result = paymentService.getPayments("PAYOS", PaymentStatus.PAID.name(), pageable);
 
         assertNotNull(result);
         assertEquals(1, result.getTotalElements());
@@ -81,7 +82,7 @@ class PaymentServiceTests {
 
         paymentService.updatePaymentStatus(100L, PaymentStatus.FAILED);
 
-        assertEquals("FAILED", mockPayment.getStatus());
+        assertEquals(PaymentStatus.FAILED, mockPayment.getStatus());
         verify(paymentRepository, times(1)).save(mockPayment);
     }
 }

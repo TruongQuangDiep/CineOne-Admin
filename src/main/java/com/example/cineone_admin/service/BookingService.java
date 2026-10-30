@@ -19,8 +19,9 @@ public class BookingService {
     private final BookingRepository bookingRepository;
 
     @Transactional(readOnly = true)
-    public Page<BookingResponse> getBookings(String keyword, BookingStatus status, Pageable pageable) {
-        return bookingRepository.searchBookings(keyword, status, pageable).map(this::mapToResponse);
+    public Page<BookingResponse> getBookings(String keyword, String status, Pageable pageable) {
+        BookingStatus parsedStatus = parseStatus(status);
+        return bookingRepository.searchBookings(keyword, parsedStatus, pageable).map(this::mapToResponse);
     }
 
     @Transactional(readOnly = true)
@@ -38,7 +39,7 @@ public class BookingService {
     public void updateBookingStatus(Long id, UpdateBookingStatusRequest request) {
         Booking booking = getBookingEntity(id);
         if (request.getStatus() != null) {
-            booking.setStatus(request.getStatus().name());
+            booking.setStatus(request.getStatus());
         }
         bookingRepository.save(booking);
     }
@@ -54,11 +55,7 @@ public class BookingService {
         res.setCreatedAt(booking.getCreatedAt());
 
         if (booking.getStatus() != null) {
-            try {
-                res.setStatus(BookingStatus.valueOf(booking.getStatus().toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                res.setStatus(BookingStatus.PENDING);
-            }
+            res.setStatus(booking.getStatus());
         }
 
         if (booking.getUser() != null) {
@@ -81,5 +78,17 @@ public class BookingService {
             }
         }
         return res;
+    }
+
+    private BookingStatus parseStatus(String status) {
+        if (status == null || status.isBlank() || "ALL".equalsIgnoreCase(status)) {
+            return null;
+        }
+
+        try {
+            return BookingStatus.valueOf(status.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 }

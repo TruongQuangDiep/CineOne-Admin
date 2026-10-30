@@ -35,8 +35,11 @@
                         <div class="col-md-4">
                             <select name="status" class="form-select">
                                 <option value="">-- Tất cả trạng thái --</option>
-                                <option th:each="st : ${statuses}" th:value="${st}" th:text="${st}"
-                                        th:selected="${st == status}"></option>
+                                <option th:each="st : ${statuses}" 
+                                        th:value="${st.name()}" 
+                                        th:text="${st}" 
+                                        th:selected="${(status != null and status.toString() == st.name()) or (param.status != null and param.status[0] == st.name())}">
+                                </option>
                             </select>
                         </div>
                         <div class="col-md-3 d-flex gap-2">
