@@ -20,7 +20,7 @@ public class PaymentController {
     @GetMapping
     public String listPayments(
             @RequestParam(name = "keyword", required = false) String keyword,
-            @RequestParam(name = "status", required = false) PaymentStatus status,
+            @RequestParam(name = "status", required = false) String status,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size,
             Model model) {

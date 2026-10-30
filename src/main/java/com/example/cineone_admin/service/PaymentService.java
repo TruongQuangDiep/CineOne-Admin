@@ -18,8 +18,9 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
 
     @Transactional(readOnly = true)
-    public Page<PaymentResponse> getPayments(String keyword, PaymentStatus status, Pageable pageable) {
-        return paymentRepository.searchPayments(keyword, status, pageable).map(this::mapToResponse);
+    public Page<PaymentResponse> getPayments(String keyword, String status, Pageable pageable) {
+        PaymentStatus parsedStatus = parseStatus(status);
+        return paymentRepository.searchPayments(keyword, parsedStatus, pageable).map(this::mapToResponse);
     }
 
     @Transactional(readOnly = true)
@@ -37,7 +38,7 @@ public class PaymentService {
     public void updatePaymentStatus(Long id, PaymentStatus status) {
         Payment payment = getPaymentEntity(id);
         if (status != null) {
-            payment.setStatus(status.name());
+            payment.setStatus(status);
         }
         paymentRepository.save(payment);
     }
@@ -53,16 +54,24 @@ public class PaymentService {
         res.setAmount(payment.getAmount());
 
         if (payment.getStatus() != null) {
-            try {
-                res.setStatus(PaymentStatus.valueOf(payment.getStatus().toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                res.setStatus(PaymentStatus.PENDING);
-            }
+            res.setStatus(payment.getStatus());
         }
 
         res.setPaymentUrl(payment.getPaymentUrl());
         res.setPaidAt(payment.getPaidAt());
         res.setCreatedAt(payment.getCreatedAt());
         return res;
+    }
+
+    private PaymentStatus parseStatus(String status) {
+        if (status == null || status.isBlank() || "ALL".equalsIgnoreCase(status)) {
+            return null;
+        }
+
+        try {
+            return PaymentStatus.valueOf(status.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 }
