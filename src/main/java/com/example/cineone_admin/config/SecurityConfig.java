@@ -34,7 +34,7 @@ public class SecurityConfig {
             // 2. Phân quyền endpoint
             .authorizeHttpRequests(auth -> auth
                 // Endpoint REST API công khai
-                .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/api/v1/auth/**", "/error").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/seats/held").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/movies/**", "/api/v1/cinemas/**", "/api/v1/showtimes/**").permitAll()
 
