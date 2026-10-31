@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["answered", "answer", "source_ids"],
+  "properties": {
+    "answered": {
+      "type": "boolean",
+      "description": "True only when the question can be answered directly from the supplied knowledge_entries."
+    },
+    "answer": {
+      "type": "string",
+      "description": "Concise Vietnamese answer grounded strictly in the supplied knowledge_entries, or a polite Vietnamese notice when not found."
+    },
+    "source_ids": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      },
+      "description": "List of knowledge_id values from the supplied knowledge_entries used to answer; empty array when answered is false."
+    }
+  }
+}
+

@@ -13,6 +13,10 @@ public interface KnowledgeBaseEntryRepository extends JpaRepository<KnowledgeBas
 
     List<KnowledgeBaseEntry> findByCategoryAndStatus(String category, String status);
 
+    List<KnowledgeBaseEntry> findByStatusOrderByKnowledgeIdAsc(String status);
+
+    List<KnowledgeBaseEntry> findByCategoryIgnoreCaseAndStatusOrderByKnowledgeIdAsc(String category, String status);
+
     boolean existsByTitleIgnoreCaseAndKnowledgeIdNot(String title, Long knowledgeId);
 
     boolean existsByTitleIgnoreCase(String title);

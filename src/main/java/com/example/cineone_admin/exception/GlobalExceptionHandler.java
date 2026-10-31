@@ -22,6 +22,19 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error(404, ex.getMessage()));
     }
 
+    @ExceptionHandler(AiExtractionException.class)
+    public ResponseEntity<ApiResponse<Void>> handleAiException(AiExtractionException ex) {
+        HttpStatus status = switch (ex.getKind()) {
+            case INVALID_INPUT, PRIVACY_REJECTED -> HttpStatus.BAD_REQUEST;
+            case RATE_LIMITED -> HttpStatus.TOO_MANY_REQUESTS;
+            case TIMEOUT -> HttpStatus.GATEWAY_TIMEOUT;
+            case CONFIGURATION, PROVIDER_ERROR -> HttpStatus.SERVICE_UNAVAILABLE;
+            case INVALID_RESPONSE, BLOCKED -> HttpStatus.BAD_GATEWAY;
+        };
+        return ResponseEntity.status(status)
+                .body(ApiResponse.error(status.value(), ex.getMessage()));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Void>> handleValidation(MethodArgumentNotValidException ex) {
         String errorMsg = ex.getBindingResult().getFieldErrors().stream()

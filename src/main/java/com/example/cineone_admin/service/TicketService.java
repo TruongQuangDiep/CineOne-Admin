@@ -59,7 +59,7 @@ public class TicketService {
         String status = ticket.getStatus() == null ? "" : ticket.getStatus().trim().toUpperCase();
         String bookingStatus = ticket.getBooking() == null || ticket.getBooking().getStatus() == null
                 ? ""
-                : ticket.getBooking().getStatus().trim().toUpperCase();
+                : ticket.getBooking().getStatus().name().trim().toUpperCase();
 
         boolean cancelled = "CANCELLED".equals(status) || "EXPIRED".equals(status)
                 || "CANCELLED".equals(bookingStatus) || "EXPIRED".equals(bookingStatus);
