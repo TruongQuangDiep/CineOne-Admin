@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -34,7 +35,7 @@ public class SecurityConfig {
             // 2. Phân quyền endpoint
             .authorizeHttpRequests(auth -> auth
                 // Endpoint REST API công khai
-                .requestMatchers("/api/v1/auth/**", "/error").permitAll()
+                .requestMatchers("/api/v1/auth/**", "/api/v1/ai/**", "/error").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/seats/held").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/movies/**", "/api/v1/cinemas/**", "/api/v1/showtimes/**").permitAll()
 
@@ -56,6 +57,10 @@ public class SecurityConfig {
                         response.getWriter().write("{\"status\":401,\"message\":\"Yêu cầu xác thực tài khoản hoặc token không hợp lệ.\",\"data\":null}");
                     },
                     request -> request.getRequestURI().startsWith("/api/") // Dùng Lambda trực tiếp, không cần AntPathRequestMatcher
+                )
+                .defaultAuthenticationEntryPointFor(
+                    new LoginUrlAuthenticationEntryPoint("/login"),
+                    request -> !request.getRequestURI().startsWith("/api/")
                 )
             )
             

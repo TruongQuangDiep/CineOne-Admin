@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["summary", "highlights"],
+  "properties": {
+    "summary": {
+      "type": "string",
+      "description": "Concise, objective Vietnamese summary (1-3 sentences) synthesized strictly from the supplied reviews."
+    },
+    "highlights": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "1 to 5 short Vietnamese bullet points capturing key aspects mentioned by viewers."
+    }
+  }
+}
+
