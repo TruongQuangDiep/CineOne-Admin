@@ -1,6 +1,87 @@
 @baseUrl = http://localhost:8080
+@baseUrl2 = http://localhost:8080/api/v1/auth
 @email = admin@cineone.vn
 @password = 1234567890
+
+
+## đăng kí
+POST {{baseUrl2}}/register
+Content-Type: application/json
+
+{
+  "fullName": "Truong Quang Diep",
+  "email": "quangdieptruong2005@gmail.com",
+  "phone": "0911223344",
+  "password": "1234567890"
+}
+
+### đăng nhập
+
+POST {{baseUrl2}}/login
+Content-Type: application/json
+
+{
+  "email": "quangdieptruong2005@gmail.com",
+  "password": "123456789"
+}
+
+### TEST 1: XÁC THỰC OTP ĐĂNG KÝ (EMAIL_VERIFY)
+POST {{baseUrl2}}/verify-otp
+Content-Type: application/json
+
+{
+  "email": "quangdieptruong2005@gmail.com",
+  "otp": "460215",
+  "type": "EMAIL_VERIFY"
+}
+
+### TEST 2: XÁC THỰC OTP QUÊN MẬT KHẨU (RESET_PASS)
+POST {{baseUrl2}}/verify-otp
+Content-Type: application/json
+
+{
+  "email": "quangdieptruong2005@gmail.com",
+  "otp": "123456",
+  "type": "RESET_PASS"
+}
+
+### -------------------------------------------------------------------
+### BƯỚC 1: YÊU CẦU QUÊN MẬT KHẨU (GỬI OTP RESET_PASS VỀ GMAIL)
+### -------------------------------------------------------------------
+POST {{baseUrl2}}/forgot-password
+Content-Type: application/json
+
+{
+  "email": "quangdieptruong2005@gmail.com"
+}
+
+### -------------------------------------------------------------------
+### BƯỚC 2: XÁC THỰC MÃ OTP TỪ GMAIL (TYPE: RESET_PASS)
+### -------------------------------------------------------------------
+POST {{baseUrl2}}/verify-otp
+Content-Type: application/json
+
+{
+  "email": "quangdieptruong2005@gmail.com",
+  "otp": "158155",
+  "type": "RESET_PASS"
+}
+
+### -------------------------------------------------------------------
+### BƯỚC 3: THIẾT LẬP MẬT KHẨU MỚI
+### -------------------------------------------------------------------
+POST {{baseUrl2}}/reset-password
+Content-Type: application/json
+
+{
+  "email": "quangdieptruong2005@gmail.com",
+  "newPassword": "123456789"
+}
+
+### TEST ĐĂNG XUẤT (LOGOUT)
+### -------------------------------------------------------------------
+POST {{baseUrl2}}/logout
+Content-Type: application/json
 
 ### 1. Lấy trang đăng nhập, session cookie và CSRF token
 GET {{baseUrl}}/login
