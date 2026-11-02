@@ -32,7 +32,9 @@ build/
 ### VS Code ###
 .vscode/
 cay.txt
+.env
 
 .DS_Store
 Thumbs.db
 src/main/resources/firebase-service-account.json
+.env

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
@@ -44,7 +45,7 @@ class BookingServiceTests {
         mockBooking.setSubtotal(BigDecimal.valueOf(100000));
         mockBooking.setDiscountAmount(BigDecimal.ZERO);
         mockBooking.setTotalAmount(BigDecimal.valueOf(100000));
-        mockBooking.setStatus("CONFIRMED");
+        mockBooking.setStatus(BookingStatus.CONFIRMED);
         mockBooking.setCreatedAt(LocalDateTime.now());
 
         User user = new User();
@@ -77,7 +78,7 @@ class BookingServiceTests {
         when(bookingRepository.searchBookings(eq("BK-TEST"), eq(BookingStatus.CONFIRMED), eq(pageable)))
                 .thenReturn(new PageImpl<>(List.of(mockBooking)));
 
-        var result = bookingService.getBookings("BK-TEST", BookingStatus.CONFIRMED, pageable);
+                Page<BookingResponse> result = bookingService.getBookings("BK-TEST", BookingStatus.CONFIRMED.name(), pageable);
 
         assertNotNull(result);
         assertEquals(1, result.getTotalElements());
@@ -106,7 +107,7 @@ class BookingServiceTests {
 
         bookingService.updateBookingStatus(1L, request);
 
-        assertEquals("CANCELLED", mockBooking.getStatus());
+        assertEquals(BookingStatus.CANCELLED, mockBooking.getStatus());
         verify(bookingRepository, times(1)).save(mockBooking);
     }
 
@@ -115,7 +116,7 @@ class BookingServiceTests {
         Booking orphan = new Booking();
         orphan.setBookingId(2L);
         orphan.setBookingCode("BK-ORPHAN");
-        orphan.setStatus("INVALID_STATUS"); // test fallback status
+        orphan.setStatus(BookingStatus.PENDING); 
 
         BookingResponse dto = bookingService.mapToResponse(orphan);
 
