@@ -1,6 +1,4 @@
 package com.example.cineone_admin.dto.hold;
-
-import com.google.cloud.Timestamp;
 import lombok.*;
 
 @Getter
