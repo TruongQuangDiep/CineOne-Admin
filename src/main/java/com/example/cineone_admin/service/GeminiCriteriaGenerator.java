@@ -16,9 +16,11 @@ import java.net.http.HttpTimeoutException;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public final class GeminiCriteriaGenerator implements CriteriaGenerator {
+public final class GeminiCriteriaGenerator implements CriteriaGenerator, AutoCloseable {
     private final GeminiProperties properties;
-    private final Supplier<Client> clients;
+    private final Supplier<Client> clientFactory;
+    private Client client;
+    private boolean closed;
 
     public GeminiCriteriaGenerator(GeminiProperties properties) {
         this(properties, () -> Client.builder().apiKey(properties.getApiKey()).vertexAI(false)
@@ -27,16 +29,33 @@ public final class GeminiCriteriaGenerator implements CriteriaGenerator {
                         .retryOptions(HttpRetryOptions.builder().attempts(1).build()).build()).build());
     }
 
-    GeminiCriteriaGenerator(GeminiProperties properties, Supplier<Client> clients) {
+    GeminiCriteriaGenerator(GeminiProperties properties, Supplier<Client> clientFactory) {
         this.properties = properties;
-        this.clients = clients;
+        this.clientFactory = clientFactory;
+    }
+
+    private synchronized Client getClient() {
+        if (closed) {
+            throw new AiExtractionException(AiExtractionException.Kind.CONFIGURATION);
+        }
+        if (client == null) {
+            client = clientFactory.get();
+        }
+        return client;
+    }
+
+    @Override
+    public synchronized void close() {
+        if (closed) return;
+        closed = true;
+        if (client != null) client.close();
     }
 
     @Override
     public String generate(String systemPrompt, String userContent, Map<String, Object> schema) {
         properties.validateForCall();
-        try (Client client = clients.get()) {
-            return extractText(client.models.generateContent(properties.getModel(), userContent,
+        try {
+            return extractText(getClient().models.generateContent(properties.getModel(), userContent,
                     GenerateContentConfig.builder()
                             .systemInstruction(Content.fromParts(Part.fromText(systemPrompt)))
                             .responseMimeType("application/json").responseJsonSchema(schema)
