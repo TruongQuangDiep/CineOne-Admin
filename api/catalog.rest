@@ -1,0 +1,30 @@
+@baseUrl = http://localhost:8080/api/v1
+
+### SCRUM-84: 1. Lấy danh sách phim (có hỗ trợ lọc q, status, genreId, page, size)
+GET {{baseUrl}}/movies?q=&status=NOW_SHOWING&page=0&size=10
+Accept: application/json
+
+### SCRUM-84: 2. Lấy danh sách phim sắp chiếu
+GET {{baseUrl}}/movies?status=COMING_SOON&page=0&size=10
+Accept: application/json
+
+### SCRUM-84: 3. Lấy chi tiết 1 phim theo ID
+GET {{baseUrl}}/movies/1
+Accept: application/json
+
+### SCRUM-85: 4. Lấy danh sách rạp (hỗ trợ lọc q, city, status, page)
+GET {{baseUrl}}/cinemas?q=&city=&status=ACTIVE&page=0
+Accept: application/json
+
+### SCRUM-85: 5. Lấy chi tiết 1 rạp theo ID
+GET {{baseUrl}}/cinemas/1
+Accept: application/json
+
+### SCRUM-85: 6. Lấy danh sách F&B (bắp nước) của rạp theo ID
+GET {{baseUrl}}/cinemas/1/fnbs
+Accept: application/json
+
+### SCRUM-85: 7. Lấy danh sách suất chiếu (hỗ trợ lọc movieId, cinemaId, date, page)
+GET {{baseUrl}}/showtimes?movieId=1&cinemaId=1&date=2026-11-02&page=0
+Accept: application/json
+

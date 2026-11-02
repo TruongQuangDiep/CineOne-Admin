@@ -38,7 +38,10 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/auth/**", "/api/v1/ai/**", "/error").permitAll()
                 .requestMatchers("/api/v1/payments/webhook").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/seats/held").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/movies/**", "/api/v1/cinemas/**", "/api/v1/showtimes/**").permitAll()
+                .requestMatchers(HttpMethod.GET,
+                        "/api/v1/movies", "/api/v1/movies/**",
+                        "/api/v1/cinemas", "/api/v1/cinemas/**",
+                        "/api/v1/showtimes", "/api/v1/showtimes/**").permitAll()
 
                 // Endpoint REST API bắt buộc xác thực qua Token
                 .requestMatchers(HttpMethod.POST, "/api/v1/seats/hold", "/api/v1/seats/release").authenticated()
