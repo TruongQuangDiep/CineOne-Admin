@@ -24,10 +24,11 @@ class GeminiManualTest {
         environment.getPropertySources().addLast(new ResourcePropertySource("classpath:application.properties"));
         var timeProperties = Binder.get(environment).bind("ai.search.time", SearchTimeProperties.class)
                 .orElseGet(SearchTimeProperties::new);
-        var extractor = new SearchCriteriaExtractor(
-                new GeminiCriteriaGenerator(properties), Clock.systemUTC(), timeProperties);
-        var result = extractor.extract(System.getenv("CINEONE_GEMINI_INPUT"));
-        System.out.println("\n--- Extracted criteria (Vietnam reference date: today) ---");
-        System.out.println(new JsonMapper().writerWithDefaultPrettyPrinter().writeValueAsString(result));
+        try (var generator = new GeminiCriteriaGenerator(properties)) {
+            var extractor = new SearchCriteriaExtractor(generator, Clock.systemUTC(), timeProperties);
+            var result = extractor.extract(System.getenv("CINEONE_GEMINI_INPUT"));
+            System.out.println("\n--- Extracted criteria (Vietnam reference date: today) ---");
+            System.out.println(new JsonMapper().writerWithDefaultPrettyPrinter().writeValueAsString(result));
+        }
     }
 }

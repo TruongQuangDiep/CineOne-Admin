@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -35,7 +35,7 @@ public class SecurityConfig {
             // 2. Phân quyền endpoint
             .authorizeHttpRequests(auth -> auth
                 // Endpoint REST API công khai (payOS Webhook gọi từ ngoài vào bắt buộc phải mở permitAll)
-                .requestMatchers("/api/v1/auth/**", "/error").permitAll()
+                .requestMatchers("/api/v1/auth/**", "/api/v1/ai/**", "/error").permitAll()
                 .requestMatchers("/api/v1/payments/webhook").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/seats/held").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/movies/**", "/api/v1/cinemas/**", "/api/v1/showtimes/**").permitAll()
@@ -61,7 +61,7 @@ public class SecurityConfig {
                 )
                 .defaultAuthenticationEntryPointFor(
                     new LoginUrlAuthenticationEntryPoint("/login"),
-                    request -> true
+                    request -> request.getRequestURI() == null || !request.getRequestURI().startsWith("/api/")
                 )
             )
             

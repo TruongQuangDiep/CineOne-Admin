@@ -1,0 +1,30 @@
+@baseUrl = http://localhost:8080
+@movieId = 1
+
+### Hỏi đáp FAQ dựa trên KnowledgeBaseEntries (JSON - SCRUM-78 / CINE-16.1)
+POST {{baseUrl}}/api/v1/ai/faq
+Content-Type: application/json
+Accept: application/json
+
+{
+  "question": "Chính sách hoàn hủy vé của rạp như thế nào?"
+}
+
+### Hỏi đáp FAQ có lọc theo danh mục (JSON - SCRUM-78 / CINE-16.1)
+POST {{baseUrl}}/api/v1/ai/faq
+Content-Type: application/json
+Accept: application/json
+
+{
+  "question": "Làm sao để tích điểm thành viên?",
+  "category": "HƯỚNG DẪN"
+}
+
+### Tóm tắt nhận xét và đánh giá phim (JSON - SCRUM-79 / CINE-16.2)
+GET {{baseUrl}}/api/v1/movies/{{movieId}}/reviews/summary
+Accept: application/json
+
+### Tóm tắt nhận xét và đánh giá phim qua đường dẫn AI (JSON - SCRUM-79 / CINE-16.2)
+GET {{baseUrl}}/api/v1/ai/movies/{{movieId}}/review-summary
+Accept: application/json
+
