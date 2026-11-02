@@ -12,7 +12,10 @@ import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -24,9 +27,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 class GeminiCriteriaGeneratorTests {
     private HttpServer server;
     private ExecutorService executor;
@@ -38,6 +43,9 @@ class GeminiCriteriaGeneratorTests {
     private final AtomicReference<String> apiKey = new AtomicReference<>();
     private final AtomicReference<String> uri = new AtomicReference<>();
     private final AtomicReference<String> request = new AtomicReference<>();
+    private final List<GeminiCriteriaGenerator> generators = new ArrayList<>();
+    private final AtomicInteger clientCreations = new AtomicInteger();
+    private final AtomicReference<Client> createdClient = new AtomicReference<>();
 
     @BeforeEach void setup() throws Exception {
         server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
@@ -68,18 +76,26 @@ class GeminiCriteriaGeneratorTests {
     }
 
     @AfterEach void cleanup() {
+        generators.forEach(GeminiCriteriaGenerator::close);
         server.stop(0);
         executor.shutdownNow();
     }
 
     private GeminiCriteriaGenerator generator() {
-        return new GeminiCriteriaGenerator(properties, () -> Client.builder()
+        var generator = new GeminiCriteriaGenerator(properties, () -> {
+            clientCreations.incrementAndGet();
+            var client = spy(Client.builder()
                 .apiKey(properties.getApiKey()).vertexAI(false)
                 .httpOptions(HttpOptions.builder()
                         .baseUrl("http://127.0.0.1:" + server.getAddress().getPort())
                         .apiVersion("v1beta")
                         .timeout(Math.toIntExact(properties.getRequestTimeout().toMillis()))
                         .retryOptions(HttpRetryOptions.builder().attempts(1).build()).build()).build());
+            createdClient.set(client);
+            return client;
+        });
+        generators.add(generator);
+        return generator;
     }
 
     private String generate() {
@@ -178,6 +194,92 @@ class GeminiCriteriaGeneratorTests {
         properties.setRequestTimeout(Duration.ofSeconds(61));
         assertThrows(AiExtractionException.class, this::generate);
         assertEquals(0, calls.get());
+    }
+
+    @Test void reusesOneClientAndClosesItOnlyWhenGeneratorCloses() {
+        var generator = generator();
+        var contract = new CriteriaContract();
+        assertEquals(0, clientCreations.get());
+        for (int i = 0; i < 2; i++) {
+            assertEquals(CriteriaParserTests.EMPTY,
+                    generator.generate(contract.systemPrompt(), "phim ma", contract.schema()));
+        }
+        assertEquals(1, clientCreations.get());
+        assertEquals(2, calls.get());
+        verify(createdClient.get(), never()).close();
+        generator.close();
+        generator.close();
+        verify(createdClient.get(), times(1)).close();
+        assertEquals(AiExtractionException.Kind.CONFIGURATION,
+                assertThrows(AiExtractionException.class,
+                        () -> generator.generate(contract.systemPrompt(), "phim ma", contract.schema())).getKind());
+        assertEquals(1, clientCreations.get());
+    }
+
+    @Test void concurrentFirstRequestsCreateOnlyOneClient() throws Exception {
+        var generator = generator();
+        var contract = new CriteriaContract();
+        var start = new CountDownLatch(1);
+        try (var workers = Executors.newVirtualThreadPerTaskExecutor()) {
+            var results = new ArrayList<java.util.concurrent.Future<String>>();
+            for (int i = 0; i < 8; i++) {
+                results.add(workers.submit(() -> {
+                    start.await();
+                    return generator.generate(contract.systemPrompt(), "phim ma", contract.schema());
+                }));
+            }
+            start.countDown();
+            for (var result : results) assertEquals(CriteriaParserTests.EMPTY, result.get());
+        }
+        assertEquals(1, clientCreations.get());
+        assertEquals(8, calls.get());
+        verify(createdClient.get(), never()).close();
+    }
+
+    @Test void providerFailureDoesNotCloseOrRecreateSharedClient() {
+        var generator = generator();
+        var contract = new CriteriaContract();
+        status = 429;
+        body = "{\"error\":{\"code\":429,\"message\":\"limited\"}}";
+        assertEquals(AiExtractionException.Kind.RATE_LIMITED,
+                assertThrows(AiExtractionException.class,
+                        () -> generator.generate(contract.systemPrompt(), "phim ma", contract.schema())).getKind());
+        status = 200;
+        body = response(CriteriaParserTests.EMPTY, "STOP");
+        assertEquals(CriteriaParserTests.EMPTY,
+                generator.generate(contract.systemPrompt(), "phim ma", contract.schema()));
+        assertEquals(1, clientCreations.get());
+        assertEquals(2, calls.get());
+        verify(createdClient.get(), never()).close();
+    }
+
+    @Test void missingKeyAndUnusedGeneratorNeverCreateClient() {
+        var generator = generator();
+        var contract = new CriteriaContract();
+        properties.setApiKey("");
+        assertThrows(AiExtractionException.class,
+                () -> generator.generate(contract.systemPrompt(), "phim ma", contract.schema()));
+        generator.close();
+        assertEquals(0, clientCreations.get());
+        assertEquals(0, calls.get());
+    }
+
+    @Test void springSharesGeneratorAndClosesItOnContextShutdown() {
+        var managed = generator();
+        var contract = new CriteriaContract();
+        new ApplicationContextRunner().withUserConfiguration(GeminiConfiguration.class)
+                .withInitializer(context -> context.addBeanFactoryPostProcessor(factory ->
+                        ((AbstractBeanDefinition) factory.getBeanDefinition("criteriaGenerator"))
+                                .setInstanceSupplier(() -> managed)))
+                .run(context -> {
+                    assertNull(context.getStartupFailure());
+                    assertSame(managed, context.getBean(CriteriaGenerator.class));
+                    assertSame(context.getBean(CriteriaGenerator.class), context.getBean("criteriaGenerator"));
+                    assertEquals(CriteriaParserTests.EMPTY, context.getBean(CriteriaGenerator.class)
+                            .generate(contract.systemPrompt(), "phim ma", contract.schema()));
+                    verify(createdClient.get(), never()).close();
+                });
+        verify(createdClient.get(), times(1)).close();
     }
 
     private static String response(String text, String finishReason) {
