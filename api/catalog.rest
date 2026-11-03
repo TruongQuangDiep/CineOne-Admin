@@ -28,3 +28,7 @@ Accept: application/json
 GET {{baseUrl}}/showtimes?movieId=1&cinemaId=1&date=2026-11-02&page=0
 Accept: application/json
 
+### SCRUM-27 / SCRUM-93: 8. Lấy sơ đồ danh sách ghế theo suất chiếu (Showtime ID)
+GET {{baseUrl}}/showtimes/1/seats
+Accept: application/json
+
