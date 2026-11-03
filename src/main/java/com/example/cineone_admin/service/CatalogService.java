@@ -27,6 +27,10 @@ public class CatalogService {
     }
 
     public Page<MovieRow> movies(String q, String status, Long genreId, int page) {
+        return movies(q, status, genreId, page, PAGE_SIZE);
+    }
+
+    public Page<MovieRow> movies(String q, String status, Long genreId, int page, int size) {
         validateStatus(status, "COMING_SOON", "SNEAK_SHOW", "NOW_SHOWING", "END");
         var params = new HashMap<String, Object>();
         String where = " where " + visible("MOVIE", "x.movieId") + search("x.title", "q", q, params)
@@ -36,7 +40,7 @@ public class CatalogService {
             where += " and exists (select g.id from MovieGenre g where g.movie = x and g.genre.genreId = :genreId)";
         }
         Page<Movie> result = page(Movie.class, "select x from Movie x", "select count(x) from Movie x",
-                where, "x.title, x.movieId", params, page);
+                where, "x.title, x.movieId", params, page, size);
         var genres = genresFor(result.getContent().stream().map(Movie::getMovieId).toList());
         return result.map(m -> new MovieRow(m, genres.getOrDefault(m.getMovieId(), "—")));
     }
@@ -47,6 +51,21 @@ public class CatalogService {
         return new MovieRow(movie, genresFor(List.of(id)).getOrDefault(id, "—"));
     }
 
+    public Map<Long, Double> ratingsFor(List<Long> ids) {
+        Map<Long, Double> result = new HashMap<>();
+        if (ids != null && !ids.isEmpty()) {
+            for (Object[] row : em.createQuery(
+                    "select r.movie.movieId, avg(r.rating) from Review r where r.movie.movieId in :ids and r.status = 'VISIBLE' group by r.movie.movieId",
+                    Object[].class).setParameter("ids", ids).getResultList()) {
+                if (row[1] != null) {
+                    double avg = ((Number) row[1]).doubleValue();
+                    result.put((Long) row[0], Math.round(avg * 10.0) / 10.0);
+                }
+            }
+        }
+        return result;
+    }
+
     public List<Genre> genres() { return em.createQuery("select g from Genre g order by g.name", Genre.class).getResultList(); }
 
     public List<DataProvider> providers() {
@@ -55,9 +74,14 @@ public class CatalogService {
     }
 
     public Page<CinemaRow> cinemas(String q, Long providerId, String status, int page) {
+        return cinemas(q, null, providerId, status, page);
+    }
+
+    public Page<CinemaRow> cinemas(String q, String city, Long providerId, String status, int page) {
         validateStatus(status, "ACTIVE", "INACTIVE");
         var params = new HashMap<String, Object>();
         String where = " where " + visible("CINEMA", "x.cinemaId") + search("x.name", "q", q, params)
+                + search("x.address", "city", city, params)
                 + equals("x.status", "status", status, params);
         if (providerId != null) {
             params.put("providerId", providerId);
@@ -76,6 +100,13 @@ public class CatalogService {
     public Cinema cinema(Long id) {
         return one(Cinema.class, "select x from Cinema x join fetch x.brand where x.cinemaId = :id and "
                 + visible("CINEMA", "x.cinemaId"), id);
+    }
+
+    public CinemaRow cinemaWithRoomCount(Long id) {
+        Cinema c = cinema(id);
+        Map<Long, Long> counts = counts("select r.cinema.cinemaId, count(r) from Room r where r.cinema.cinemaId in :ids and "
+                + visible("ROOM", "r.roomId") + " group by r.cinema.cinemaId", List.of(id));
+        return new CinemaRow(c, counts.getOrDefault(id, 0L));
     }
 
     public Page<RoomRow> rooms(Long cinemaId, int page) {
@@ -103,6 +134,10 @@ public class CatalogService {
     }
 
     public Page<Showtime> showtimes(String cinema, String movie, LocalDate date, String status, int page) {
+        return showtimes(null, null, cinema, movie, date, status, page);
+    }
+
+    public Page<Showtime> showtimes(Long movieId, Long cinemaId, String cinema, String movie, LocalDate date, String status, int page) {
         validateStatus(status, "OPEN", "CLOSED", "CANCELLED", "ENDED");
         var params = new HashMap<String, Object>();
         String where = " where " + visible("SHOWTIME", "x.showtimeId")
@@ -111,6 +146,14 @@ public class CatalogService {
                 + " and " + visible("MOVIE", "x.movie.movieId")
                 + search("x.room.cinema.name", "cinema", cinema, params)
                 + search("x.movie.title", "movie", movie, params) + equals("x.status", "status", status, params);
+        if (movieId != null) {
+            params.put("movieId", movieId);
+            where += " and x.movie.movieId = :movieId";
+        }
+        if (cinemaId != null) {
+            params.put("cinemaId", cinemaId);
+            where += " and x.room.cinema.cinemaId = :cinemaId";
+        }
         if (date != null) {
             params.put("from", date.atStartOfDay()); params.put("to", date.plusDays(1).atStartOfDay());
             where += " and x.startTime >= :from and x.startTime < :to";
@@ -155,12 +198,18 @@ public class CatalogService {
 
     private <T> Page<T> page(Class<T> type, String select, String count, String where, String order,
                               Map<String, ?> params, int requestedPage) {
+        return page(type, select, count, where, order, params, requestedPage, PAGE_SIZE);
+    }
+
+    private <T> Page<T> page(Class<T> type, String select, String count, String where, String order,
+                              Map<String, ?> params, int requestedPage, int requestedSize) {
         int number = Math.max(0, Math.min(requestedPage, 100_000));
+        int pageSize = Math.max(1, Math.min(requestedSize, 100));
         TypedQuery<T> query = em.createQuery(select + where + " order by " + order, type);
         TypedQuery<Long> total = em.createQuery(count + where, Long.class);
         params.forEach((key, value) -> { query.setParameter(key, value); total.setParameter(key, value); });
-        return new PageImpl<>(query.setFirstResult(number * PAGE_SIZE).setMaxResults(PAGE_SIZE).getResultList(),
-                PageRequest.of(number, PAGE_SIZE), total.getSingleResult());
+        return new PageImpl<>(query.setFirstResult(number * pageSize).setMaxResults(pageSize).getResultList(),
+                PageRequest.of(number, pageSize), total.getSingleResult());
     }
 
     private <T> T one(Class<T> type, String query, Long id) {
