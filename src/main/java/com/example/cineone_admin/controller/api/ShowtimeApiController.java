@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.server.ResponseStatusException;
+import com.example.cineone_admin.dto.catalog.SeatResponse;
+import com.example.cineone_admin.entity.Seat;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
@@ -46,6 +49,19 @@ public class ShowtimeApiController {
         response.put("success", true);
         response.put("status", 200);
         response.put("message", "Lấy danh sách suất chiếu thành công.");
+        response.put("data", data);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/seats")
+    public ResponseEntity<Map<String, Object>> getShowtimeSeats(@PathVariable Long id) {
+        List<Seat> seats = catalogService.seatsForShowtime(id);
+        List<SeatResponse> data = seats.stream().map(SeatResponse::from).toList();
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("success", true);
+        response.put("status", 200);
+        response.put("message", "Lấy sơ đồ ghế thành công.");
         response.put("data", data);
         return ResponseEntity.ok(response);
     }
