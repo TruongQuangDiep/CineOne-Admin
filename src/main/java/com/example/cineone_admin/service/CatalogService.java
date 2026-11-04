@@ -237,4 +237,16 @@ public class CatalogService {
     public record CinemaRow(Cinema cinema, long roomCount) {}
     public record RoomRow(Room room, long seatCount) {}
     public record RoomDetail(Cinema cinema, Room room, Map<String, List<Seat>> rows, int seatCount, int columns) {}
+
+    public List<Seat> seatsForShowtime(Long showtimeId) {
+        Showtime showtime = one(Showtime.class, "select x from Showtime x where x.showtimeId = :id and "
+                + visible("SHOWTIME", "x.showtimeId"), showtimeId);
+        if (showtime.getRoom() == null) {
+            return Collections.emptyList();
+        }
+        return em.createQuery("select s from Seat s where s.room.roomId = :roomId and "
+                + visible("SEAT", "s.seatId") + " order by length(s.seatRow), s.seatRow, s.seatNumber", Seat.class)
+                .setParameter("roomId", showtime.getRoom().getRoomId())
+                .getResultList();
+    }
 }
