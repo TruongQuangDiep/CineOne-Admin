@@ -44,4 +44,14 @@ public class PaymentApiController {
             return ResponseEntity.badRequest().body(Map.of("code", "01", "message", e.getMessage()));
         }
     }
+
+    @GetMapping("/status/{bookingId}")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> checkPaymentStatus(@PathVariable Long bookingId) {
+        Map<String, Object> status = paymentService.getPaymentStatusByBookingId(bookingId);
+        return ResponseEntity.ok(ApiResponse.<Map<String, Object>>builder()
+                .status(200)
+                .message("Lấy trạng thái thanh toán thành công")
+                .data(status)
+                .build());
+    }
 }

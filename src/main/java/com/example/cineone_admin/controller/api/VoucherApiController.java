@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
@@ -23,6 +25,20 @@ public class VoucherApiController {
         body.put("status", 200);
         body.put("message", "Lấy danh sách voucher thành công.");
         body.put("data", voucherService.getMyVouchersMobile());
+        return ResponseEntity.ok(body);
+    }
+
+    @PostMapping("/apply")
+    public ResponseEntity<Map<String, Object>> applyVoucher(@RequestBody Map<String, Object> request) {
+        String code = (String) request.getOrDefault("code", "");
+        Number subtotalNum = (Number) request.getOrDefault("subtotal", 0);
+        long subtotal = subtotalNum.longValue();
+        Map<String, Object> result = voucherService.applyVoucherForMobile(code, subtotal);
+        Map<String, Object> body = new java.util.HashMap<>();
+        body.put("success", result.get("success"));
+        body.put("status", 200);
+        body.put("message", result.get("message"));
+        body.put("data", result);
         return ResponseEntity.ok(body);
     }
 }

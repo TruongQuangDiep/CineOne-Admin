@@ -129,4 +129,81 @@ public class VoucherService {
         res.setStatus(v.getStatus());
         return res;
     }
+
+    @Transactional(readOnly = true)
+    public Map<String, Object> applyVoucherForMobile(String code, long subtotal) {
+        Map<String, Object> result = new HashMap<>();
+        if (code == null || code.trim().isEmpty()) {
+            result.put("success", false);
+            result.put("message", "Vui lòng nhập mã giảm giá.");
+            result.put("discountAmount", 0L);
+            result.put("finalAmount", subtotal);
+            return result;
+        }
+
+        var opt = voucherRepository.findByCodeIgnoreCase(code.trim());
+        if (opt.isEmpty()) {
+            result.put("success", false);
+            result.put("message", "Mã voucher không tồn tại.");
+            result.put("discountAmount", 0L);
+            result.put("finalAmount", subtotal);
+            return result;
+        }
+
+        Voucher v = opt.get();
+        LocalDateTime now = LocalDateTime.now();
+        if (!"ACTIVE".equalsIgnoreCase(v.getStatus())) {
+            result.put("success", false);
+            result.put("message", "Mã voucher đã hết hạn hoặc tạm khóa.");
+            result.put("discountAmount", 0L);
+            result.put("finalAmount", subtotal);
+            return result;
+        }
+
+        if (v.getStartAt() != null && v.getStartAt().isAfter(now)) {
+            result.put("success", false);
+            result.put("message", "Mã voucher chưa đến thời gian áp dụng.");
+            result.put("discountAmount", 0L);
+            result.put("finalAmount", subtotal);
+            return result;
+        }
+
+        if (v.getEndAt() != null && v.getEndAt().isBefore(now)) {
+            result.put("success", false);
+            result.put("message", "Mã voucher đã hết hạn sử dụng.");
+            result.put("discountAmount", 0L);
+            result.put("finalAmount", subtotal);
+            return result;
+        }
+
+        long minOrder = v.getMinOrder() != null ? v.getMinOrder().longValue() : 0L;
+        if (subtotal < minOrder) {
+            result.put("success", false);
+            result.put("message", "Đơn hàng tối thiểu " + String.format("%,dđ", minOrder) + " để áp dụng voucher này.");
+            result.put("discountAmount", 0L);
+            result.put("finalAmount", subtotal);
+            return result;
+        }
+
+        long discount = 0L;
+        if ("PERCENT".equalsIgnoreCase(v.getDiscountType())) {
+            double percent = v.getDiscountValue() != null ? v.getDiscountValue().doubleValue() : 0.0;
+            discount = (long) Math.round(subtotal * (percent / 100.0));
+            if (v.getMaxDiscount() != null && v.getMaxDiscount().longValue() > 0) {
+                discount = Math.min(discount, v.getMaxDiscount().longValue());
+            }
+        } else {
+            discount = v.getDiscountValue() != null ? v.getDiscountValue().longValue() : 0L;
+        }
+
+        discount = Math.min(discount, subtotal);
+        long finalAmount = Math.max(0L, subtotal - discount);
+
+        result.put("success", true);
+        result.put("code", v.getCode());
+        result.put("message", "Áp dụng voucher thành công!");
+        result.put("discountAmount", discount);
+        result.put("finalAmount", finalAmount);
+        return result;
+    }
 }
