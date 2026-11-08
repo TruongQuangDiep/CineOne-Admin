@@ -15,7 +15,13 @@ public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 
     Optional<Voucher> findByCodeIgnoreCase(String code);
 
+    boolean existsByCode(String code);
+
+    boolean existsByCodeIgnoreCase(String code);
+
+    Page<Voucher> findByCodeContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String code, String description, Pageable pageable);
+
     @Query("SELECT v FROM Voucher v WHERE " +
-           "(:keyword IS NULL OR :keyword = '' OR LOWER(v.code) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+           "(:keyword IS NULL OR :keyword = '' OR LOWER(v.code) LIKE LOWER(CONCAT('%', :keyword, '%'))) ")
     Page<Voucher> searchVouchers(@Param("keyword") String keyword, Pageable pageable);
 }

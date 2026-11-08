@@ -11,6 +11,7 @@ import lombok.Setter;
 public class VoucherResponse {
     private Long voucherId;
     private String code;
+    private String title;
     private String description;
     private String imageUrl;
     private String discountType;
@@ -26,4 +27,13 @@ public class VoucherResponse {
 
     private Integer usageLimit;
     private String status;
+
+    // Các trường hỗ trợ giao diện Mobile
+    private String discountDisplay;      
+    private String minOrderDisplay;      
+    private String maxDiscountDisplay;   
+    private String expiryDisplay;        
+    private String periodDisplay;        
+    private Integer remainingUsage;      
+    private String tab;                  
 }

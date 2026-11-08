@@ -45,7 +45,7 @@ public class SecurityConfig {
 
                 // Endpoint REST API bắt buộc xác thực qua Token
                 .requestMatchers(HttpMethod.POST, "/api/v1/seats/hold", "/api/v1/seats/release").authenticated()
-                .requestMatchers("/api/v1/bookings/**", "/api/v1/vouchers/**", "/api/v1/tickets/**", "/api/v1/users/**", "/api/v1/payments/**").authenticated()
+                .requestMatchers("/api/v1/bookings/**", "/api/v1/vouchers/**", "/api/v1/tickets/**", "/api/v1/users/**", "/api/v1/payments/**", "/api/v1/memberships/**").authenticated()
 
                 // Giao diện Web Admin và tài nguyên tĩnh
                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/favicon.ico", "/webjars/**").permitAll()

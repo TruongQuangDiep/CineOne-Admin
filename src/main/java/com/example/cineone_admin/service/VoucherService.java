@@ -2,50 +2,102 @@ package com.example.cineone_admin.service;
 
 import com.example.cineone_admin.dto.voucher.VoucherRequest;
 import com.example.cineone_admin.dto.voucher.VoucherResponse;
+import com.example.cineone_admin.entity.User;
 import com.example.cineone_admin.entity.Voucher;
-import com.example.cineone_admin.exception.BusinessException;
-import com.example.cineone_admin.exception.ResourceNotFoundException;
+import com.example.cineone_admin.entity.VoucherUsage;
+import com.example.cineone_admin.repository.UserRepository;
 import com.example.cineone_admin.repository.VoucherRepository;
+import com.example.cineone_admin.repository.VoucherUsageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class VoucherService {
 
     private final VoucherRepository voucherRepository;
+    private final VoucherUsageRepository voucherUsageRepository;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public Page<VoucherResponse> getVouchers(String keyword, Pageable pageable) {
-        return voucherRepository.searchVouchers(keyword, pageable).map(this::mapToResponse);
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            return voucherRepository.findByCodeContainingIgnoreCaseOrDescriptionContainingIgnoreCase(keyword.trim(), keyword.trim(), pageable)
+                    .map(this::mapToResponse);
+        }
+        return voucherRepository.findAll(pageable).map(this::mapToResponse);
+    }
+
+    /**
+     * Lấy danh sách Voucher theo Tab cho Ví Voucher cá nhân (SCRUM-114):
+     * - AVAILABLE: Khả dụng (Còn hạn, ACTIVE, User chưa dùng)
+     * - USED: Đã sử dụng
+     * - EXPIRED: Hết hạn
+     */
+    @Transactional(readOnly = true)
+    public List<VoucherResponse> getMyVouchersMobileByTab(String tab) {
+        User user = getAuthenticatedUser();
+        LocalDateTime now = LocalDateTime.now();
+        List<Voucher> allVouchers = voucherRepository.findAll();
+        
+        Set<Long> usedVoucherIds = new HashSet<>();
+        if (user != null) {
+            List<VoucherUsage> usages = voucherUsageRepository.findByUser_UserId(user.getUserId());
+            for (VoucherUsage u : usages) {
+                if (u.getVoucher() != null) {
+                    usedVoucherIds.add(u.getVoucher().getVoucherId());
+                }
+            }
+        }
+
+        String filterTab = tab != null ? tab.trim().toUpperCase() : "AVAILABLE";
+        List<VoucherResponse> result = new ArrayList<>();
+
+        for (Voucher v : allVouchers) {
+            boolean isUsed = usedVoucherIds.contains(v.getVoucherId());
+            boolean isExpired = v.getEndAt() != null && v.getEndAt().isBefore(now);
+            boolean isActive = "ACTIVE".equalsIgnoreCase(v.getStatus());
+
+            if ("USED".equals(filterTab)) {
+                if (isUsed) {
+                    VoucherResponse res = mapToResponse(v);
+                    res.setTab("USED");
+                    result.add(res);
+                }
+            } else if ("EXPIRED".equals(filterTab)) {
+                if (!isUsed && (isExpired || !isActive)) {
+                    VoucherResponse res = mapToResponse(v);
+                    res.setTab("EXPIRED");
+                    result.add(res);
+                }
+            } else { // "AVAILABLE"
+                if (!isUsed && !isExpired && isActive) {
+                    VoucherResponse res = mapToResponse(v);
+                    res.setTab("AVAILABLE");
+                    result.add(res);
+                }
+            }
+        }
+        return result;
     }
 
     @Transactional(readOnly = true)
     public List<VoucherResponse> getMyVouchersMobile() {
-        List<Voucher> vouchers = voucherRepository.findAll();
-        List<VoucherResponse> responseList = new ArrayList<>();
-        LocalDateTime now = LocalDateTime.now();
-
-        for (Voucher v : vouchers) {
-            boolean isActive = "ACTIVE".equalsIgnoreCase(v.getStatus());
-            boolean notExpired = v.getEndAt() == null || v.getEndAt().isAfter(now);
-
-            if (isActive && notExpired) {
-                responseList.add(mapToResponse(v));
-            }
-        }
-
-        return responseList;
+        return getMyVouchersMobileByTab("AVAILABLE");
     }
 
     @Transactional(readOnly = true)
@@ -58,76 +110,57 @@ public class VoucherService {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Lấy chi tiết Voucher theo Mã (cho màn hình Chi tiết voucher - Ảnh 4)
+     */
+    @Transactional(readOnly = true)
+    public VoucherResponse getVoucherDetailByCode(String code) {
+        Voucher v = voucherRepository.findByCodeIgnoreCase(code.trim())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy voucher: " + code));
+        return mapToResponse(v);
+    }
+
     @Transactional(readOnly = true)
     public Voucher getVoucherEntity(Long id) {
         return voucherRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy voucher ID: " + id));
-    }
-
-    @Transactional(readOnly = true)
-    public VoucherResponse getVoucherById(Long id) {
-        return mapToResponse(getVoucherEntity(id));
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy voucher với id: " + id));
     }
 
     @Transactional
-    public void createVoucher(VoucherRequest request) {
-        if (voucherRepository.findByCodeIgnoreCase(request.getCode()).isPresent()) {
-            throw new BusinessException("Mã voucher '" + request.getCode() + "' đã tồn tại!");
+    public VoucherResponse createVoucher(VoucherRequest request) {
+        if (voucherRepository.existsByCode(request.getCode())) {
+            throw new RuntimeException("Mã voucher đã tồn tại: " + request.getCode());
         }
-        Voucher v = new Voucher();
-        mapRequestToEntity(request, v);
-        voucherRepository.save(v);
+        Voucher voucher = new Voucher();
+        mapToEntity(voucher, request);
+        return mapToResponse(voucherRepository.save(voucher));
     }
 
     @Transactional
-    public void updateVoucher(Long id, VoucherRequest request) {
-        Voucher v = getVoucherEntity(id);
-        voucherRepository.findByCodeIgnoreCase(request.getCode())
-                .filter(existing -> !existing.getVoucherId().equals(id))
-                .ifPresent(existing -> {
-                    throw new BusinessException("Mã voucher '" + request.getCode() + "' đã trùng với voucher khác!");
-                });
-        mapRequestToEntity(request, v);
-        voucherRepository.save(v);
+    public VoucherResponse updateVoucher(Long id, VoucherRequest request) {
+        Voucher voucher = getVoucherEntity(id);
+        if (!voucher.getCode().equalsIgnoreCase(request.getCode()) && voucherRepository.existsByCode(request.getCode())) {
+            throw new RuntimeException("Mã voucher đã tồn tại: " + request.getCode());
+        }
+        mapToEntity(voucher, request);
+        return mapToResponse(voucherRepository.save(voucher));
+    }
+
+    @Transactional
+    public void deleteVoucher(Long id) {
+        voucherRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void toggleStatus(Long id) {
+        Voucher voucher = getVoucherEntity(id);
+        voucher.setStatus("ACTIVE".equals(voucher.getStatus()) ? "INACTIVE" : "ACTIVE");
+        voucherRepository.save(voucher);
     }
 
     @Transactional
     public void toggleVoucherStatus(Long id) {
-        Voucher v = getVoucherEntity(id);
-        String current = v.getStatus() != null ? v.getStatus() : "ACTIVE";
-        v.setStatus("ACTIVE".equalsIgnoreCase(current) ? "INACTIVE" : "ACTIVE");
-        voucherRepository.save(v);
-    }
-
-    private void mapRequestToEntity(VoucherRequest req, Voucher v) {
-        v.setCode(req.getCode().toUpperCase().trim());
-        v.setDescription(req.getDescription());
-        v.setImageUrl(req.getImageUrl());
-        v.setDiscountType(req.getDiscountType());
-        v.setDiscountValue(req.getDiscountValue());
-        v.setMinOrder(req.getMinOrder() != null ? req.getMinOrder() : java.math.BigDecimal.ZERO);
-        v.setMaxDiscount(req.getMaxDiscount());
-        v.setUsageLimit(req.getUsageLimit());
-        v.setStartAt(req.getStartAt());
-        v.setEndAt(req.getEndAt());
-        v.setStatus(req.getStatus() != null ? req.getStatus() : "ACTIVE");
-    }
-
-    public VoucherResponse mapToResponse(Voucher v) {
-        VoucherResponse res = new VoucherResponse();
-        res.setVoucherId(v.getVoucherId());
-        res.setCode(v.getCode());
-        res.setDescription(v.getDescription());
-        res.setImageUrl(v.getImageUrl());
-        res.setDiscountType(v.getDiscountType());
-        res.setDiscountValue(v.getDiscountValue());
-        res.setMinOrder(v.getMinOrder());
-        res.setMaxDiscount(v.getMaxDiscount());
-        res.setUsageLimit(v.getUsageLimit());
-        res.setStartAt(v.getStartAt());
-        res.setEndAt(v.getEndAt());
-        res.setStatus(v.getStatus());
-        return res;
+        toggleStatus(id);
     }
 
     @Transactional(readOnly = true)
@@ -162,7 +195,7 @@ public class VoucherService {
 
         if (v.getStartAt() != null && v.getStartAt().isAfter(now)) {
             result.put("success", false);
-            result.put("message", "Mã voucher chưa đến thời gian áp dụng.");
+            result.put("message", "Chương trình ưu đãi chưa bắt đầu.");
             result.put("discountAmount", 0L);
             result.put("finalAmount", subtotal);
             return result;
@@ -176,34 +209,104 @@ public class VoucherService {
             return result;
         }
 
-        long minOrder = v.getMinOrder() != null ? v.getMinOrder().longValue() : 0L;
-        if (subtotal < minOrder) {
+        if (v.getMinOrder() != null && subtotal < v.getMinOrder().longValue()) {
             result.put("success", false);
-            result.put("message", "Đơn hàng tối thiểu " + String.format("%,dđ", minOrder) + " để áp dụng voucher này.");
+            result.put("message", "Đơn hàng tối thiểu phải từ " + String.format("%,d", v.getMinOrder().longValue()) + " đ");
             result.put("discountAmount", 0L);
             result.put("finalAmount", subtotal);
             return result;
         }
 
-        long discount = 0L;
+        long discount = 0;
         if ("PERCENT".equalsIgnoreCase(v.getDiscountType())) {
-            double percent = v.getDiscountValue() != null ? v.getDiscountValue().doubleValue() : 0.0;
-            discount = (long) Math.round(subtotal * (percent / 100.0));
-            if (v.getMaxDiscount() != null && v.getMaxDiscount().longValue() > 0) {
-                discount = Math.min(discount, v.getMaxDiscount().longValue());
+            discount = (long) (subtotal * (v.getDiscountValue().doubleValue() / 100.0));
+            if (v.getMaxDiscount() != null && discount > v.getMaxDiscount().longValue()) {
+                discount = v.getMaxDiscount().longValue();
             }
         } else {
-            discount = v.getDiscountValue() != null ? v.getDiscountValue().longValue() : 0L;
+            discount = v.getDiscountValue().longValue();
         }
 
-        discount = Math.min(discount, subtotal);
-        long finalAmount = Math.max(0L, subtotal - discount);
+        if (discount > subtotal) {
+            discount = subtotal;
+        }
 
+        long finalAmount = Math.max(0, subtotal - discount);
         result.put("success", true);
-        result.put("code", v.getCode());
-        result.put("message", "Áp dụng voucher thành công!");
+        result.put("message", "Áp dụng mã giảm giá thành công: -" + String.format("%,d", discount) + " đ");
         result.put("discountAmount", discount);
         result.put("finalAmount", finalAmount);
+        result.put("voucherCode", v.getCode());
         return result;
+    }
+
+    private void mapToEntity(Voucher voucher, VoucherRequest request) {
+        voucher.setCode(request.getCode().trim().toUpperCase());
+        voucher.setDescription(request.getDescription());
+        voucher.setImageUrl(request.getImageUrl());
+        voucher.setDiscountType(request.getDiscountType());
+        voucher.setDiscountValue(request.getDiscountValue());
+        voucher.setMinOrder(request.getMinOrder() != null ? request.getMinOrder() : BigDecimal.ZERO);
+        voucher.setMaxDiscount(request.getMaxDiscount());
+        voucher.setStartAt(request.getStartAt());
+        voucher.setEndAt(request.getEndAt());
+        voucher.setUsageLimit(request.getUsageLimit());
+        voucher.setStatus(request.getStatus() != null ? request.getStatus() : "ACTIVE");
+    }
+
+    private VoucherResponse mapToResponse(Voucher v) {
+        DecimalFormat df = new DecimalFormat("#,### đ");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        VoucherResponse r = new VoucherResponse();
+        r.setVoucherId(v.getVoucherId());
+        r.setCode(v.getCode());
+        String computedTitle = v.getDescription() != null && !v.getDescription().isBlank() ? v.getDescription() : ("Ưu đãi " + v.getCode());
+        r.setTitle(computedTitle);
+        r.setDescription(v.getDescription());
+        r.setImageUrl(v.getImageUrl());
+        r.setDiscountType(v.getDiscountType());
+        r.setDiscountValue(v.getDiscountValue());
+        r.setMinOrder(v.getMinOrder());
+        r.setMaxDiscount(v.getMaxDiscount());
+        r.setStartAt(v.getStartAt());
+        r.setEndAt(v.getEndAt());
+        r.setUsageLimit(v.getUsageLimit());
+        r.setStatus(v.getStatus());
+
+        // Hiển thị định dạng trực quan cho Mobile (Ảnh 4)
+        if ("PERCENT".equalsIgnoreCase(v.getDiscountType())) {
+            r.setDiscountDisplay("Giảm " + v.getDiscountValue().intValue() + "%");
+        } else {
+            r.setDiscountDisplay("Giảm " + df.format(v.getDiscountValue()));
+        }
+
+        r.setMinOrderDisplay("Đơn tối thiểu: " + (v.getMinOrder() != null ? df.format(v.getMinOrder()) : "0đ"));
+        r.setMaxDiscountDisplay(v.getMaxDiscount() != null ? ("Giảm tối đa: " + df.format(v.getMaxDiscount())) : null);
+        r.setExpiryDisplay("HSD: " + (v.getEndAt() != null ? v.getEndAt().format(dtf) : "Vô thời hạn"));
+        
+        String startStr = v.getStartAt() != null ? v.getStartAt().format(dtf) : "";
+        String endStr = v.getEndAt() != null ? v.getEndAt().format(dtf) : "";
+        r.setPeriodDisplay((startStr.isEmpty() ? "" : startStr + " - ") + endStr);
+        r.setRemainingUsage(v.getUsageLimit() != null ? v.getUsageLimit() : 999);
+
+        return r;
+    }
+
+    private User getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getPrincipal())) {
+            return null;
+        }
+        String principal = authentication.getName();
+        if (principal.contains("@")) {
+            return userRepository.findByEmail(principal).orElse(null);
+        }
+        try {
+            Long userId = Long.parseLong(principal);
+            return userRepository.findById(userId).orElse(null);
+        } catch (NumberFormatException e) {
+            return userRepository.findByEmail(principal).orElse(null);
+        }
     }
 }
