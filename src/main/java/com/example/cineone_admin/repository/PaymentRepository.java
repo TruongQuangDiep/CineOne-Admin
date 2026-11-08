@@ -20,4 +20,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
            "(:keyword IS NULL OR :keyword = '' OR LOWER(p.orderCode) LIKE LOWER(CONCAT('%', :keyword, '%'))) " +
            "AND (:status IS NULL OR p.status = :status)")
     Page<Payment> searchPayments(@Param("keyword") String keyword, @Param("status") PaymentStatus status, Pageable pageable);
+
+    java.util.Optional<Payment> findByBooking(com.example.cineone_admin.entity.Booking booking);
 }

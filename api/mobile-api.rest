@@ -49,3 +49,68 @@ Authorization: Bearer {{token}}
 ### Vouchers - My vouchers
 GET {{baseUrl}}/api/v1/vouchers/my-vouchers
 Authorization: Bearer {{token}}
+
+### 1. Vouchers - Lấy danh sách Voucher khả dụng (SCRUM-100)
+GET {{baseUrl}}/api/v1/vouchers/my-vouchers
+Authorization: Bearer {{token}}
+
+### 2. Vouchers - Kiểm tra & Áp dụng Voucher giảm giá (SCRUM-100)
+# Trường hợp 1: Áp dụng mã hợp lệ
+POST {{baseUrl}}/api/v1/vouchers/apply
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+  "code": "CINE20K",
+  "subtotal": 170000
+}
+
+### 2.1. Vouchers - Thử áp dụng mã giảm theo phần trăm
+POST {{baseUrl}}/api/v1/vouchers/apply
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+  "code": "CINEONE10",
+  "subtotal": 250000
+}
+
+### 3. Bookings - Tạo đơn đặt vé giữ chỗ 10 phút (SCRUM-100 -> SCRUM-101)
+POST {{baseUrl}}/api/v1/bookings
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+  "showtimeId": 1,
+  "seatIds": [],
+  "subtotal": 170000,
+  "discountAmount": 20000,
+  "totalAmount": 150000,
+  "voucherCode": "CINE20K"
+}
+
+### 4. Payments - Tạo liên kết & Mã QR VietQR payOS (SCRUM-101)
+# Thay {bookingId} bằng ID đơn vừa tạo ở API trên (ví dụ bookingId = 1)
+POST {{baseUrl}}/api/v1/payments/create-link/1
+Authorization: Bearer {{token}}
+
+### 5. Payments - Kiểm tra trạng thái thanh toán & Đồng bộ trực tiếp payOS (SCRUM-101)
+# Gọi khi Mobile chạy Polling mỗi 2s hoặc khi người dùng bấm "Tôi đã chuyển khoản - Kiểm tra ngay"
+GET {{baseUrl}}/api/v1/payments/status/1
+Authorization: Bearer {{token}}
+
+### 6. Payments - Giả lập Webhook payOS xác nhận thanh toán thành công (Webhook Mock)
+POST {{baseUrl}}/api/v1/payments/webhook
+Content-Type: application/json
+{
+  "code": "00",
+  "desc": "success",
+  "data": {
+    "orderCode": 123456789,
+    "amount": 150000,
+    "description": "CNE123456",
+    "accountNumber": "VQRQANJWA0450",
+    "reference": "FT240101",
+    "transactionDateTime": "2026-11-06 19:30:00",
+    "currency": "VND",
+    "paymentLinkId": "cne_test_link_id"
+  },
+  "signature": "test_signature"
+}

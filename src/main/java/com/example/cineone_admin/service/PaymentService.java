@@ -3,11 +3,13 @@ package com.example.cineone_admin.service;
 import com.example.cineone_admin.dto.payment.PaymentLinkResponse;
 import com.example.cineone_admin.dto.payment.PaymentResponse;
 import com.example.cineone_admin.entity.Booking;
+import com.example.cineone_admin.entity.BookingSeat;
 import com.example.cineone_admin.entity.Payment;
 import com.example.cineone_admin.enums.BookingStatus;
 import com.example.cineone_admin.enums.PaymentStatus;
 import com.example.cineone_admin.exception.ResourceNotFoundException;
 import com.example.cineone_admin.repository.BookingRepository;
+import com.example.cineone_admin.repository.BookingSeatRepository;
 import com.example.cineone_admin.repository.PaymentRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 @Slf4j
 @Service
@@ -42,6 +46,9 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final BookingRepository bookingRepository;
     private final PayOS payOS;
+    private final TicketService ticketService;
+    private final BookingSeatRepository bookingSeatRepository;
+    private final SeatHoldService seatHoldService;
 
     @Value("${payos.client-id}")
     private String clientId;
@@ -123,12 +130,11 @@ public class PaymentService {
         long orderCode = System.currentTimeMillis() % 1000000000L;
         int amount = booking.getTotalAmount().intValue();
 
-        String description = "CineOne " + bookingId;
+        String description = booking.getBookingCode() != null ? booking.getBookingCode() : ("CNE" + bookingId);
         if (description.length() > 25) {
             description = description.substring(0, 25);
         }
 
-        // 1. Tạo chuỗi ký HMAC-SHA256 gửi đi theo chuẩn payOS (các trường xếp theo bảng chữ cái A-Z)
         String rawData = "amount=" + amount +
                 "&cancelUrl=" + cancelUrl +
                 "&description=" + description +
@@ -225,12 +231,12 @@ public class PaymentService {
         Payment payment = paymentRepository.findByOrderCode(orderCode)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy giao dịch: " + orderCode));
 
-        if (payment.getStatus() == PaymentStatus.PAID) {
+        if (payment.getStatus() == PaymentStatus.SUCCESS) {
             return;
         }
 
         if ("00".equals(webhookBody.getCode())) {
-            payment.setStatus(PaymentStatus.PAID);
+            payment.setStatus(PaymentStatus.SUCCESS);
             payment.setPaidAt(LocalDateTime.now());
             paymentRepository.save(payment);
 
@@ -238,7 +244,55 @@ public class PaymentService {
             if (booking != null) {
                 booking.setStatus(BookingStatus.CONFIRMED);
                 bookingRepository.save(booking);
+                ticketService.createTicketForBooking(booking);
+                List<BookingSeat> bSeats = bookingSeatRepository.findByBooking_BookingId(booking.getBookingId());
+                List<Long> seatIds = bSeats.stream().map(bs -> bs.getSeat().getSeatId()).toList();
+                if (!seatIds.isEmpty() && booking.getShowtime() != null) {
+                    seatHoldService.markSeatsAsBooked(booking.getShowtime().getShowtimeId(), seatIds, booking.getUser().getUserId());
+                }
             }
         }
+    }
+
+        @Transactional
+    public Map<String, Object> getPaymentStatusByBookingId(Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy đơn đặt vé #" + bookingId));
+
+        if (booking.getStatus() != BookingStatus.CONFIRMED) {
+            Payment payment = paymentRepository.findByBooking(booking).orElse(null);
+            if (payment != null && payment.getOrderCode() != null) {
+                try {
+                    long orderCode = Long.parseLong(payment.getOrderCode());
+                    vn.payos.type.PaymentLinkData paymentLinkData = payOS.getPaymentLinkInformation(orderCode);
+                    // payOS trả về trạng thái "PAID", ta lưu vào DB của mình là SUCCESS
+                    if (paymentLinkData != null && "PAID".equalsIgnoreCase(paymentLinkData.getStatus())) {
+                        payment.setStatus(PaymentStatus.SUCCESS);
+                        payment.setPaidAt(LocalDateTime.now());
+                        paymentRepository.save(payment);
+
+                        booking.setStatus(BookingStatus.CONFIRMED);
+                        bookingRepository.save(booking);
+                        ticketService.createTicketForBooking(booking);
+                        log.info("Đã đồng bộ thanh toán thành công cho đơn đặt vé #{}", bookingId);
+                    }
+                } catch (Exception e) {
+                    log.warn("Chưa ghi nhận thanh toán từ payOS cho order {}: {}", payment.getOrderCode(), e.getMessage());
+                }
+            }
+        }
+
+        Map<String, Object> statusMap = new HashMap<>();
+        statusMap.put("bookingId", booking.getBookingId());
+        statusMap.put("bookingCode", booking.getBookingCode());
+        statusMap.put("bookingStatus", booking.getStatus() != null ? booking.getStatus().name() : "HELD");
+        
+        boolean isConfirmed = booking.getStatus() == BookingStatus.CONFIRMED;
+        statusMap.put("isPaid", isConfirmed);
+        statusMap.put("status", isConfirmed ? "SUCCESS" : "PENDING");
+        if (booking.getStatus() == BookingStatus.CONFIRMED) {
+            ticketService.createTicketForBooking(booking);
+        }
+        return statusMap;
     }
 }
