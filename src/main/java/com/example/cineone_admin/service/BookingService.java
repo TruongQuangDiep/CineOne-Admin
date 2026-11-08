@@ -3,9 +3,14 @@ package com.example.cineone_admin.service;
 import com.example.cineone_admin.dto.booking.BookingResponse;
 import com.example.cineone_admin.dto.booking.UpdateBookingStatusRequest;
 import com.example.cineone_admin.entity.Booking;
+import com.example.cineone_admin.entity.BookingSeat;
+import com.example.cineone_admin.entity.Seat;
 import com.example.cineone_admin.enums.BookingStatus;
 import com.example.cineone_admin.exception.ResourceNotFoundException;
 import com.example.cineone_admin.repository.BookingRepository;
+import com.example.cineone_admin.repository.BookingSeatRepository;
+import com.example.cineone_admin.repository.SeatRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +25,7 @@ import org.springframework.security.core.Authentication;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -30,6 +36,8 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final ShowtimeRepository showtimeRepository;
     private final UserRepository userRepository;
+    private final SeatRepository seatRepository;             
+    private final BookingSeatRepository bookingSeatRepository;
 
     @Transactional(readOnly = true)
     public Page<BookingResponse> getBookings(String keyword, String status, Pageable pageable) {
@@ -105,7 +113,7 @@ public class BookingService {
         }
     }
 
-        @Transactional
+    @Transactional
     public Map<String, Object> createBookingFromMobile(Map<String, Object> request, Authentication authentication) {
         // 1. Xác định người dùng đặt vé (nếu đăng nhập lấy user thật, nếu là khách lấy user mặc định trong DB)
         User user = null;
@@ -161,6 +169,24 @@ public class BookingService {
         booking.setTotalAmount(total);
 
         booking = bookingRepository.save(booking);
+
+        List<?> seatIdsRaw = (List<?>) request.get("seatIds");
+        if (seatIdsRaw != null && !seatIdsRaw.isEmpty()) {
+            for (Object obj : seatIdsRaw) {
+                if (obj instanceof Number) {
+                    Long sId = ((Number) obj).longValue();
+                    Seat seat = seatRepository.findById(sId).orElse(null);
+                    if (seat != null) {
+                        BookingSeat bs = new BookingSeat();
+                        bs.setBooking(booking);
+                        bs.setSeat(seat);
+                        bs.setSeatPrice(booking.getTotalAmount());
+                        bs.setSeatType(seat.getSeatType() != null ? seat.getSeatType().name() : "NORMAL");
+                        bookingSeatRepository.save(bs);
+                    }
+                }
+            }
+        }
 
         Map<String, Object> result = new HashMap<>();
         result.put("bookingId", booking.getBookingId());

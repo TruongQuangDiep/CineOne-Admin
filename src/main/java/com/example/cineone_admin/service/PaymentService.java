@@ -3,11 +3,13 @@ package com.example.cineone_admin.service;
 import com.example.cineone_admin.dto.payment.PaymentLinkResponse;
 import com.example.cineone_admin.dto.payment.PaymentResponse;
 import com.example.cineone_admin.entity.Booking;
+import com.example.cineone_admin.entity.BookingSeat;
 import com.example.cineone_admin.entity.Payment;
 import com.example.cineone_admin.enums.BookingStatus;
 import com.example.cineone_admin.enums.PaymentStatus;
 import com.example.cineone_admin.exception.ResourceNotFoundException;
 import com.example.cineone_admin.repository.BookingRepository;
+import com.example.cineone_admin.repository.BookingSeatRepository;
 import com.example.cineone_admin.repository.PaymentRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -43,6 +46,9 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final BookingRepository bookingRepository;
     private final PayOS payOS;
+    private final TicketService ticketService;
+    private final BookingSeatRepository bookingSeatRepository;
+    private final SeatHoldService seatHoldService;
 
     @Value("${payos.client-id}")
     private String clientId;
@@ -238,6 +244,12 @@ public class PaymentService {
             if (booking != null) {
                 booking.setStatus(BookingStatus.CONFIRMED);
                 bookingRepository.save(booking);
+                ticketService.createTicketForBooking(booking);
+                List<BookingSeat> bSeats = bookingSeatRepository.findByBooking_BookingId(booking.getBookingId());
+                List<Long> seatIds = bSeats.stream().map(bs -> bs.getSeat().getSeatId()).toList();
+                if (!seatIds.isEmpty() && booking.getShowtime() != null) {
+                    seatHoldService.markSeatsAsBooked(booking.getShowtime().getShowtimeId(), seatIds, booking.getUser().getUserId());
+                }
             }
         }
     }
@@ -261,6 +273,7 @@ public class PaymentService {
 
                         booking.setStatus(BookingStatus.CONFIRMED);
                         bookingRepository.save(booking);
+                        ticketService.createTicketForBooking(booking);
                         log.info("Đã đồng bộ thanh toán thành công cho đơn đặt vé #{}", bookingId);
                     }
                 } catch (Exception e) {
@@ -277,6 +290,9 @@ public class PaymentService {
         boolean isConfirmed = booking.getStatus() == BookingStatus.CONFIRMED;
         statusMap.put("isPaid", isConfirmed);
         statusMap.put("status", isConfirmed ? "SUCCESS" : "PENDING");
+        if (booking.getStatus() == BookingStatus.CONFIRMED) {
+            ticketService.createTicketForBooking(booking);
+        }
         return statusMap;
     }
 }

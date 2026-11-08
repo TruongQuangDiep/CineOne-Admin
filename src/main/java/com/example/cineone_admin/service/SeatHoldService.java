@@ -334,4 +334,31 @@ public class SeatHoldService {
             throw new BusinessException("Firestore chưa được cấu hình (thiếu firebase-service-account.json).");
         }
     }
+
+    public void markSeatsAsBooked(Long showtimeId, List<Long> seatIds, Long userId) {
+        if (firestore == null || showtimeId == null || seatIds == null || seatIds.isEmpty()) {
+            return;
+        }
+        try {
+            CollectionReference heldSeatsRef = firestore.collection(COLLECTION_SHOWTIMES)
+                    .document(String.valueOf(showtimeId))
+                    .collection(SUB_COLLECTION_HELD_SEATS);
+
+            WriteBatch batch = firestore.batch();
+            for (Long seatId : seatIds) {
+                DocumentReference docRef = heldSeatsRef.document(String.valueOf(seatId));
+                Map<String, Object> data = new HashMap<>();
+                data.put("status", "BOOKED");
+                data.put("bookedAt", Timestamp.now());
+                if (userId != null) {
+                    data.put("userId", userId);
+                }
+                batch.set(docRef, data, SetOptions.merge());
+            }
+            batch.commit().get();
+            log.info(">>> Đã khóa vĩnh viễn (BOOKED) cho {} ghế của suất chiếu {}", seatIds.size(), showtimeId);
+        } catch (Exception e) {
+            log.error("Lỗi khi cập nhật ghế sang BOOKED: {}", e.getMessage());
+        }
+    }
 }

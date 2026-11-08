@@ -2,12 +2,14 @@ package com.example.cineone_admin.service;
 
 import com.example.cineone_admin.dto.ticket.TicketResponse;
 import com.example.cineone_admin.entity.Booking;
+import com.example.cineone_admin.entity.BookingSeat;
 import com.example.cineone_admin.entity.Cinema;
 import com.example.cineone_admin.entity.Movie;
 import com.example.cineone_admin.entity.Room;
 import com.example.cineone_admin.entity.Showtime;
 import com.example.cineone_admin.entity.Ticket;
 import com.example.cineone_admin.entity.User;
+import com.example.cineone_admin.repository.BookingSeatRepository;
 import com.example.cineone_admin.repository.TicketRepository;
 import com.example.cineone_admin.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -27,11 +31,66 @@ public class TicketService {
 
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
+    private final EmailService emailService;
+    private final BookingSeatRepository bookingSeatRepository;
 
+    /**
+     * Tự động tạo vé khi Booking thanh toán thành công
+     */
+    @Transactional
+    public Ticket createTicketForBooking(Booking booking) {
+        if (booking == null) return null;
+
+        // Tránh tạo trùng vé cho cùng 1 đơn đặt
+        var existing = ticketRepository.findAll().stream()
+                .filter(t -> t.getBooking() != null && t.getBooking().getBookingId().equals(booking.getBookingId()))
+                .findFirst();
+        if (existing.isPresent()) {
+            return existing.get();
+        }
+
+        Showtime showtime = booking.getShowtime();
+        Movie movie = showtime != null ? showtime.getMovie() : null;
+        Room room = showtime != null ? showtime.getRoom() : null;
+        Cinema cinema = room != null ? room.getCinema() : null;
+
+        Ticket ticket = new Ticket();
+        ticket.setBooking(booking);
+        ticket.setTicketCode(booking.getBookingCode() != null ? booking.getBookingCode() : "TCK" + System.currentTimeMillis());
+        ticket.setMovieTitle(movie != null ? movie.getTitle() : "Phim chiếu rạp");
+        ticket.setCinemaName(cinema != null ? cinema.getName() : "CineOne Cinema");
+        ticket.setRoomName(room != null ? room.getName() : "Phòng chiếu 01");
+        ticket.setShowtimeStart(showtime != null ? showtime.getStartTime() : LocalDateTime.now());
+        List<BookingSeat> bookingSeats = bookingSeatRepository.findByBooking_BookingId(booking.getBookingId());
+        String realSeatInfo = bookingSeats.isEmpty()
+                ? "Ghế tiêu chuẩn"
+                : bookingSeats.stream()
+                    .map(bs -> bs.getSeat().getSeatRow() + bs.getSeat().getSeatNumber())
+                    .sorted()
+                    .collect(java.util.stream.Collectors.joining(", "));
+        ticket.setSeatInfo(realSeatInfo);
+        ticket.setTotalAmount(booking.getTotalAmount() != null ? booking.getTotalAmount() : BigDecimal.ZERO);
+        ticket.setStatus("VALID");
+
+        Ticket savedTicket = ticketRepository.save(ticket);
+        // Tự động bắn email vé điện tử về Gmail tài khoản người dùng
+        if (booking.getUser() != null && booking.getUser().getEmail() != null) {
+            emailService.sendTicketEmail(
+                    booking.getUser().getEmail(),
+                    booking.getUser().getFullName(),
+                    savedTicket
+            );
+        }
+        return savedTicket;
+    }
+
+    /**
+     * Lấy danh sách vé của người dùng hiện tại (bắt buộc đăng nhập)
+     */
     public List<TicketResponse> getMyTickets(String tab) {
         User user = getAuthenticatedUser();
         if (user == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vui lòng đăng nhập lại.");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vui lòng đăng nhập để xem vé của bạn.");
         }
 
         LocalDateTime now = LocalDateTime.now();
@@ -42,14 +101,17 @@ public class TicketService {
                 .toList();
     }
 
+    /**
+     * Xem chi tiết vé - chỉ chủ sở hữu vé mới có quyền xem
+     */
     public TicketResponse getTicketDetail(Long ticketId) {
         User user = getAuthenticatedUser();
         if (user == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vui lòng đăng nhập lại.");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vui lòng đăng nhập để xem vé.");
         }
 
         Ticket ticket = ticketRepository.findByTicketIdAndBooking_User_UserId(ticketId, user.getUserId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy vé."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy vé hoặc bạn không có quyền xem vé này."));
 
         return toResponse(ticket);
     }
@@ -120,7 +182,7 @@ public class TicketService {
 
     private User getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
+        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getPrincipal())) {
             return null;
         }
         String principal = authentication.getName();
