@@ -102,6 +102,9 @@ public class UserService {
         userData.put("phone", user.getPhone());
         userData.put("homeAddress", user.getHomeAddress());
         userData.put("membershipTier", user.getMembershipTier() != null ? user.getMembershipTier().getName() : "NORMAL");
+        userData.put("emailVerified", Boolean.TRUE.equals(user.getEmailVerified()));
+        userData.put("phoneVerified", Boolean.TRUE.equals(user.getPhoneVerified()));
+        userData.put("isVerified", Boolean.TRUE.equals(user.getEmailVerified()));
 
         response.put("success", true);
         response.put("status", 200);
@@ -133,6 +136,9 @@ public class UserService {
         if (request.getHomeAddress() != null) {
             user.setHomeAddress(request.getHomeAddress());
         }
+        if (request.getPhoneVerified() != null) {
+            user.setPhoneVerified(request.getPhoneVerified());
+        }
 
         users.save(user);
 
@@ -143,6 +149,9 @@ public class UserService {
         userData.put("phone", user.getPhone());
         userData.put("homeAddress", user.getHomeAddress());
         userData.put("membershipTier", user.getMembershipTier() != null ? user.getMembershipTier().getName() : "NORMAL");
+        userData.put("emailVerified", Boolean.TRUE.equals(user.getEmailVerified()));
+        userData.put("phoneVerified", Boolean.TRUE.equals(user.getPhoneVerified()));
+        userData.put("isVerified", Boolean.TRUE.equals(user.getEmailVerified()));
 
         response.put("success", true);
         response.put("status", 200);

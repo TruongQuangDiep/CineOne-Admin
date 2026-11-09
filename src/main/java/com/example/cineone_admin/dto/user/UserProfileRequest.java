@@ -12,4 +12,5 @@ public class UserProfileRequest {
 
     @JsonAlias({"address", "homeAddress"})
     private String homeAddress;
+    private Boolean phoneVerified;
 }
