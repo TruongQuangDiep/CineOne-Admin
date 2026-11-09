@@ -114,3 +114,19 @@ Content-Type: application/json
   },
   "signature": "test_signature"
 }
+
+### 1. [SCRUM-113] Lấy Tiến độ hạng thành viên, Chi tiêu thực tế & Danh sách quyền lợi
+GET {{baseUrl}}/api/v1/memberships/my-tier
+Authorization: Bearer {{token}}
+### 2. [SCRUM-114] Ví Voucher - Tab "Khả dụng" (AVAILABLE)
+GET {{baseUrl}}/api/v1/vouchers/my-vouchers?tab=AVAILABLE
+Authorization: Bearer {{token}}
+### 3. [SCRUM-114] Ví Voucher - Tab "Đã sử dụng" (USED)
+GET {{baseUrl}}/api/v1/vouchers/my-vouchers?tab=USED
+Authorization: Bearer {{token}}
+### 4. [SCRUM-114] Ví Voucher - Tab "Hết hạn" (EXPIRED)
+GET {{baseUrl}}/api/v1/vouchers/my-vouchers?tab=EXPIRED
+Authorization: Bearer {{token}}
+### 5. [SCRUM-114] Xem Chi tiết Voucher theo Mã (Ví dụ: CINE50K hoặc CINE20K)
+GET {{baseUrl}}/api/v1/vouchers/detail/CINE20K
+Authorization: Bearer {{token}}
