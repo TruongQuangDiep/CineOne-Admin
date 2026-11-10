@@ -6,8 +6,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long>, JpaSpecificationExecutor<Review> {
     List<Review> findByMovie_MovieIdAndStatusOrderByCreatedAtDescReviewIdDesc(Long movieId, String status);
+    List<Review> findByUser_UserIdOrderByCreatedAtDescReviewIdDesc(Long userId);
+    Optional<Review> findFirstByUser_UserIdAndMovie_MovieId(Long userId, Long movieId);
 }
