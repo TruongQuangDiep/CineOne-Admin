@@ -1,133 +1,433 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: main-layout(~{::#dashboard-content}, 'dashboard', 'Trang chủ')}">
+      th:replace="~{fragments/layout :: main-layout(~{::#dashboard-content}, 'dashboard', 'Dashboard Thống kê & Báo cáo')}">
 <body>
 <div id="dashboard-content">
-    <div class="d-flex align-items-center gap-2 mb-4">
-        <i class="bi bi-bar-chart-fill text-primary fs-4"></i>
-        <h3 class="m-0 fw-bold">TRANG CHỦ</h3>
+
+    <!-- CSS HIỆU ỨNG RÊ CHUỘT CHO CÁC Ô BẤM ĐƯỢC -->
+    <style>
+        .clickable-kpi {
+            text-decoration: none !important;
+            color: inherit !important;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            display: flex;
+        }
+        .clickable-kpi:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12) !important;
+            border-color: #93c5fd !important;
+        }
+        .clickable-badge {
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none !important;
+            display: block;
+        }
+        .clickable-badge:hover {
+            transform: translateY(-2px);
+            background-color: #e2e8f0 !important;
+        }
+    </style>
+
+    <!-- TIÊU ĐỀ TRANG VÀ THAO TÁC NHANH -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-speedometer2 text-primary fs-3"></i>
+            <div>
+                <h3 class="m-0 fw-bold">DASHBOARD THỐNG KÊ & BÁO CÁO</h3>
+                <p class="text-muted small mb-0">Dữ liệu thời gian thực từ cơ sở dữ liệu hệ thống CineOne</p>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary btn-sm" onclick="location.reload();">
+                <i class="bi bi-arrow-clockwise me-1"></i> Làm mới
+            </button>
+            <a th:href="@{/sync-logs}" class="btn btn-primary btn-sm fw-semibold">
+                <i class="bi bi-arrow-repeat me-1"></i> Đồng bộ ngay
+            </a>
+        </div>
     </div>
 
-    <!-- HÀNG 1: 4 THẺ TỔNG QUAN (KPI CARDS) -->
-    <div class="kpi-grid">
-        <div class="kpi-card shadow-sm">
+    <!-- HÀNG 1: 4 THẺ TỔNG QUAN NÂNG CAO (CLICKABLE KPI CARDS) -->
+    <div class="kpi-grid mb-4">
+        <!-- 1. Doanh thu tổng -> Click chuyển sang /payments -->
+        <a th:href="@{/payments}" class="kpi-card shadow-sm clickable-kpi" title="Xem danh sách giao dịch thanh toán">
             <div>
-                <div class="kpi-title fw-semibold">Phim</div>
-                <div class="kpi-value" th:text="${summary.totalMovies}">128</div>
+                <div class="kpi-title fw-semibold">Tổng doanh thu hệ thống</div>
+                <div class="kpi-value text-primary" th:text="${summary.totalRevenue != null ? #numbers.formatDecimal(summary.totalRevenue, 0, 'COMMA', 0, 'POINT') + ' ₫' : '0 ₫'}">0 ₫</div>
+                <span class="badge bg-primary-subtle text-primary small mt-1">
+                    <i class="bi bi-credit-card me-1"></i>Xem thanh toán <i class="bi bi-arrow-right-short"></i>
+                </span>
             </div>
-            <i class="bi bi-film fs-1 text-primary opacity-75"></i>
-        </div>
+            <i class="bi bi-cash-stack fs-1 text-primary opacity-75"></i>
+        </a>
 
-        <div class="kpi-card shadow-sm">
+        <!-- 2. Vé đã bán -> Click chuyển sang /bookings -->
+        <a th:href="@{/bookings}" class="kpi-card shadow-sm clickable-kpi" title="Xem danh sách đặt vé">
             <div>
-                <div class="kpi-title fw-semibold">Rạp</div>
-                <div class="kpi-value" th:text="${summary.totalCinemas}">12</div>
+                <div class="kpi-title fw-semibold">Tổng số vé đã bán</div>
+                <div class="kpi-value text-success" th:text="${#numbers.formatInteger(summary.totalTicketsSold, 0, 'COMMA')}">0</div>
+                <span class="badge bg-success-subtle text-success small mt-1">
+                    <i class="bi bi-ticket-perforated me-1"></i>Xem danh sách vé <i class="bi bi-arrow-right-short"></i>
+                </span>
             </div>
-            <i class="bi bi-geo-alt fs-1 text-success opacity-75"></i>
-        </div>
+            <i class="bi bi-ticket-detailed fs-1 text-success opacity-75"></i>
+        </a>
 
-        <div class="kpi-card shadow-sm">
+        <!-- 3. Tỷ lệ lấp đầy -> Click chuyển sang /showtimes -->
+        <a th:href="@{/showtimes}" class="kpi-card shadow-sm clickable-kpi" title="Xem danh sách suất chiếu">
             <div>
-                <div class="kpi-title fw-semibold">Suất chiếu</div>
-                <div class="kpi-value" th:text="${summary.totalShowtimes}">356</div>
+                <div class="kpi-title fw-semibold">Tỷ lệ lấp đầy phòng chiếu</div>
+                <div class="kpi-value text-info" th:text="${summary.occupancyRate + '%'}">0.0%</div>
+                <span class="badge bg-info-subtle text-info small mt-1">
+                    <i class="bi bi-calendar3 me-1"></i>Xem suất chiếu <i class="bi bi-arrow-right-short"></i>
+                </span>
             </div>
-            <i class="bi bi-calendar3 fs-1 text-info opacity-75"></i>
-        </div>
+            <i class="bi bi-pie-chart-fill fs-1 text-info opacity-75"></i>
+        </a>
 
-        <div class="kpi-card shadow-sm">
+        <!-- 4. Lượt đồng bộ -> Click chuyển sang /sync-logs -->
+        <a th:href="@{/sync-logs}" class="kpi-card shadow-sm clickable-kpi" title="Xem lịch sử đồng bộ">
             <div>
-                <div class="kpi-title fw-semibold">Người dùng</div>
-                <div class="kpi-value" th:text="${summary.totalUsers}">12,540</div>
+                <div class="kpi-title fw-semibold">Lượt đồng bộ thành công</div>
+                <div class="kpi-value text-warning" th:text="${#numbers.formatInteger(summary.totalSyncSuccess, 0, 'COMMA')}">0</div>
+                <span class="badge bg-danger-subtle text-danger small mt-1" th:if="${summary.totalSyncFailed > 0}">
+                    <i class="bi bi-exclamation-triangle me-1"></i><span th:text="${summary.totalSyncFailed} + ' lượt lỗi'">0 lượt lỗi</span>
+                </span>
+                <span class="badge bg-success-subtle text-success small mt-1" th:if="${summary.totalSyncFailed == 0}">
+                    <i class="bi bi-clock-history me-1"></i>Xem nhật ký sync <i class="bi bi-arrow-right-short"></i>
+                </span>
             </div>
-            <i class="bi bi-people fs-1 text-warning opacity-75"></i>
-        </div>
+            <i class="bi bi-arrow-repeat fs-1 text-warning opacity-75"></i>
+        </a>
     </div>
 
-    <!-- HÀNG 2: TRẠNG THÁI ĐỒNG BỘ & CẢNH BÁO -->
+    <!-- HÀNG 2: SCRUM-115 - BIỂU ĐỒ DOANH THU & TỶ LỆ LẤP ĐẦY PHÒNG CHIẾU -->
     <div class="row g-4 mb-4">
-        <!-- Khối Trạng thái đồng bộ -->
-        <div class="col-lg-6">
+        <!-- Cột trái: Biểu đồ Doanh thu 7 ngày gần nhất -->
+        <div class="col-lg-8">
             <div class="card h-100 shadow-sm border-0">
-                <div class="card-header bg-white border-bottom">
-                    <span class="d-flex align-items-center gap-2">
-                        <i class="bi bi-arrow-repeat text-primary fs-5"></i>
-                        TRẠNG THÁI ĐỒNG BỘ
-                    </span>
-                </div>
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <div class="d-flex flex-column gap-3 mb-3">
-                        <div th:each="status : ${summary.syncStatuses}" class="d-flex align-items-center justify-content-between p-2 rounded hover-bg">
-                            <div class="d-flex align-items-center gap-3">
-                                <span class="badge rounded-circle bg-light text-dark border d-flex align-items-center justify-content-center"
-                                      style="width: 32px; height: 32px; font-size: 0.9rem;"
-                                      th:text="${status.avatarLetter}">A</span>
-                                <span class="fw-medium" th:text="${status.name}">Provider A</span>
-                            </div>
-                            <span class="fw-semibold d-flex align-items-center gap-1" th:classappend="${status.badgeClass}">
-                                <i class="bi bi-circle-fill" style="font-size: 0.6rem;"></i>
-                                <span th:text="${status.statusText}">Thành công</span>
-                            </span>
-                        </div>
-                    </div>
-                    <a th:href="@{/sync-logs}" class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2 fw-semibold">
-                        <i class="bi bi-arrow-repeat"></i> Đồng bộ ngay
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Khối Cảnh báo -->
-        <div class="col-lg-6">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-header bg-white border-bottom text-danger">
-                    <span class="d-flex align-items-center gap-2">
-                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
-                        CẢNH BÁO
-                    </span>
-                </div>
-                <div class="card-body">
-                    <div th:each="alert : ${summary.alerts}" class="alert alert-warning border border-warning-subtle d-flex align-items-center justify-content-between p-3 mb-0 shadow-sm">
-                        <div class="d-flex align-items-center gap-3">
-                            <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
-                            <div>
-                                <h6 class="mb-1 fw-bold text-dark" th:text="${alert.providerName}">Provider B</h6>
-                                <p class="mb-0 text-muted small" th:text="${alert.message}">5 mapping lỗi</p>
-                            </div>
-                        </div>
-                        <a th:href="@{${alert.detailUrl}}" class="btn btn-sm btn-outline-dark fw-semibold">
-                            Xem chi tiết <i class="bi bi-chevron-right ms-1"></i>
+                <div class="card-header bg-white border-bottom py-3">
+                    <div class="d-flex align-items-center justify-content-between w-100">
+                        <span class="d-flex align-items-center gap-2 fw-bold text-dark">
+                            <i class="bi bi-bar-chart-line-fill text-primary fs-5"></i>
+                            BIỂU ĐỒ DOANH THU (7 NGÀY GẦN NHẤT)
+                        </span>
+                        <a th:href="@{/payments}" class="btn btn-sm btn-outline-primary" style="font-size: 0.75rem;">
+                            Chi tiết giao dịch <i class="bi bi-chevron-right"></i>
                         </a>
                     </div>
                 </div>
+                <div class="card-body">
+                    <div style="height: 280px; position: relative;">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- HÀNG 3: HOẠT ĐỘNG ĐỒNG BỘ -->
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-white border-bottom">
-            <span class="d-flex align-items-center gap-2">
-                <i class="bi bi-bar-chart-line-fill text-primary fs-5"></i>
-                HOẠT ĐỘNG ĐỒNG BỘ
-            </span>
-        </div>
-        <div class="card-body">
-            <div class="d-flex flex-column gap-3">
-                <div th:each="act : ${summary.activities}" class="d-flex align-items-center gap-3">
-                    <span class="badge rounded-circle bg-light text-dark border d-flex align-items-center justify-content-center"
-                          style="width: 30px; height: 30px; font-size: 0.85rem;"
-                          th:text="${act.avatarLetter}">A</span>
-                    <span class="fw-medium text-nowrap" style="min-width: 110px;" th:text="${act.name}">Provider A</span>
-                    <div class="progress flex-grow-1" style="height: 10px;">
-                        <div class="progress-bar bg-primary" role="progressbar"
-                             th:style="'width: ' + ${act.percentage} + '%'"
-                             th:aria-valuenow="${act.percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+        <!-- Cột phải: Tỷ lệ lấp đầy phòng chiếu -->
+        <div class="col-lg-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header bg-white border-bottom py-3">
+                    <span class="d-flex align-items-center gap-2 fw-bold text-dark">
+                        <i class="bi bi-pie-chart-fill text-info fs-5"></i>
+                        TỶ LỆ LẤP ĐẦY PHÒNG CHIẾU
+                    </span>
+                    <a th:href="@{/cinemas}" class="btn btn-sm btn-outline-info" style="font-size: 0.75rem;">
+                        Xem rạp <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div style="height: 170px; position: relative;" class="mb-3">
+                        <canvas id="occupancyChart"></canvas>
                     </div>
-                    <span class="fw-bold text-secondary text-end" style="min-width: 45px;" th:text="${act.percentage + '%'}">98%</span>
+
+                    <!-- Danh sách theo rạp từ CSDL (Clickable) -->
+                    <div class="d-flex flex-column gap-2" th:if="${not #lists.isEmpty(summary.occupancyByCinemas)}">
+                        <a th:each="item : ${summary.occupancyByCinemas}"
+                           th:href="@{/cinemas}"
+                           class="border rounded p-2 bg-light-subtle text-decoration-none text-reset d-block"
+                           style="transition: background-color 0.15s;"
+                           onmouseover="this.style.backgroundColor='#e2e8f0';"
+                           onmouseout="this.style.backgroundColor='';"
+                           title="Bấm để xem quản lý rạp">
+                            <div class="d-flex justify-content-between align-items-center small mb-1">
+                                <span class="fw-semibold text-truncate" style="max-width: 170px;" th:text="${item.cinemaName}">Tên Rạp</span>
+                                <span class="fw-bold text-primary" th:text="${item.occupancyRate + '%'}">0.0%</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-primary" role="progressbar"
+                                     th:style="'width: ' + ${item.occupancyRate} + '%'"
+                                     th:aria-valuenow="${item.occupancyRate}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted mt-1" style="font-size: 0.75rem;">
+                                <span>Đã đặt: <b th:text="${item.bookedSeats}">0</b>/<span th:text="${item.totalSeats}">0</span> ghế</span>
+                                <span th:text="${item.totalRooms + ' phòng'}">0 phòng</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div th:if="${#lists.isEmpty(summary.occupancyByCinemas)}" class="text-center text-muted small p-3">
+                        Chưa có cụm rạp nào hoạt động trong CSDL.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- HÀNG 3: SCRUM-116 - BÁO CÁO HIỆU SUẤT ĐỒNG BỘ DỮ LIỆU ĐỐI TÁC TỪ CSDL -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex align-items-center justify-content-between w-100">
+                <span class="d-flex align-items-center gap-2 fw-bold text-dark">
+                    <i class="bi bi-cloud-arrow-down-fill text-success fs-5"></i>
+                    BÁO CÁO HIỆU SUẤT ĐỒNG BỘ DỮ LIỆU ĐỐI TÁC RẠP
+                </span>
+                <a th:href="@{/sync-logs}" class="btn btn-sm btn-outline-primary fw-semibold">
+                    Xem toàn bộ nhật ký <i class="bi bi-chevron-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th class="ps-3">Hãng / Đối tác rạp</th>
+                        <th class="text-center">Tổng lượt Sync</th>
+                        <th class="text-center">Thành công</th>
+                        <th class="text-center">Lỗi / Thất bại</th>
+                        <th style="min-width: 180px;">Tỷ lệ thành công (%)</th>
+                        <th>Lần đồng bộ cuối</th>
+                        <th class="text-center pe-3">Trạng thái</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="report : ${summary.syncPerformanceReports}" style="cursor: pointer;"
+                        th:onclick="'window.location.href=\'' + @{/providers} + '\''" title="Bấm để quản lý nhà cung cấp">
+                        <td class="ps-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="badge rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                                      style="width: 34px; height: 34px; font-weight: bold;"
+                                      th:text="${report.avatarLetter}">P</span>
+                                <div>
+                                    <div class="fw-bold text-dark" th:text="${report.providerName}">Tên đối tác</div>
+                                    <div class="text-muted small" th:text="'Mã: ' + ${report.providerCode}">Mã: CGV</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center fw-semibold" th:text="${report.totalSyncCount}">0</td>
+                        <td class="text-center text-success fw-bold" th:text="${report.successCount}">0</td>
+                        <td class="text-center text-danger fw-bold" th:text="${report.failedCount}">0</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="progress flex-grow-1" style="height: 8px;">
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                         th:style="'width: ' + ${report.successRate} + '%'"
+                                         th:aria-valuenow="${report.successRate}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="fw-bold small" th:text="${report.successRate + '%'}">0.0%</span>
+                            </div>
+                        </td>
+                        <td class="text-muted small">
+                            <i class="bi bi-clock me-1"></i><span th:text="${report.lastSyncTime}">Chưa có</span>
+                        </td>
+                        <td class="text-center pe-3">
+                            <span th:class="${report.badgeClass}" th:text="${report.statusText}">Hoạt động</span>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(summary.syncPerformanceReports)}">
+                        <td colspan="7" class="text-center text-muted py-4">
+                            Chưa có dữ liệu nhà cung cấp đối tác trong CSDL.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- HÀNG 4: CẢNH BÁO MAPPING LỖI VÀ DANH MỤC QUY MÔ HỆ THỐNG (CLICKABLE) -->
+    <div class="row g-4 mb-3">
+        <!-- Khối cảnh báo từ CSDL -> Clickable sang /mappings -->
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header bg-white border-bottom text-danger py-3">
+                    <span class="d-flex align-items-center gap-2 fw-bold">
+                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                        CẢNH BÁO MAPPING CẦN XỬ LÝ
+                    </span>
+                    <a th:href="@{/mappings}" class="btn btn-sm btn-outline-danger" style="font-size: 0.75rem;">
+                        Quản lý Mapping <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div th:each="alert : ${summary.alerts}" class="alert alert-warning border border-warning-subtle d-flex align-items-center justify-content-between p-3 mb-2 shadow-sm">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
+                            <div>
+                                <h6 class="mb-1 fw-bold text-dark" th:text="${alert.providerName}">Provider</h6>
+                                <p class="mb-0 text-muted small" th:text="${alert.message}">Có lỗi mapping</p>
+                            </div>
+                        </div>
+                        <a th:href="@{${alert.detailUrl}}" class="btn btn-sm btn-outline-dark fw-semibold">
+                            Khắc phục <i class="bi bi-chevron-right ms-1"></i>
+                        </a>
+                    </div>
+                    <div th:if="${#lists.isEmpty(summary.alerts)}" class="text-center text-muted py-3">
+                        <i class="bi bi-check-circle-fill text-success fs-4 d-block mb-1"></i>
+                        Tất cả các bản ghi mapping đều hợp lệ!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Khối quy mô hệ thống -> Clickable sang các trang tương ứng -->
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header bg-white border-bottom py-3">
+                    <span class="d-flex align-items-center gap-2 fw-bold text-dark">
+                        <i class="bi bi-database-check text-primary fs-5"></i>
+                        QUY MÔ HỆ THỐNG HIỆN HÀNH
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3 text-center">
+                        <!-- 1. Phim -> /movies -->
+                        <div class="col-6 col-sm-3">
+                            <a th:href="@{/movies}" class="p-2 border rounded bg-light clickable-badge text-decoration-none" title="Quản lý Phim">
+                                <div class="text-muted small">Phim <i class="bi bi-chevron-right" style="font-size: 0.65rem;"></i></div>
+                                <div class="fs-5 fw-bold text-primary" th:text="${summary.totalMovies}">0</div>
+                            </a>
+                        </div>
+                        <!-- 2. Rạp -> /cinemas -->
+                        <div class="col-6 col-sm-3">
+                            <a th:href="@{/cinemas}" class="p-2 border rounded bg-light clickable-badge text-decoration-none" title="Quản lý Cụm rạp">
+                                <div class="text-muted small">Rạp <i class="bi bi-chevron-right" style="font-size: 0.65rem;"></i></div>
+                                <div class="fs-5 fw-bold text-success" th:text="${summary.totalCinemas}">0</div>
+                            </a>
+                        </div>
+                        <!-- 3. Suất chiếu -> /showtimes -->
+                        <div class="col-6 col-sm-3">
+                            <a th:href="@{/showtimes}" class="p-2 border rounded bg-light clickable-badge text-decoration-none" title="Quản lý Suất chiếu">
+                                <div class="text-muted small">Suất chiếu <i class="bi bi-chevron-right" style="font-size: 0.65rem;"></i></div>
+                                <div class="fs-5 fw-bold text-info" th:text="${summary.totalShowtimes}">0</div>
+                            </a>
+                        </div>
+                        <!-- 4. Người dùng -> /users -->
+                        <div class="col-6 col-sm-3">
+                            <a th:href="@{/users}" class="p-2 border rounded bg-light clickable-badge text-decoration-none" title="Quản lý Người dùng">
+                                <div class="text-muted small">Người dùng <i class="bi bi-chevron-right" style="font-size: 0.65rem;"></i></div>
+                                <div class="fs-5 fw-bold text-warning" th:text="${summary.totalUsers}">0</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ĐẶT SCRIPT CHART.JS NGAY BÊN TRONG dashboard-content ĐỂ THYMELEAF KHÔNG BỊ BỎ SÓT -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            /* Lấy mảng ngày và doanh thu thật từ CSDL */
+            const revenueLabels = /*[[${summary.revenueDates}]]*/ [];
+            const revenueData = /*[[${summary.revenueValues}]]*/ [];
+            const occupancyRate = /*[[${summary.occupancyRate}]]*/ 0.0;
+
+            // 1. VẼ BIỂU ĐỒ DOANH THU THẬT
+            const ctxRevenue = document.getElementById('revenueChart');
+            if (ctxRevenue) {
+                new Chart(ctxRevenue, {
+                    type: 'line',
+                    data: {
+                        labels: revenueLabels && revenueLabels.length > 0 ? revenueLabels : ['Không có dữ liệu'],
+                        datasets: [{
+                            label: 'Doanh thu (VNĐ)',
+                            data: revenueData && revenueData.length > 0 ? revenueData : [0],
+                            borderColor: '#2563eb',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            fill: true,
+                            tension: 0.35,
+                            borderWidth: 3,
+                            pointBackgroundColor: '#2563eb',
+                            pointBorderColor: '#ffffff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'Doanh thu: ' + Number(context.raw).toLocaleString('vi-VN') + ' ₫';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        if (value >= 1000000) {
+                                            return (value / 1000000) + ' Tr';
+                                        }
+                                        return Number(value).toLocaleString('vi-VN') + ' ₫';
+                                    }
+                                },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                            },
+                            x: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 2. VẼ BIỂU ĐỒ TỶ LỆ LẤP ĐẦY THẬT (Doughnut Chart)
+            const ctxOccupancy = document.getElementById('occupancyChart');
+            if (ctxOccupancy) {
+                const emptyRate = Math.max(0, (100 - occupancyRate).toFixed(1));
+                new Chart(ctxOccupancy, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Đã đặt chỗ (' + occupancyRate + '%)', 'Ghế trống (' + emptyRate + '%)'],
+                        datasets: [{
+                            data: [occupancyRate, emptyRate],
+                            backgroundColor: ['#2563eb', '#e2e8f0'],
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '72%',
+                        plugins: {
+                            legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
 </div>
 </body>
 </html>
