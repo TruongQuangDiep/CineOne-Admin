@@ -78,8 +78,6 @@ public class ReviewService {
         get(id).setStatus(visible ? "VISIBLE" : "HIDDEN");
     }
 
-    // --- MOBILE REST API METHODS (SCRUM-35 / CINE-31) ---
-
     public MovieReviewsResponse getMovieReviews(Long movieId) {
         Movie movie = movies.findById(movieId).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy bộ phim với mã " + movieId));
@@ -191,7 +189,6 @@ public class ReviewService {
         Movie movie = movies.findById(request.getMovieId()).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy bộ phim với mã " + request.getMovieId()));
 
-        // Kiểm tra ràng buộc nghiệp vụ RT2: Đã có vé và suất chiếu đã kết thúc
         boolean hasWatched = hasWatchedMovie(user.getUserId(), movie.getMovieId());
         if (!hasWatched) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
