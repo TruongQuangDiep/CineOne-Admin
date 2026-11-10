@@ -1,13 +1,8 @@
 @baseUrl = http://localhost:8080
-
-### Trang dashboard (các URL dưới đây cùng trỏ đến một trang)
+### 1. Truy cập trang Dashboard HTML giao diện
 GET {{baseUrl}}/dashboard
 Accept: text/html
+### 2. API Lấy toàn bộ số liệu thống kê & báo cáo nâng cao (JSON)
 
-###
-GET {{baseUrl}}/
-Accept: text/html
-
-###
-GET {{baseUrl}}/admin
-Accept: text/html
+GET {{baseUrl}}/api/v1/dashboard/summary
+Accept: application/json
