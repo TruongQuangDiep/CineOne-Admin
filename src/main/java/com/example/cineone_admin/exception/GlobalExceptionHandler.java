@@ -6,9 +6,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiResponse<Void>> handleResponseStatusException(ResponseStatusException ex) {
+        int code = ex.getStatusCode().value();
+        String msg = ex.getReason() != null && !ex.getReason().isBlank()
+                ? ex.getReason()
+                : "Yêu cầu không hợp lệ.";
+        return ResponseEntity.status(ex.getStatusCode())
+                .body(ApiResponse.error(code, msg));
+    }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ApiResponse<Void>> handleBusinessException(BusinessException ex) {
