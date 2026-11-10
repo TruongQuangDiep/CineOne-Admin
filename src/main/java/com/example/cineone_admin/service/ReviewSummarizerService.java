@@ -17,6 +17,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class ReviewSummarizerService {
     private final String systemPrompt;
     private final Map<String, Object> schema;
     private final SearchInputGuard outputGuard = new SearchInputGuard();
+    private final Map<Long, ReviewSummaryResponse> summaryCache = new ConcurrentHashMap<>();
     private final JsonMapper mapper = JsonMapper.builder(JsonFactory.builder()
             .enable(StreamReadFeature.STRICT_DUPLICATE_DETECTION).build())
             .enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS).build();
@@ -72,9 +74,20 @@ public class ReviewSummarizerService {
         }
     }
 
+    public void invalidate(Long movieId) {
+        if (movieId != null) {
+            summaryCache.remove(movieId);
+        }
+    }
+
     public ReviewSummaryResponse summarize(Long movieId) {
         if (movieId == null || movieId <= 0) {
             throw new AiExtractionException(AiExtractionException.Kind.INVALID_INPUT);
+        }
+
+        ReviewSummaryResponse cached = summaryCache.get(movieId);
+        if (cached != null) {
+            return cached;
         }
 
         Movie movie = movieRepository.findById(movieId).orElseThrow(
@@ -138,7 +151,9 @@ public class ReviewSummarizerService {
         payload.put("reviews", reviewItems);
 
         String rawResponse = generator.generate(systemPrompt, mapper.writeValueAsString(payload), schema);
-        return parseResponse(movie.getMovieId(), movieTitle, visibleCount, reviewItems.size(), averageRating, rawResponse);
+        ReviewSummaryResponse result = parseResponse(movie.getMovieId(), movieTitle, visibleCount, reviewItems.size(), averageRating, rawResponse);
+        summaryCache.put(movieId, result);
+        return result;
     }
 
     private ReviewSummaryResponse parseResponse(Long movieId,
@@ -222,4 +237,3 @@ public class ReviewSummarizerService {
         return new AiExtractionException(AiExtractionException.Kind.INVALID_RESPONSE);
     }
 }
-

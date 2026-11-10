@@ -41,11 +41,12 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,
                         "/api/v1/movies", "/api/v1/movies/**",
                         "/api/v1/cinemas", "/api/v1/cinemas/**",
-                        "/api/v1/showtimes", "/api/v1/showtimes/**").permitAll()
+                        "/api/v1/showtimes", "/api/v1/showtimes/**",
+                        "/api/v1/reviews/movie/**").permitAll()
 
                 // Endpoint REST API bắt buộc xác thực qua Token
                 .requestMatchers(HttpMethod.POST, "/api/v1/seats/hold", "/api/v1/seats/release").authenticated()
-                .requestMatchers("/api/v1/bookings/**", "/api/v1/vouchers/**", "/api/v1/tickets/**", "/api/v1/users/**", "/api/v1/payments/**", "/api/v1/memberships/**").authenticated()
+                .requestMatchers("/api/v1/bookings/**", "/api/v1/vouchers/**", "/api/v1/tickets/**", "/api/v1/users/**", "/api/v1/payments/**", "/api/v1/memberships/**", "/api/v1/reviews/**").authenticated()
 
                 // Giao diện Web Admin và tài nguyên tĩnh
                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/favicon.ico", "/webjars/**").permitAll()
