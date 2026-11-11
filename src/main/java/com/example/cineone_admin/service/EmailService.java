@@ -83,4 +83,33 @@ public class EmailService {
             System.err.println(">>> [CineOne] Lỗi khi gửi email vé điện tử tới " + toEmail + ": " + e.getMessage());
         }
     }
+
+    @Async
+    public void sendSystemNotificationEmail(String toEmail, String customerName, String title, String content, String type) {
+        if (toEmail == null || toEmail.isBlank() || !toEmail.contains("@")) {
+            return;
+        }
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            if (fromEmail != null && !fromEmail.isBlank()) {
+                message.setFrom(fromEmail);
+            }
+            message.setTo(toEmail);
+            String prefix = type != null && !type.isBlank() ? "[CineOne - " + type.toUpperCase() + "] " : "[CineOne] ";
+            message.setSubject(prefix + title);
+
+            String greeting = "Xin chào " + (customerName != null && !customerName.isBlank() ? customerName : "Quý khách") + ",\n\n";
+            String body = greeting
+                    + content + "\n\n"
+                    + "--------------------------------------------------\n"
+                    + "Trân trọng,\n"
+                    + "Hệ thống Quản trị CineOne";
+
+            message.setText(body);
+            mailSender.send(message);
+            System.out.println(">>> [CineOne] Đã gửi thông báo qua Gmail tới: " + toEmail);
+        } catch (Exception e) {
+            System.err.println(">>> [CineOne] Lỗi khi gửi thông báo Gmail tới " + toEmail + ": " + e.getMessage());
+        }
+    }
 }
