@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#notification-content}, 'notifications', 'Quản lý Thông báo')}">
+<body>
+<div id="notification-content">
+    <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+        <h3 class="m-0 fw-bold">
+            <i class="bi bi-megaphone me-2"></i>QUẢN LÝ THÔNG BÁO
+        </h3>
+    </div>
+
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-1"></i><span th:text="${successMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle me-1"></i><span th:text="${errorMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+
+    <div class="d-flex justify-content-center mb-4">
+        <div class="btn-group shadow-sm" role="group" aria-label="Chế độ quản lý thông báo" style="min-width: 480px; max-width: 100%;">
+            <a th:href="@{/notifications(tab='campaigns')}"
+               class="btn px-4 py-2 fw-semibold"
+               th:classappend="${tab == 'campaigns'} ? 'btn-primary' : 'btn-outline-secondary bg-white text-dark'">
+                Chiến dịch
+            </a>
+            <a th:href="@{/notifications(tab='user')}"
+               class="btn px-4 py-2 fw-semibold"
+               th:classappend="${tab == 'user'} ? 'btn-primary' : 'btn-outline-secondary bg-white text-dark'">
+                Thông báo người dùng
+            </a>
+        </div>
+    </div>
+
+    <div th:if="${tab == 'campaigns'}">
+        <div class="d-flex justify-content-end mb-3">
+            <a class="btn btn-outline-dark px-3" th:href="@{/notifications/create}">
+                + Tạo chiến dịch
+            </a>
+        </div>
+
+        <div class="card border shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th style="width: 200px;">Đối tượng</th>
+                        <th style="width: 180px;">Lịch gửi</th>
+                        <th style="width: 180px;">Trạng thái</th>
+                        <th style="width: 50px;" class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${campaigns.content}">
+                        <td th:text="${item.title}"></td>
+                        <td th:text="${item.targetType}"></td>
+                        <td th:text="${item.scheduledAt != null ? #temporals.format(item.scheduledAt, 'dd/MM') : (item.createdAt != null ? #temporals.format(item.createdAt, 'dd/MM') : '—')}"></td>
+                        <td th:text="${item.status}"></td>
+                        <td class="text-center">
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-light border-0" type="button" data-bs-toggle="dropdown" data-table-actions aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end table-action-menu shadow-sm">
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/notifications/{id}(id=${item.campaignId})}">Xem chi tiết</a>
+                                    </li>
+                                    <li th:if="${item.status != 'SENT'}">
+                                        <a class="dropdown-item" th:href="@{/notifications/{id}/edit(id=${item.campaignId})}">Chỉnh sửa</a>
+                                    </li>
+                                    <li th:if="${item.status == 'DRAFT' or item.status == 'SCHEDULED' or item.status == 'FAILED'}">
+                                        <button type="button"
+                                                class="dropdown-item"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#campaign-confirm-modal"
+                                                th:attr="data-action=@{/notifications/{id}/send(id=${item.campaignId})},
+                                                         data-title='Xác nhận phát thông báo',
+                                                         data-message=${'Xác nhận phát thông báo của chiến dịch &quot;' + item.title + '&quot; ngay bây giờ?'},
+                                                         data-btn-text='Phát ngay',
+                                                         data-btn-class='btn-primary'">
+                                            Phát thông báo ngay
+                                        </button>
+                                    </li>
+                                    <li th:if="${item.status == 'DRAFT' or item.status == 'SCHEDULED'}">
+                                        <button type="button"
+                                                class="dropdown-item"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#campaign-confirm-modal"
+                                                th:attr="data-action=@{/notifications/{id}/cancel(id=${item.campaignId})},
+                                                         data-title='Xác nhận hủy chiến dịch',
+                                                         data-message=${'Bạn có chắc chắn muốn hủy chiến dịch thông báo &quot;' + item.title + '&quot; không?'},
+                                                         data-btn-text='Hủy chiến dịch',
+                                                         data-btn-class='btn-warning'">
+                                            Hủy chiến dịch
+                                        </button>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <button type="button"
+                                                class="dropdown-item text-danger"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#campaign-confirm-modal"
+                                                th:attr="data-action=@{/notifications/{id}/delete(id=${item.campaignId})},
+                                                         data-title='Xác nhận xóa chiến dịch',
+                                                         data-message=${'Bạn có chắc chắn muốn xóa chiến dịch thông báo &quot;' + item.title + '&quot; không?'},
+                                                         data-btn-text='Xóa chiến dịch',
+                                                         data-btn-class='btn-danger'">
+                                            Xóa
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${campaigns.empty}">
+                        <td colspan="5" class="text-center text-muted py-5">
+                            Chưa có chiến dịch thông báo nào.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center p-3 flex-wrap gap-2 border-top" th:if="${campaigns.totalPages > 1}">
+                <nav aria-label="Phân trang chiến dịch">
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item" th:classappend="${campaigns.first ? 'disabled' : ''}">
+                            <a class="page-link"
+                               th:href="@{/notifications(tab='campaigns',page=${campaigns.number - 1})}">&lt;--</a>
+                        </li>
+                        <li class="page-item"
+                            th:each="p : ${#numbers.sequence(0, campaigns.totalPages - 1)}"
+                            th:classappend="${p == campaigns.number ? 'active' : ''}">
+                            <a class="page-link"
+                               th:href="@{/notifications(tab='campaigns',page=${p})}"
+                               th:text="${p + 1}"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${campaigns.last ? 'disabled' : ''}">
+                            <a class="page-link"
+                               th:href="@{/notifications(tab='campaigns',page=${campaigns.number + 1})}">--&gt;</a>
+                        </li>
+                    </ul>
+                </nav>
+                <small class="text-muted"
+                       th:text="|Hiển thị ${campaigns.empty ? 0 : (campaigns.number * campaigns.size + 1)} - ${campaigns.empty ? 0 : (campaigns.number * campaigns.size + campaigns.numberOfElements)} / ${campaigns.totalElements} chiến dịch|">
+                </small>
+            </div>
+        </div>
+
+        <div class="modal fade" id="campaign-confirm-modal" tabindex="-1" aria-labelledby="campaign-confirm-title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <form id="campaign-confirm-form" th:action="@{/notifications}" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="campaign-confirm-title">Xác nhận thao tác</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="mb-0" id="campaign-confirm-message">Bạn có chắc chắn muốn thực hiện thao tác này không?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" id="campaign-confirm-submit" class="btn btn-danger px-4">Xác nhận</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const confirmModal = document.getElementById('campaign-confirm-modal');
+                if (confirmModal) {
+                    confirmModal.addEventListener('show.bs.modal', function (event) {
+                        const trigger = event.relatedTarget;
+                        if (!trigger) return;
+                        const form = document.getElementById('campaign-confirm-form');
+                        const titleEl = document.getElementById('campaign-confirm-title');
+                        const msgEl = document.getElementById('campaign-confirm-message');
+                        const submitBtn = document.getElementById('campaign-confirm-submit');
+
+                        form.setAttribute('action', trigger.getAttribute('data-action') || '');
+                        titleEl.textContent = trigger.getAttribute('data-title') || 'Xác nhận thao tác';
+                        msgEl.textContent = trigger.getAttribute('data-message') || 'Bạn có chắc chắn muốn thực hiện thao tác này không?';
+                        submitBtn.textContent = trigger.getAttribute('data-btn-text') || 'Xác nhận';
+                        submitBtn.className = 'btn px-4 ' + (trigger.getAttribute('data-btn-class') || 'btn-danger');
+                    });
+                }
+            });
+        </script>
+    </div>
+
+    <div th:if="${tab == 'user'}">
+        <div class="card border shadow-sm p-4">
+            <h5 class="fw-normal mb-4">Tạo thông báo riêng cho người dùng</h5>
+
+            <form th:action="@{/notifications/send-user}" method="post" id="user-notification-form">
+                <input type="hidden" name="userId" id="selected-user-id"
+                       th:value="${selectedUser != null ? selectedUser.userId : ''}">
+
+                <div class="row mb-3 align-items-start">
+                    <label for="user-query-input" class="col-md-2 col-form-label">Người nhận:</label>
+                    <div class="col-md-10">
+                        <div class="position-relative" id="recipient-autocomplete-wrapper">
+                            <div class="d-flex gap-3">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 rounded-start-pill ps-3">
+                                        <i class="bi bi-search text-muted"></i>
+                                    </span>
+                                    <input type="text" id="user-query-input" name="userQuery"
+                                           class="form-control border-start-0 rounded-end-pill"
+                                           autocomplete="off"
+                                           placeholder="Nhập SĐT, Email hoặc User ID..."
+                                           th:value="${formUserQuery != null ? formUserQuery : (userQuery != null ? userQuery : (selectedUser != null ? selectedUser.email : ''))}">
+                                </div>
+                                <button type="button" id="btn-check-user" class="btn btn-outline-dark px-4 text-nowrap">
+                                    Kiểm tra
+                                </button>
+                            </div>
+
+                            <div id="user-suggestions-dropdown"
+                                 class="list-group position-absolute w-100 shadow border mt-1 d-none"
+                                 style="z-index: 1060; max-height: 260px; overflow-y: auto; background: #fff;">
+                            </div>
+                        </div>
+
+                        <div id="selected-user-line" class="mt-2 small"
+                             th:classappend="${selectedUser == null ? 'd-none' : ''}">
+                            <span id="selected-user-text"
+                                  th:text="${selectedUser != null ? ('(✓) Đã chọn: ' + selectedUser.fullName + ' (' + selectedUser.email + ' - ' + (selectedUser.phone != null ? selectedUser.phone : 'Chưa có SĐT') + ' - ' + (selectedUser.membershipTier != null ? selectedUser.membershipTier.name : 'NORMAL') + ')') : ''}"></span>
+                        </div>
+
+                        <div id="user-check-error" class="mt-2 small text-danger"
+                             th:classappend="${userCheckError == null ? 'd-none' : ''}"
+                             th:text="${userCheckError}"></div>
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <label for="user-notif-type" class="col-md-2 col-form-label">Phân loại</label>
+                    <div class="col-md-4">
+                        <select id="user-notif-type" name="type" class="form-select" style="max-width: 180px;">
+                            <option th:each="ut : ${userNotificationTypes}"
+                                    th:value="${ut}"
+                                    th:text="${ut}"
+                                    th:selected="${formUserType != null ? formUserType == ut : ut == 'SYSTEM'}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <label for="user-notif-title" class="col-md-2 col-form-label">Tiêu đề thông báo:</label>
+                    <div class="col-md-10">
+                        <input type="text" id="user-notif-title" name="title" class="form-control"
+                               th:value="${formUserTitle}" required maxlength="255">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="user-notif-message" class="col-md-2 col-form-label">Nội dung chi tiết:</label>
+                    <div class="col-md-10">
+                        <textarea id="user-notif-message" name="message" rows="5" class="form-control"
+                                  th:text="${formUserMessage}" required></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <label class="col-md-2 col-form-label">Tùy chọn gửi:</label>
+                    <div class="col-md-10 pt-2">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="opt-send-app" name="sendApp" value="true" checked>
+                            <label class="form-check-label" for="opt-send-app">
+                                Gửi thông báo lên ứng dụng
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="opt-send-email" name="sendEmail" value="true">
+                            <label class="form-check-label" for="opt-send-email">
+                                Gửi qua gmail
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-4">
+                    <button type="reset" class="btn btn-outline-dark px-5" id="btn-reset-user-notif">Đặt lại</button>
+                    <button type="submit" class="btn btn-outline-dark px-5">Gửi thông báo ngay</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const wrapper = document.getElementById('recipient-autocomplete-wrapper');
+                const queryInput = document.getElementById('user-query-input');
+                const checkBtn = document.getElementById('btn-check-user');
+                const dropdown = document.getElementById('user-suggestions-dropdown');
+                const hiddenUserId = document.getElementById('selected-user-id');
+                const selectedLine = document.getElementById('selected-user-line');
+                const selectedText = document.getElementById('selected-user-text');
+                const errorBox = document.getElementById('user-check-error');
+                const resetBtn = document.getElementById('btn-reset-user-notif');
+
+                let debounceTimer = null;
+
+                function selectUser(u) {
+                    if (!u) return;
+                    hiddenUserId.value = u.userId;
+                    queryInput.value = u.phone && u.phone !== 'Chưa cập nhật SĐT' ? u.phone : u.email;
+                    selectedText.textContent = '(✓) Đã chọn: ' + u.fullName + ' (' + u.email + ' - ' + u.phone + ' - ' + u.tier + ')';
+                    selectedLine.classList.remove('d-none');
+                    errorBox.classList.add('d-none');
+                    errorBox.textContent = '';
+                    dropdown.classList.add('d-none');
+                }
+
+                function clearSelection() {
+                    hiddenUserId.value = '';
+                    selectedLine.classList.add('d-none');
+                    selectedText.textContent = '';
+                    errorBox.classList.add('d-none');
+                    errorBox.textContent = '';
+                }
+
+                function renderSuggestions(users, queryText) {
+                    dropdown.innerHTML = '';
+                    if (!users || users.length === 0) {
+                        const emptyItem = document.createElement('div');
+                        emptyItem.className = 'list-group-item text-muted small py-2';
+                        emptyItem.textContent = queryText
+                            ? 'Không tìm thấy người dùng phù hợp với "' + queryText + '".'
+                            : 'Chưa có người dùng nào.';
+                        dropdown.appendChild(emptyItem);
+                        dropdown.classList.remove('d-none');
+                        return;
+                    }
+
+                    users.forEach(function (u) {
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'list-group-item list-group-item-action py-2 px-3 d-flex justify-content-between align-items-center';
+
+                        const info = document.createElement('span');
+                        info.textContent = u.fullName + ' (' + u.email + ' - ' + u.phone + ' - ' + u.tier + ')';
+
+                        const idBadge = document.createElement('small');
+                        idBadge.className = 'text-muted ms-2';
+                        idBadge.textContent = '#' + u.userId;
+
+                        btn.appendChild(info);
+                        btn.appendChild(idBadge);
+
+                        btn.addEventListener('click', function () {
+                            selectUser(u);
+                        });
+
+                        dropdown.appendChild(btn);
+                    });
+
+                    dropdown.classList.remove('d-none');
+                }
+
+                function fetchSuggestions(queryText, autoSelectFirst) {
+                    const url = '/notifications/suggest-users?q=' + encodeURIComponent(queryText || '');
+                    fetch(url, { headers: { 'Accept': 'application/json' } })
+                        .then(function (res) {
+                            if (!res.ok) throw new Error('HTTP ' + res.status);
+                            return res.json();
+                        })
+                        .then(function (users) {
+                            if (autoSelectFirst) {
+                                if (users && users.length > 0) {
+                                    selectUser(users[0]);
+                                } else {
+                                    clearSelection();
+                                    errorBox.textContent = 'Không tìm thấy người dùng phù hợp.';
+                                    errorBox.classList.remove('d-none');
+                                    dropdown.classList.add('d-none');
+                                }
+                            } else {
+                                renderSuggestions(users, queryText);
+                            }
+                        })
+                        .catch(function () {
+                            if (autoSelectFirst && queryText) {
+                                window.location.href = '/notifications?tab=user&userQuery=' + encodeURIComponent(queryText);
+                            }
+                        });
+                }
+
+                if (queryInput) {
+                    queryInput.addEventListener('focus', function () {
+                        fetchSuggestions(queryInput.value.trim(), false);
+                    });
+
+                    queryInput.addEventListener('input', function () {
+                        clearSelection();
+                        if (debounceTimer) clearTimeout(debounceTimer);
+                        debounceTimer = setTimeout(function () {
+                            fetchSuggestions(queryInput.value.trim(), false);
+                        }, 150);
+                    });
+
+                    queryInput.addEventListener('keydown', function (e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            fetchSuggestions(queryInput.value.trim(), true);
+                        } else if (e.key === 'Escape') {
+                            dropdown.classList.add('d-none');
+                        }
+                    });
+                }
+
+                if (checkBtn && queryInput) {
+                    checkBtn.addEventListener('click', function () {
+                        const q = queryInput.value.trim();
+                        if (!q) {
+                            clearSelection();
+                            fetchSuggestions('', false);
+                            return;
+                        }
+                        fetchSuggestions(q, true);
+                    });
+                }
+
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', function () {
+                        clearSelection();
+                        dropdown.classList.add('d-none');
+                    });
+                }
+
+                document.addEventListener('click', function (e) {
+                    if (wrapper && !wrapper.contains(e.target)) {
+                        dropdown.classList.add('d-none');
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>
+</body>
+</html>

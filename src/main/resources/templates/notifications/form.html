@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: main-layout(~{::#notification-form-content}, 'notifications', ${readOnly != null and readOnly ? 'Chi tiết chiến dịch thông báo' : (isEdit ? 'Chỉnh sửa chiến dịch thông báo' : 'Tạo chiến dịch thông báo')})}">
+<body>
+<div id="notification-form-content">
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show mx-auto" style="max-width: 840px;" role="alert">
+        <i class="bi bi-exclamation-triangle me-1"></i><span th:text="${errorMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+
+    <div class="card border shadow-sm p-4 mx-auto" style="max-width: 840px;">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+            <a th:href="@{/notifications}" class="text-decoration-none text-dark d-inline-flex align-items-center gap-2 fs-5 fw-bold">
+                <i class="bi bi-arrow-left"></i>
+                <span th:text="${readOnly != null and readOnly ? 'CHI TIẾT CHIẾN DỊCH THÔNG BÁO' : (isEdit ? 'CHỈNH SỬA CHIẾN DỊCH THÔNG BÁO' : 'TẠO CHIẾN DỊCH THÔNG BÁO')}"></span>
+            </a>
+
+            <span th:if="${campaignStatus != null}" class="badge fs-6"
+                  th:classappend="${campaignStatus == 'SENT' ? 'bg-success-subtle text-success border border-success-subtle' :
+                                  (campaignStatus == 'SCHEDULED' ? 'bg-primary-subtle text-primary border border-primary-subtle' :
+                                  (campaignStatus == 'DRAFT' ? 'bg-secondary-subtle text-secondary border border-secondary-subtle' :
+                                  (campaignStatus == 'CANCELLED' ? 'bg-warning-subtle text-warning-emphasis border border-warning-subtle' : 'bg-danger-subtle text-danger border border-danger-subtle')))}"
+                  th:text="${campaignStatus}"></span>
+        </div>
+
+        <form th:action="${isEdit} ? @{/notifications/{id}/edit(id=${id})} : @{/notifications/create}"
+              th:object="${campaign}" method="post">
+
+            <div class="mb-3">
+                <label for="campaign-title" class="form-label fw-semibold">Tiêu đề thông báo <span class="text-danger">*</span></label>
+                <input type="text" id="campaign-title" class="form-control" th:field="*{title}"
+                       placeholder="Nhập tiêu đề chiến dịch thông báo..."
+                       th:readonly="${readOnly != null and readOnly}"
+                       th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''">
+                <div class="invalid-feedback" th:errors="*{title}"></div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label for="campaign-type" class="form-label fw-semibold">Phân loại chiến dịch <span class="text-danger">*</span></label>
+                    <select id="campaign-type" class="form-select" th:field="*{type}"
+                            th:disabled="${readOnly != null and readOnly}"
+                            th:classappend="${#fields.hasErrors('type')} ? 'is-invalid' : ''">
+                        <option th:each="t : ${campaignTypes}" th:value="${t}" th:text="${t}"></option>
+                    </select>
+                    <input th:if="${readOnly != null and readOnly}" type="hidden" th:field="*{type}">
+                    <div class="invalid-feedback" th:errors="*{type}"></div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="campaign-target" class="form-label fw-semibold">Đối tượng nhận <span class="text-danger">*</span></label>
+                    <select id="campaign-target" class="form-select" th:field="*{targetType}"
+                            th:disabled="${readOnly != null and readOnly}"
+                            th:classappend="${#fields.hasErrors('targetType')} ? 'is-invalid' : ''">
+                        <option th:each="tg : ${targetTypes}" th:value="${tg}" th:text="${tg}"></option>
+                    </select>
+                    <input th:if="${readOnly != null and readOnly}" type="hidden" th:field="*{targetType}">
+                    <div class="invalid-feedback" th:errors="*{targetType}"></div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="campaign-message" class="form-label fw-semibold">Nội dung thông báo <span class="text-danger">*</span></label>
+                <textarea id="campaign-message" rows="6" class="form-control" th:field="*{message}"
+                          placeholder="Nhập nội dung chi tiết thông báo phát tới người dùng..."
+                          th:readonly="${readOnly != null and readOnly}"
+                          th:classappend="${#fields.hasErrors('message')} ? 'is-invalid' : ''"></textarea>
+                <div class="invalid-feedback" th:errors="*{message}"></div>
+            </div>
+
+            <div class="row g-3 mb-4 align-items-start">
+                <div class="col-md-6" th:if="${readOnly == null or !readOnly}">
+                    <label for="campaign-action" class="form-label fw-semibold">Phương thức phát</label>
+                    <select id="campaign-action" class="form-select" th:field="*{action}">
+                        <option value="SEND_NOW">Phát thông báo ngay</option>
+                        <option value="SCHEDULE">Lên lịch gửi tự động</option>
+                        <option value="DRAFT">Lưu bản nháp (DRAFT)</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="campaign-scheduled-at" class="form-label fw-semibold">Thời điểm lên lịch gửi</label>
+                    <input type="datetime-local" id="campaign-scheduled-at" class="form-control"
+                           name="scheduledAt"
+                           th:value="${campaign.scheduledAt != null ? #temporals.format(campaign.scheduledAt, 'yyyy-MM-dd''T''HH:mm') : ''}"
+                           th:readonly="${readOnly != null and readOnly}">
+                    <small class="text-muted" th:if="${readOnly == null or !readOnly}">
+                        Bắt buộc nhập nếu chọn "Lên lịch gửi tự động".
+                    </small>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a class="btn btn-outline-dark px-5" th:href="@{/notifications}">
+                    <span th:text="${readOnly != null and readOnly ? 'Quay lại' : 'Hủy'}"></span>
+                </a>
+
+                <button th:if="${readOnly == null or !readOnly}" type="submit" class="btn btn-outline-dark px-5 fw-semibold">
+                    <span th:text="${isEdit ? 'Lưu cập nhật' : 'Xác nhận lưu &amp; phát'}"></span>
+                </button>
+
+                <a th:if="${readOnly != null and readOnly and campaignStatus != 'SENT'}"
+                   class="btn btn-outline-dark px-4"
+                   th:href="@{/notifications/{id}/edit(id=${id})}">
+                    Chỉnh sửa
+                </a>
+            </div>
+        </form>
+
+        <div th:if="${readOnly != null and readOnly and (campaignStatus == 'DRAFT' or campaignStatus == 'SCHEDULED' or campaignStatus == 'FAILED')}"
+             class="d-flex justify-content-center gap-3 mt-3 pt-3 border-top">
+            <button type="button"
+                    class="btn btn-primary px-4"
+                    data-bs-toggle="modal"
+                    data-bs-target="#detail-confirm-modal"
+                    th:attr="data-action=@{/notifications/{id}/send(id=${id})},
+                             data-title='Xác nhận phát thông báo',
+                             data-message='Xác nhận phát thông báo của chiến dịch này ngay bây giờ?',
+                             data-btn-text='Phát ngay',
+                             data-btn-class='btn-primary'">
+                <i class="bi bi-send me-1"></i>Phát thông báo ngay
+            </button>
+            <button th:if="${campaignStatus == 'DRAFT' or campaignStatus == 'SCHEDULED'}"
+                    type="button"
+                    class="btn btn-outline-warning px-4"
+                    data-bs-toggle="modal"
+                    data-bs-target="#detail-confirm-modal"
+                    th:attr="data-action=@{/notifications/{id}/cancel(id=${id})},
+                             data-title='Xác nhận hủy chiến dịch',
+                             data-message='Bạn có chắc chắn muốn hủy chiến dịch thông báo này không?',
+                             data-btn-text='Hủy chiến dịch',
+                             data-btn-class='btn-warning'">
+                Hủy chiến dịch
+            </button>
+        </div>
+
+        <div th:if="${readOnly != null and readOnly}" class="modal fade" id="detail-confirm-modal" tabindex="-1" aria-labelledby="detail-confirm-title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <form id="detail-confirm-form" th:action="@{/notifications}" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="detail-confirm-title">Xác nhận thao tác</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="mb-0" id="detail-confirm-message">Bạn có chắc chắn muốn thực hiện thao tác này không?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" id="detail-confirm-submit" class="btn btn-primary px-4">Xác nhận</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script th:if="${readOnly != null and readOnly}">
+            document.addEventListener('DOMContentLoaded', function () {
+                const detailModal = document.getElementById('detail-confirm-modal');
+                if (detailModal) {
+                    detailModal.addEventListener('show.bs.modal', function (event) {
+                        const trigger = event.relatedTarget;
+                        if (!trigger) return;
+                        const form = document.getElementById('detail-confirm-form');
+                        const titleEl = document.getElementById('detail-confirm-title');
+                        const msgEl = document.getElementById('detail-confirm-message');
+                        const submitBtn = document.getElementById('detail-confirm-submit');
+
+                        form.setAttribute('action', trigger.getAttribute('data-action') || '');
+                        titleEl.textContent = trigger.getAttribute('data-title') || 'Xác nhận thao tác';
+                        msgEl.textContent = trigger.getAttribute('data-message') || 'Bạn có chắc chắn muốn thực hiện thao tác này không?';
+                        submitBtn.textContent = trigger.getAttribute('data-btn-text') || 'Xác nhận';
+                        submitBtn.className = 'btn px-4 ' + (trigger.getAttribute('data-btn-class') || 'btn-primary');
+                    });
+                }
+            });
+        </script>
+    </div>
+</div>
+</body>
+</html>
