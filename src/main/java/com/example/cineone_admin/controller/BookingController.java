@@ -38,20 +38,25 @@ public class BookingController {
     }
 
     @GetMapping("/{id}")
-    public String bookingDetail(@PathVariable("id") Long id, Model model) {
+    public String bookingDetail(
+            @PathVariable("id") Long id,
+            @RequestParam(name = "supportId", required = false) Long supportId,
+            Model model) {
         var booking = bookingService.getBookingEntity(id);
         var bookingResponse = bookingService.mapToResponse(booking);
 
-        model.addAttribute("activeMenu", "bookings");
+        model.addAttribute("activeMenu", supportId != null ? "support" : "bookings");
         model.addAttribute("booking", bookingResponse);
         model.addAttribute("bookingEntity", booking);
         model.addAttribute("statuses", BookingStatus.values());
+        model.addAttribute("supportId", supportId);
         return "bookings/detail";
     }
 
     @PostMapping("/{id}/status")
     public String updateStatus(
             @PathVariable("id") Long id,
+            @RequestParam(name = "supportId", required = false) Long supportId,
             @ModelAttribute UpdateBookingStatusRequest request,
             RedirectAttributes redirectAttributes) {
         try {
@@ -59,6 +64,9 @@ public class BookingController {
             redirectAttributes.addFlashAttribute("successMessage", "Cập nhật trạng thái đơn vé thành công!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Lỗi: " + e.getMessage());
+        }
+        if (supportId != null) {
+            return "redirect:/bookings/" + id + "?supportId=" + supportId;
         }
         return "redirect:/bookings/" + id;
     }

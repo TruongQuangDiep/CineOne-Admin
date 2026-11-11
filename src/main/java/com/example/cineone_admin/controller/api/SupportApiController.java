@@ -42,6 +42,23 @@ public class SupportApiController {
         return ResponseEntity.ok(ApiResponse.success(data, "Lấy chi tiết yêu cầu hỗ trợ thành công."));
     }
 
+    @PutMapping("/api/v1/support/{id}")
+    public ResponseEntity<ApiResponse<SupportResponse>> updateSupportRequest(
+            @PathVariable Long id,
+            @RequestBody CreateSupportRequest request,
+            Authentication authentication) {
+        SupportResponse data = supportService.updateMobileRequest(id, request, authentication);
+        return ResponseEntity.ok(ApiResponse.success(data, "Cập nhật yêu cầu hỗ trợ / khiếu nại thành công."));
+    }
+
+    @DeleteMapping("/api/v1/support/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteSupportRequest(
+            @PathVariable Long id,
+            Authentication authentication) {
+        supportService.deleteMobileRequest(id, authentication);
+        return ResponseEntity.ok(ApiResponse.success(null, "Xóa yêu cầu hỗ trợ / khiếu nại thành công."));
+    }
+
     @GetMapping("/api/v1/faq")
     public ResponseEntity<ApiResponse<List<FaqItemResponse>>> getFaqList(
             @RequestParam(required = false) String category,

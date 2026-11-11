@@ -21,8 +21,10 @@ import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(properties = {
@@ -228,6 +230,59 @@ class SupportApiControllerIntegrationTests {
         mvc.perform(get("/api/v1/support/{id}", sr.getRequestId()))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.status", is(403)));
+    }
+
+    @Test
+    @WithMockUser(username = "member@cineone.vn", roles = "USER")
+    void updateAndDeleteSupportRequestByOwner() throws Exception {
+        SupportRequest sr = new SupportRequest();
+        sr.setUser(activeUser);
+        sr.setType("SUPPORT");
+        sr.setCategory("PAYMENT");
+        sr.setContent("Nội dung ban đầu cần sửa lại");
+        sr.setStatus("PENDING");
+        sr = supportRepository.saveAndFlush(sr);
+
+        String updatePayload = String.format(
+                "{\"type\":\"KHIẾU NẠI\",\"category\":\"VÉ\",\"content\":\"Nội dung đã chỉnh sửa chính xác hơn.\",\"bookingCode\":\"%s\"}",
+                sampleBooking.getBookingCode()
+        );
+
+        mvc.perform(put("/api/v1/support/{id}", sr.getRequestId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updatePayload))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.data.type", is("KHIẾU NẠI")))
+                .andExpect(jsonPath("$.data.category", is("VÉ")))
+                .andExpect(jsonPath("$.data.content", is("Nội dung đã chỉnh sửa chính xác hơn.")))
+                .andExpect(jsonPath("$.data.bookingCode", is("CINE-BKG-2026")));
+
+        mvc.perform(delete("/api/v1/support/{id}", sr.getRequestId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success", is(true)));
+
+        mvc.perform(get("/api/v1/support/my-requests"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data", hasSize(0)));
+
+        SupportRequest processingSr = new SupportRequest();
+        processingSr.setUser(activeUser);
+        processingSr.setType("SUPPORT");
+        processingSr.setCategory("PAYMENT");
+        processingSr.setContent("Yêu cầu đang được Admin xử lý");
+        processingSr.setStatus("PROCESSING");
+        processingSr = supportRepository.saveAndFlush(processingSr);
+
+        mvc.perform(put("/api/v1/support/{id}", processingSr.getRequestId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updatePayload))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status", is(400)));
+
+        mvc.perform(delete("/api/v1/support/{id}", processingSr.getRequestId()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status", is(400)));
     }
 }
 

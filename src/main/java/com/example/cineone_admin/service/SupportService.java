@@ -4,9 +4,11 @@ import com.example.cineone_admin.dto.support.CreateSupportRequest;
 import com.example.cineone_admin.dto.support.SupportResponse;
 import com.example.cineone_admin.entity.Booking;
 import com.example.cineone_admin.entity.SupportRequest;
+import com.example.cineone_admin.entity.Ticket;
 import com.example.cineone_admin.entity.User;
 import com.example.cineone_admin.repository.BookingRepository;
 import com.example.cineone_admin.repository.SupportRequestRepository;
+import com.example.cineone_admin.repository.TicketRepository;
 import com.example.cineone_admin.repository.UserRepository;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
@@ -32,6 +34,7 @@ public class SupportService {
     private final SupportRequestRepository repository;
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
+    private final TicketRepository ticketRepository;
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
@@ -138,20 +141,7 @@ public class SupportService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nội dung yêu cầu không được để trống.");
         }
 
-        Booking booking = null;
-        if (req.getBookingId() != null && req.getBookingId() > 0) {
-            booking = bookingRepository.findById(req.getBookingId()).orElse(null);
-        } else if (req.getBookingCode() != null && !req.getBookingCode().isBlank()) {
-            String code = req.getBookingCode().trim();
-            booking = bookingRepository.findByBookingCodeIgnoreCase(code).orElse(null);
-            if (booking == null) {
-                try {
-                    long parsedId = Long.parseLong(code.replaceAll("[^0-9]", ""));
-                    booking = bookingRepository.findById(parsedId).orElse(null);
-                } catch (NumberFormatException ignored) {
-                }
-            }
-        }
+        Booking booking = resolveBooking(req.getBookingId(), req.getBookingCode());
 
         SupportRequest entity = new SupportRequest();
         entity.setUser(user);
@@ -164,6 +154,85 @@ public class SupportService {
 
         SupportRequest saved = repository.saveAndFlush(entity);
         return toSupportResponse(saved);
+    }
+
+    @Transactional
+    public SupportResponse updateMobileRequest(Long requestId, CreateSupportRequest req, Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vui lòng đăng nhập để chỉnh sửa yêu cầu.");
+        }
+
+        SupportRequest entity = getById(requestId);
+        if (entity.getUser() == null || !entity.getUser().getUserId().equals(user.getUserId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Bạn không có quyền chỉnh sửa yêu cầu này.");
+        }
+
+        String currentStatus = entity.getStatus() != null ? entity.getStatus().trim().toUpperCase() : "PENDING";
+        if (!"PENDING".equals(currentStatus) || (entity.getResponse() != null && !entity.getResponse().isBlank())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Chỉ có thể chỉnh sửa yêu cầu khi đang ở trạng thái Chờ xử lý.");
+        }
+
+        if (req == null || req.getContent() == null || req.getContent().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nội dung yêu cầu không được để trống.");
+        }
+
+        Booking booking = resolveBooking(req.getBookingId(), req.getBookingCode());
+        entity.setBooking(booking);
+        if (req.getType() != null && !req.getType().isBlank()) {
+            entity.setType(toDbType(req.getType()));
+        }
+        if (req.getCategory() != null && !req.getCategory().isBlank()) {
+            entity.setCategory(toDbCategory(req.getCategory()));
+        }
+        entity.setContent(req.getContent().trim());
+
+        SupportRequest saved = repository.saveAndFlush(entity);
+        return toSupportResponse(saved);
+    }
+
+    @Transactional
+    public void deleteMobileRequest(Long requestId, Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vui lòng đăng nhập để xóa yêu cầu.");
+        }
+
+        SupportRequest entity = getById(requestId);
+        if (entity.getUser() == null || !entity.getUser().getUserId().equals(user.getUserId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Bạn không có quyền xóa yêu cầu này.");
+        }
+
+        String currentStatus = entity.getStatus() != null ? entity.getStatus().trim().toUpperCase() : "PENDING";
+        if (!"PENDING".equals(currentStatus) || (entity.getResponse() != null && !entity.getResponse().isBlank())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Chỉ có thể xóa yêu cầu khi đang ở trạng thái Chờ xử lý.");
+        }
+
+        repository.delete(entity);
+        repository.flush();
+    }
+
+    private Booking resolveBooking(Long bookingId, String bookingCode) {
+        Booking booking = null;
+        if (bookingId != null && bookingId > 0) {
+            booking = bookingRepository.findById(bookingId).orElse(null);
+        } else if (bookingCode != null && !bookingCode.isBlank()) {
+            String code = bookingCode.trim();
+            booking = bookingRepository.findByBookingCodeIgnoreCase(code).orElse(null);
+            if (booking == null) {
+                booking = ticketRepository.findFirstByTicketCodeIgnoreCase(code)
+                        .map(Ticket::getBooking)
+                        .orElse(null);
+            }
+            if (booking == null) {
+                try {
+                    long parsedId = Long.parseLong(code.replaceAll("[^0-9]", ""));
+                    booking = bookingRepository.findById(parsedId).orElse(null);
+                } catch (NumberFormatException ignored) {
+                }
+            }
+        }
+        return booking;
     }
 
     public List<SupportResponse> getMyRequests(Authentication authentication) {

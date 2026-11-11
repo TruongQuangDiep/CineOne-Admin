@@ -43,7 +43,7 @@
                       th:text="${supportRequest.booking != null ? (supportRequest.booking.bookingCode != null ? supportRequest.booking.bookingCode : 'BK' + supportRequest.booking.bookingId) : 'Không có'}"></span>
             </div>
             <a th:if="${supportRequest.booking != null}"
-               th:href="@{/bookings/{id}(id=${supportRequest.booking.bookingId})}"
+               th:href="@{/bookings/{id}(id=${supportRequest.booking.bookingId}, supportId=${supportRequest.requestId})}"
                class="btn btn-outline-dark btn-sm px-4">Xem đơn đặt vé</a>
         </div>
 
