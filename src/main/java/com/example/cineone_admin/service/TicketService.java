@@ -33,6 +33,7 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final EmailService emailService;
     private final BookingSeatRepository bookingSeatRepository;
+    private final NotificationService notificationService;
 
     /**
      * Tự động tạo vé khi Booking thanh toán thành công
@@ -73,6 +74,21 @@ public class TicketService {
         ticket.setStatus("VALID");
 
         Ticket savedTicket = ticketRepository.save(ticket);
+
+        if (booking.getUser() != null) {
+            try {
+                notificationService.createAutoUserNotification(
+                        booking.getUser(),
+                        "BOOKING",
+                        "Đặt vé thành công",
+                        "Bạn đã đặt vé " + savedTicket.getMovieTitle()
+                                + " (" + savedTicket.getSeatInfo() + ") tại "
+                                + savedTicket.getCinemaName() + " thành công. Mã vé: "
+                                + savedTicket.getTicketCode()
+                );
+            } catch (Exception ignored) {
+            }
+        }
         // Tự động bắn email vé điện tử về Gmail tài khoản người dùng
         if (booking.getUser() != null && booking.getUser().getEmail() != null) {
             emailService.sendTicketEmail(

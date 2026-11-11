@@ -35,6 +35,7 @@ public class SupportService {
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
     private final TicketRepository ticketRepository;
+    private final NotificationService notificationService;
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
@@ -116,7 +117,18 @@ public class SupportService {
         request.setRespondedAt(LocalDateTime.now());
         request.setEmailStatus("PENDING");
 
-        return repository.save(request);
+        SupportRequest saved = repository.save(request);
+
+        try {
+            notificationService.createAutoUserNotification(
+                    saved.getUser(),
+                    "SYSTEM",
+                    "Admin đã phản hồi yêu cầu #" + saved.getRequestId(),
+                    saved.getResponse()
+            );
+        } catch (Exception ignored) {
+        }
+        return saved;
     }
 
     @Transactional
