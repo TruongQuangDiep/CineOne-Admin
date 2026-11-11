@@ -14,4 +14,6 @@ public interface SupportRequestRepository extends JpaRepository<SupportRequest, 
     long countByStatus(String status);
 
     List<SupportRequest> findByStatusOrderByCreatedAtDesc(String status);
+
+    List<SupportRequest> findByUser_UserIdOrderByCreatedAtDescRequestIdDesc(Long userId);
 }

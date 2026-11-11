@@ -3,104 +3,76 @@
       th:replace="~{fragments/layout :: main-layout(~{::#support-detail-content}, 'support', 'Chi tiết yêu cầu hỗ trợ')}">
 <body>
 <div id="support-detail-content">
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <h3 class="m-0 fw-bold" th:text="|CHI TIẾT YÊU CẦU #SR-${supportRequest.requestId}|"></h3>
-        <a class="btn btn-outline-secondary" th:href="@{/support}">
-            <i class="bi bi-arrow-left me-1"></i>Quay lại danh sách
-        </a>
-    </div>
-
-    <!-- Thông báo -->
-    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show mx-auto" style="max-width: 800px;" role="alert">
         <i class="bi bi-check-circle me-1"></i><span th:text="${successMessage}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
     </div>
-    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show mx-auto" style="max-width: 800px;" role="alert">
         <i class="bi bi-exclamation-triangle me-1"></i><span th:text="${errorMessage}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
     </div>
 
-    <div class="row g-4">
-        <!-- Thông tin yêu cầu từ khách -->
-        <div class="col-lg-6">
-            <div class="card border-0 shadow-sm p-4 h-100">
-                <h5 class="fw-bold mb-3 border-bottom pb-2">Thông tin người gửi &amp; Yêu cầu</h5>
-
-                <div class="mb-3">
-                    <label class="text-muted small d-block">Khách hàng</label>
-                    <div class="fw-bold" th:text="${supportRequest.user != null ? supportRequest.user.fullName : '—'}"></div>
-                    <div class="text-primary" th:text="${supportRequest.user != null ? supportRequest.user.email : '—'}"></div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <label class="text-muted small d-block">Loại yêu cầu</label>
-                        <span class="badge text-bg-secondary fs-6" th:text="${supportRequest.type}"></span>
-                    </div>
-                    <div class="col-6">
-                        <label class="text-muted small d-block">Vấn đề</label>
-                        <span class="badge text-bg-light border fs-6" th:text="${supportRequest.category}"></span>
-                    </div>
-                </div>
-
-                <div class="mb-3" th:if="${supportRequest.booking != null}">
-                    <label class="text-muted small d-block">Đơn đặt vé liên quan</label>
-                    <a th:href="@{/bookings/{id}(id=${supportRequest.booking.bookingId})}" class="fw-bold text-decoration-none">
-                        <i class="bi bi-ticket-perforated me-1"></i>Mã đơn #<span th:text="${supportRequest.booking.bookingId}"></span>
-                    </a>
-                </div>
-
-                <div class="mb-3">
-                    <label class="text-muted small d-block">Thời gian gửi</label>
-                    <div class="fw-semibold" th:text="${supportRequest.createdAt != null ? #temporals.format(supportRequest.createdAt, 'dd/MM/yyyy HH:mm:ss') : '—'}"></div>
-                </div>
-
-                <div class="mb-0">
-                    <label class="text-muted small d-block mb-1">Nội dung chi tiết</label>
-                    <div class="p-3 bg-light rounded text-break" style="white-space: pre-wrap;" th:text="${supportRequest.content}"></div>
-                </div>
-            </div>
+    <div class="card border shadow-sm p-4 mx-auto" style="max-width: 800px;">
+        <div class="mb-4">
+            <a th:href="@{/support}" class="text-decoration-none text-dark d-inline-flex align-items-center gap-2 fs-5 fw-bold">
+                <i class="bi bi-arrow-left"></i>
+                <span th:text="|HT${supportRequest.requestId} – ${supportRequest.user != null ? supportRequest.user.fullName : 'Người dùng'}|"></span>
+                <span class="visually-hidden">CHI TIẾT YÊU CẦU</span>
+            </a>
         </div>
 
-        <!-- Phản hồi từ Admin -->
-        <div class="col-lg-6">
-            <div class="card border-0 shadow-sm p-4 h-100">
-                <h5 class="fw-bold mb-3 border-bottom pb-2">Phản hồi &amp; Xử lý yêu cầu</h5>
-
-                <form th:action="@{/support/{id}/respond(id=${supportRequest.requestId})}" method="post">
-                    <div class="mb-3">
-                        <label for="support-status" class="form-label fw-semibold">Cập nhật trạng thái <span class="text-danger">*</span></label>
-                        <select id="support-status" name="status" class="form-select" required>
-                            <option value="PENDING" th:selected="${supportRequest.status == 'PENDING'}">Chờ xử lý (PENDING)</option>
-                            <option value="IN_PROGRESS" th:selected="${supportRequest.status == 'IN_PROGRESS'}">Đang xử lý (IN_PROGRESS)</option>
-                            <option value="RESOLVED" th:selected="${supportRequest.status == 'RESOLVED'}">Đã giải quyết (RESOLVED)</option>
-                            <option value="REJECTED" th:selected="${supportRequest.status == 'REJECTED'}">Từ chối (REJECTED)</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="support-response" class="form-label fw-semibold">Nội dung phản hồi khách hàng <span class="text-danger">*</span></label>
-                        <textarea id="support-response" name="response" rows="8" class="form-control"
-                                  placeholder="Nhập câu trả lời giải đáp, hướng xử lý hoặc kết quả giải quyết khiếu nại..."
-                                  required th:text="${supportRequest.response}"></textarea>
-                        <small class="text-muted">Nội dung này sẽ được lưu vết và gửi thông báo/email phản hồi đến khách hàng.</small>
-                    </div>
-
-                    <div class="mb-4" th:if="${supportRequest.respondedAt != null}">
-                        <small class="text-muted">
-                            <i class="bi bi-clock-history me-1"></i>Lần phản hồi gần nhất:
-                            <span class="fw-semibold" th:text="${#temporals.format(supportRequest.respondedAt, 'dd/MM/yyyy HH:mm:ss')}"></span>
-                        </small>
-                    </div>
-
-                    <div class="d-flex justify-content-end gap-2">
-                        <button type="submit" class="btn btn-primary px-4">
-                            <i class="bi bi-send me-1"></i>Lưu phản hồi &amp; Cập nhật
-                        </button>
-                    </div>
-                </form>
-            </div>
+        <h6 class="fw-bold mb-3">Thông tin yêu cầu</h6>
+        <div class="ps-3 mb-3">
+            <div class="mb-1">Mã yêu cầu: <span class="fw-semibold" th:text="|HT${supportRequest.requestId}|"></span></div>
+            <div class="mb-1">Người gửi: <span class="fw-semibold" th:text="${supportRequest.user != null ? supportRequest.user.fullName : '—'}"></span></div>
+            <div class="mb-1">Loại: <span th:text="${supportRequest.type == 'COMPLAINT' or supportRequest.type == 'KHIẾU NẠI' ? 'Khiếu nại' : 'Hỗ trợ'}"></span></div>
+            <div class="mb-1">Vấn đề: <span th:text="${supportRequest.category == 'PAYMENT' or supportRequest.category == 'THANH TOÁN' ? 'Thanh toán' : (supportRequest.category == 'TICKET' or supportRequest.category == 'VÉ' ? 'Vé' : (supportRequest.category == 'BOOKING' ? 'Đặt vé' : (supportRequest.category == 'REVIEW' or supportRequest.category == 'ĐÁNH GIÁ' ? 'Đánh giá' : (supportRequest.category == 'ACCOUNT' or supportRequest.category == 'TÀI KHOẢN' ? 'Tài khoản' : 'Khác'))))}"></span></div>
+            <div class="mb-1">Ngày gửi: <span th:text="${supportRequest.createdAt != null ? #temporals.format(supportRequest.createdAt, 'dd/MM/yyyy') : '—'}"></span></div>
+            <div class="mb-1">Trạng thái: <span th:text="${supportRequest.status == 'PENDING' ? 'Chờ xử lý' : (supportRequest.status == 'PROCESSING' or supportRequest.status == 'IN_PROGRESS' ? 'Đang xử lý' : (supportRequest.status == 'RESOLVED' ? 'Đã giải quyết' : 'Đã đóng'))}"></span></div>
         </div>
+
+        <div class="mb-3">
+            <div class="mb-2">Nội dung yêu cầu</div>
+            <div class="p-3 border rounded bg-light text-break" style="white-space: pre-wrap; min-height: 80px;" th:text="${supportRequest.content}"></div>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+            <div>
+                Đơn đặt vé liên quan:
+                <span class="fw-semibold"
+                      th:text="${supportRequest.booking != null ? (supportRequest.booking.bookingCode != null ? supportRequest.booking.bookingCode : 'BK' + supportRequest.booking.bookingId) : 'Không có'}"></span>
+            </div>
+            <a th:if="${supportRequest.booking != null}"
+               th:href="@{/bookings/{id}(id=${supportRequest.booking.bookingId}, supportId=${supportRequest.requestId})}"
+               class="btn btn-outline-dark btn-sm px-4">Xem đơn đặt vé</a>
+        </div>
+
+        <hr class="my-4">
+
+        <h6 class="fw-bold mb-3">Phản hồi của Admin</h6>
+        <form th:action="@{/support/{id}/respond(id=${supportRequest.requestId})}" method="post">
+            <div class="mb-3">
+                <textarea id="support-response" name="response" rows="5" class="form-control"
+                          placeholder="Nhập phản hồi cho người dùng..."
+                          required th:text="${supportRequest.response}"></textarea>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <label for="support-status" class="mb-0">Trạng thái</label>
+                <select id="support-status" name="status" class="form-select" style="max-width: 220px;" required>
+                    <option value="PENDING" th:selected="${supportRequest.status == 'PENDING'}">Chờ xử lý</option>
+                    <option value="PROCESSING" th:selected="${supportRequest.status == 'PROCESSING' or supportRequest.status == 'IN_PROGRESS'}">Đang xử lý</option>
+                    <option value="RESOLVED" th:selected="${supportRequest.status == 'RESOLVED'}">Đã giải quyết</option>
+                    <option value="CLOSED" th:selected="${supportRequest.status == 'CLOSED' or supportRequest.status == 'REJECTED'}">Đã đóng</option>
+                </select>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-dark px-5">
+                    Lưu phản hồi &amp; trạng thái
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 </body>

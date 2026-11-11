@@ -14,7 +14,7 @@
     <div class="main-content flex-grow-1 p-4" style="margin-left: 260px;">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <a th:href="@{/bookings}" class="btn btn-sm btn-outline-secondary mb-2"><i class="bi bi-arrow-left"></i> Quay lại</a>
+                <a th:href="${supportId != null} ? @{/support/{id}(id=${supportId})} : @{/bookings}" class="btn btn-sm btn-outline-secondary mb-2"><i class="bi bi-arrow-left"></i> Quay lại</a>
                 <h3 class="fw-bold mb-0">Đơn đặt vé: <span class="text-primary" th:text="${booking.bookingCode}"></span></h3>
             </div>
             <div>
@@ -72,9 +72,9 @@
                                     <td colspan="3" class="text-center py-3 text-muted">Chưa có dữ liệu ghế.</td>
                                 </tr>
                                 <tr th:each="bs : ${bookingEntity.bookingSeats}">
-                                    <td class="ps-3 fw-bold" th:text="${bs.seat != null ? bs.seat.seatCode : 'Ghế'}">A1</td>
-                                    <td><span class="badge bg-info text-dark" th:text="${bs.seat != null ? bs.seat.seatType : 'STANDARD'}">STANDARD</span></td>
-                                    <td class="text-end pe-3 fw-semibold" th:text="${#numbers.formatDecimal(bs.price, 0, 'POINT', 0, 'COMMA')} + ' đ'"></td>
+                                    <td class="ps-3 fw-bold" th:text="${bs.seat != null ? (bs.seat.seatRow + bs.seat.seatNumber) : 'Ghế'}">A1</td>
+                                    <td><span class="badge bg-info text-dark" th:text="${bs.seatType != null ? bs.seatType : (bs.seat != null ? bs.seat.seatType : 'NORMAL')}">NORMAL</span></td>
+                                    <td class="text-end pe-3 fw-semibold" th:text="${#numbers.formatDecimal(bs.seatPrice, 0, 'POINT', 0, 'COMMA')} + ' đ'"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -98,7 +98,7 @@
                                     <td class="ps-3 fw-semibold" th:text="${bf.fnbItem != null ? bf.fnbItem.name : 'Bắp nước'}">Combo Bắp Nước</td>
                                     <td th:text="${bf.quantity}">1</td>
                                     <td th:text="${#numbers.formatDecimal(bf.unitPrice, 0, 'POINT', 0, 'COMMA')} + ' đ'"></td>
-                                    <td class="text-end pe-3 fw-semibold" th:text="${#numbers.formatDecimal(bf.totalPrice, 0, 'POINT', 0, 'COMMA')} + ' đ'"></td>
+                                    <td class="text-end pe-3 fw-semibold" th:text="${#numbers.formatDecimal(bf.unitPrice * bf.quantity, 0, 'POINT', 0, 'COMMA')} + ' đ'"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -130,6 +130,7 @@
                     <div class="card-header bg-white py-3 fw-bold"><i class="bi bi-pencil-square me-1"></i> Cập nhật trạng thái</div>
                     <div class="card-body">
                         <form th:action="@{'/bookings/' + ${booking.bookingId} + '/status'}" method="post">
+                            <input type="hidden" name="supportId" th:if="${supportId != null}" th:value="${supportId}">
                             <div class="mb-3">
                                 <label class="form-label small text-muted">Trạng thái mới</label>
                                 <select name="status" class="form-select">

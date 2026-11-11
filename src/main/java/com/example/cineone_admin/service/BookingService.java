@@ -47,8 +47,23 @@ public class BookingService {
 
     @Transactional(readOnly = true)
     public Booking getBookingEntity(Long id) {
-        return bookingRepository.findById(id)
+        Booking booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy đơn đặt vé ID: " + id));
+        if (booking.getBookingSeats() != null) {
+            booking.getBookingSeats().forEach(bs -> {
+                if (bs.getSeat() != null) {
+                    bs.getSeat().getSeatRow();
+                }
+            });
+        }
+        if (booking.getBookingFnbs() != null) {
+            booking.getBookingFnbs().forEach(bf -> {
+                if (bf.getFnbItem() != null) {
+                    bf.getFnbItem().getName();
+                }
+            });
+        }
+        return booking;
     }
 
     @Transactional(readOnly = true)

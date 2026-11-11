@@ -22,4 +22,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query("SELECT COALESCE(SUM(b.totalAmount), 0) FROM Booking b WHERE b.user.userId = :userId AND b.status = com.example.cineone_admin.enums.BookingStatus.CONFIRMED")
     BigDecimal calculateTotalSpendingByUserId(@Param("userId") Long userId);
+
+    java.util.Optional<Booking> findByBookingCodeIgnoreCase(String bookingCode);
 }

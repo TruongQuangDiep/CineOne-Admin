@@ -16,6 +16,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     Optional<Ticket> findByTicketIdAndBooking_User_UserId(Long ticketId, Long userId);
 
+    Optional<Ticket> findFirstByTicketCodeIgnoreCase(String ticketCode);
+
     @Query("SELECT COUNT(t) > 0 FROM Ticket t " +
             "WHERE t.booking.user.userId = :userId " +
             "AND t.booking.showtime.movie.movieId = :movieId " +

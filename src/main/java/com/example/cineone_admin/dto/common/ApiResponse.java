@@ -12,12 +12,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class ApiResponse<T> {
+    @Builder.Default
+    private boolean success = true;
     private int status;
     private String message;
     private T data;
 
+    public ApiResponse(int status, String message, T data) {
+        this.success = status >= 200 && status < 300;
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
+
     public static <T> ApiResponse<T> success(T data, String message) {
         return ApiResponse.<T>builder()
+                .success(true)
                 .status(200)
                 .message(message)
                 .data(data)
@@ -26,6 +36,7 @@ public class ApiResponse<T> {
 
     public static <T> ApiResponse<T> error(int status, String message) {
         return ApiResponse.<T>builder()
+                .success(false)
                 .status(status)
                 .message(message)
                 .data(null)

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: main-layout(~{::#support-list-content}, 'support', 'Yêu cầu hỗ trợ')}">
+      th:replace="~{fragments/layout :: main-layout(~{::#support-list-content}, 'support', 'Quản lý hỗ trợ & khiếu nại')}">
 <body>
 <div id="support-list-content">
     <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
-        <h3 class="m-0 fw-bold">YÊU CẦU HỖ TRỢ &amp; KHIẾU NẠI</h3>
+        <h3 class="m-0 fw-bold">
+            <i class="bi bi-headset me-2"></i>QUẢN LÝ HỖ TRỢ &amp; KHIẾU NẠI
+            <span class="visually-hidden">YÊU CẦU HỖ TRỢ &amp; KHIẾU NẠI</span>
+        </h3>
     </div>
 
-    <!-- Thông báo -->
     <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
         <i class="bi bi-check-circle me-1"></i><span th:text="${successMessage}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
@@ -17,111 +19,124 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
     </div>
 
-    <!-- Bộ lọc -->
-    <div class="card border-0 shadow-sm p-3 mb-4">
+    <div class="card border shadow-sm p-3 mb-4">
         <form th:action="@{/support}" method="get" class="row g-3 align-items-end" id="support-filter">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input id="filter-keyword" type="text" name="keyword" class="form-control border-start-0"
+                           placeholder="Mã yêu cầu, email, người dùng..." th:value="${keyword}">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="filter-type" class="form-label small text-muted mb-1">Loại</label>
+                <select id="filter-type" name="type" class="form-select" onchange="this.form.submit()">
+                    <option value="">Tất cả</option>
+                    <option value="SUPPORT" th:selected="${type == 'SUPPORT' or type == 'HỖ TRỢ'}">Hỗ trợ</option>
+                    <option value="COMPLAINT" th:selected="${type == 'COMPLAINT' or type == 'KHIẾU NẠI'}">Khiếu nại</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="filter-category" class="form-label small text-muted mb-1">Vấn đề</label>
+                <select id="filter-category" name="category" class="form-select" onchange="this.form.submit()">
+                    <option value="">Tất cả</option>
+                    <option value="PAYMENT" th:selected="${category == 'PAYMENT' or category == 'THANH TOÁN'}">Thanh toán</option>
+                    <option value="TICKET" th:selected="${category == 'TICKET' or category == 'VÉ'}">Vé</option>
+                    <option value="BOOKING" th:selected="${category == 'BOOKING' or category == 'ĐẶT VÉ'}">Đặt vé</option>
+                    <option value="REVIEW" th:selected="${category == 'REVIEW' or category == 'ĐÁNH GIÁ'}">Đánh giá</option>
+                    <option value="ACCOUNT" th:selected="${category == 'ACCOUNT' or category == 'TÀI KHOẢN'}">Tài khoản</option>
+                    <option value="OTHER" th:selected="${category == 'OTHER' or category == 'KHÁC'}">Khác</option>
+                </select>
+            </div>
             <div class="col-md-3">
-                <label for="filter-keyword" class="form-label">Tìm kiếm</label>
-                <input id="filter-keyword" type="text" name="keyword" class="form-control"
-                       placeholder="Email hoặc nội dung..." th:value="${keyword}">
-            </div>
-            <div class="col-md-2">
-                <label for="filter-status" class="form-label">Trạng thái</label>
-                <select id="filter-status" name="status" class="form-select">
-                    <option value="">Tất cả trạng thái</option>
-                    <option value="PENDING" th:selected="${status == 'PENDING'}">Chờ xử lý</option>
-                    <option value="IN_PROGRESS" th:selected="${status == 'IN_PROGRESS'}">Đang xử lý</option>
-                    <option value="RESOLVED" th:selected="${status == 'RESOLVED'}">Đã giải quyết</option>
-                    <option value="REJECTED" th:selected="${status == 'REJECTED'}">Từ chối</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <label for="filter-type" class="form-label">Loại yêu cầu</label>
-                <select id="filter-type" name="type" class="form-select">
-                    <option value="">Tất cả loại</option>
-                    <option th:each="t : ${typeList}" th:value="${t}" th:text="${t}" th:selected="${t == type}"></option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <label for="filter-category" class="form-label">Danh mục</label>
-                <select id="filter-category" name="category" class="form-select">
-                    <option value="">Tất cả danh mục</option>
-                    <option th:each="c : ${categoryList}" th:value="${c}" th:text="${c}" th:selected="${c == category}"></option>
-                </select>
-            </div>
-            <div class="col-md-3 d-flex gap-2">
-                <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Lọc</button>
-                <a class="btn btn-outline-secondary" th:href="@{/support}">Đặt lại</a>
+                <label for="filter-status" class="form-label small text-muted mb-1">Trạng thái</label>
+                <div class="d-flex gap-2">
+                    <select id="filter-status" name="status" class="form-select" onchange="this.form.submit()">
+                        <option value="">Tất cả</option>
+                        <option value="PENDING" th:selected="${status == 'PENDING'}">Chờ xử lý</option>
+                        <option value="PROCESSING" th:selected="${status == 'PROCESSING' or status == 'IN_PROGRESS'}">Đang xử lý</option>
+                        <option value="RESOLVED" th:selected="${status == 'RESOLVED'}">Đã giải quyết</option>
+                        <option value="CLOSED" th:selected="${status == 'CLOSED' or status == 'REJECTED'}">Đã đóng</option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="submit" title="Tìm kiếm"><i class="bi bi-search"></i></button>
+                </div>
             </div>
         </form>
     </div>
 
-    <!-- Bảng danh sách -->
-    <div class="card border-0 shadow-sm">
+    <div class="card border shadow-sm">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-bordered table-hover align-middle mb-0">
                 <thead class="table-light">
                 <tr>
-                    <th style="width: 80px;">Mã</th>
-                    <th style="width: 220px;">Khách hàng</th>
-                    <th style="width: 140px;">Loại / Vấn đề</th>
-                    <th>Nội dung yêu cầu</th>
+                    <th style="width: 110px;">Mã yêu cầu</th>
+                    <th style="width: 200px;">Người gửi</th>
+                    <th style="width: 110px;">Loại</th>
+                    <th style="width: 130px;">Vấn đề</th>
+                    <th>Nội dung rút gọn</th>
+                    <th style="width: 120px;">Ngày gửi</th>
                     <th style="width: 130px;">Trạng thái</th>
-                    <th style="width: 160px;">Thời gian gửi</th>
-                    <th class="text-end pe-3" style="width: 110px;">Thao tác</th>
+                    <th class="text-center" style="width: 50px;"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="item : ${requests.content}">
-                    <td class="fw-semibold text-muted" th:text="|#SR-${item.requestId}|"></td>
+                    <td class="fw-semibold" th:text="|HT${item.requestId}|"></td>
                     <td>
-                        <div class="fw-bold" th:text="${item.user != null ? item.user.fullName : '—'}"></div>
-                        <small class="text-muted" th:text="${item.user != null ? item.user.email : '—'}"></small>
+                        <div th:text="${item.user != null ? item.user.fullName : '—'}"></div>
+                        <small class="text-muted" th:text="${item.user != null ? item.user.email : ''}"></small>
                     </td>
-                    <td>
-                        <span class="badge text-bg-secondary" th:text="${item.type}"></span>
-                        <span class="badge text-bg-light border mt-1" th:text="${item.category}"></span>
-                    </td>
-                    <td class="text-muted" th:text="${#strings.abbreviate(item.content, 80)}"></td>
-                    <td>
-                        <span class="badge"
-                              th:classappend="${item.status == 'PENDING' ? 'text-bg-warning' : (item.status == 'IN_PROGRESS' ? 'text-bg-info' : (item.status == 'RESOLVED' ? 'text-bg-success' : 'text-bg-danger'))}"
-                              th:text="${item.status == 'PENDING' ? 'Chờ xử lý' : (item.status == 'IN_PROGRESS' ? 'Đang xử lý' : (item.status == 'RESOLVED' ? 'Đã giải quyết' : 'Từ chối'))}"></span>
-                    </td>
-                    <td th:text="${item.createdAt != null ? #temporals.format(item.createdAt, 'dd/MM/yyyy HH:mm') : '—'}"></td>
-                    <td class="text-end pe-3">
-                        <a class="btn btn-sm btn-outline-primary" th:href="@{/support/{id}(id=${item.requestId})}">
-                            <i class="bi bi-chat-dots me-1"></i>Xử lý
-                        </a>
+                    <td th:text="${item.type == 'COMPLAINT' or item.type == 'KHIẾU NẠI' ? 'Khiếu nại' : 'Hỗ trợ'}"></td>
+                    <td th:text="${item.category == 'PAYMENT' or item.category == 'THANH TOÁN' ? 'Thanh toán' : (item.category == 'TICKET' or item.category == 'VÉ' ? 'Vé' : (item.category == 'BOOKING' ? 'Đặt vé' : (item.category == 'REVIEW' or item.category == 'ĐÁNH GIÁ' ? 'Đánh giá' : (item.category == 'ACCOUNT' or item.category == 'TÀI KHOẢN' ? 'Tài khoản' : 'Khác'))))}"></td>
+                    <td th:text="${#strings.abbreviate(item.content, 65)}"></td>
+                    <td th:text="${item.createdAt != null ? #temporals.format(item.createdAt, 'dd/MM/yyyy') : '—'}"></td>
+                    <td th:text="${item.status == 'PENDING' ? 'Chờ xử lý' : (item.status == 'PROCESSING' or item.status == 'IN_PROGRESS' ? 'Đang xử lý' : (item.status == 'RESOLVED' ? 'Đã giải quyết' : 'Đã đóng'))}"></td>
+                    <td class="text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end table-action-menu shadow-sm">
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/support/{id}(id=${item.requestId})}">Chi tiết yêu cầu</a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
                 <tr th:if="${requests.empty}">
-                    <td colspan="7" class="text-center text-muted py-5">
-                        <i class="bi bi-inbox fs-2 d-block mb-2"></i>Không có yêu cầu hỗ trợ hoặc khiếu nại nào phù hợp.
+                    <td colspan="8" class="text-center text-muted py-5">
+                        Không có yêu cầu hỗ trợ hoặc khiếu nại nào phù hợp.
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Phân trang -->
         <div class="d-flex justify-content-between align-items-center p-3 flex-wrap gap-2 border-top">
-            <small class="text-muted" th:text="|Tổng ${requests.totalElements} yêu cầu|">Tổng 0 yêu cầu</small>
-            <nav aria-label="Phân trang" th:if="${requests.totalPages > 1}">
-                <ul class="pagination pagination-sm mb-0">
+            <nav aria-label="Phân trang">
+                <ul class="pagination pagination-sm mb-0" th:if="${requests.totalPages > 0}">
                     <li class="page-item" th:classappend="${requests.first ? 'disabled' : ''}">
                         <a class="page-link"
-                           th:href="@{/support(keyword=${keyword},status=${status},type=${type},category=${category},page=${requests.number - 1})}">Trước</a>
+                           th:href="@{/support(keyword=${keyword},status=${status},type=${type},category=${category},page=${requests.number - 1})}">&lt;--</a>
                     </li>
-                    <li class="page-item disabled">
-                        <span class="page-link" th:text="|${requests.number + 1} / ${requests.totalPages}|"></span>
+                    <li class="page-item"
+                        th:each="p : ${#numbers.sequence(0, requests.totalPages - 1)}"
+                        th:classappend="${p == requests.number ? 'active' : ''}">
+                        <a class="page-link"
+                           th:href="@{/support(keyword=${keyword},status=${status},type=${type},category=${category},page=${p})}"
+                           th:text="${p + 1}"></a>
                     </li>
                     <li class="page-item" th:classappend="${requests.last ? 'disabled' : ''}">
                         <a class="page-link"
-                           th:href="@{/support(keyword=${keyword},status=${status},type=${type},category=${category},page=${requests.number + 1})}">Sau</a>
+                           th:href="@{/support(keyword=${keyword},status=${status},type=${type},category=${category},page=${requests.number + 1})}">--&gt;</a>
                     </li>
                 </ul>
             </nav>
+            <small class="text-muted"
+                   th:text="|Hiển thị ${requests.empty ? 0 : (requests.number * requests.size + 1)} - ${requests.empty ? 0 : (requests.number * requests.size + requests.numberOfElements)} / ${requests.totalElements} yêu cầu hỗ trợ|">
+                Hiển thị 0 - 0 / 0 yêu cầu hỗ trợ
+            </small>
         </div>
     </div>
 </div>

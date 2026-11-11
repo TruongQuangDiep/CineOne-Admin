@@ -154,7 +154,7 @@ class KnowledgeBaseSupportControllerIntegrationTests {
 
         KnowledgeBaseEntry updated = kbRepository.findById(entry.getKnowledgeId()).orElseThrow();
         assertEquals("Tiêu đề đã sửa", updated.getTitle());
-        assertEquals("HƯỚNG DẪN", updated.getCategory());
+        assertEquals("GUIDE", updated.getCategory());
         assertEquals("INACTIVE", updated.getStatus());
     }
 
@@ -274,7 +274,7 @@ class KnowledgeBaseSupportControllerIntegrationTests {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/support/" + sr.getRequestId()));
 
-        assertEquals("IN_PROGRESS", supportRepository.findById(sr.getRequestId()).orElseThrow().getStatus());
+        assertEquals("PROCESSING", supportRepository.findById(sr.getRequestId()).orElseThrow().getStatus());
     }
 
     // === BẢO MẬT & CSRF ===

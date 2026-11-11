@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: main-layout(~{::#kb-content}, 'knowledgebase', 'Trợ giúp & Chính sách')}">
+      th:replace="~{fragments/layout :: main-layout(~{::#kb-content}, 'knowledgebase', 'Quản lý Trợ giúp & Chính sách')}">
 <body>
 <div id="kb-content">
     <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
-        <h3 class="m-0 fw-bold">TRỢ GIÚP &amp; CHÍNH SÁCH (KNOWLEDGE BASE)</h3>
-        <a class="btn btn-primary" th:href="@{/knowledgebase/create}">
-            <i class="bi bi-plus-lg me-1"></i>Thêm bài viết mới
+        <h3 class="m-0 fw-bold">
+            <i class="bi bi-journal-text me-2"></i>QUẢN LÝ TRỢ GIÚP &amp; CHÍNH SÁCH
+        </h3>
+        <a class="btn btn-outline-dark px-3" th:href="@{/knowledgebase/create}">
+            + Thêm nội dung
         </a>
     </div>
 
-    <!-- Thông báo -->
     <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
         <i class="bi bi-check-circle me-1"></i><span th:text="${successMessage}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
@@ -20,112 +21,118 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
     </div>
 
-    <!-- Bộ lọc -->
-    <div class="card border-0 shadow-sm p-3 mb-4">
+    <div class="card border shadow-sm p-3 mb-4">
         <form th:action="@{/knowledgebase}" method="get" class="row g-3 align-items-end" id="kb-filter">
-            <div class="col-md-4">
-                <label for="filter-keyword" class="form-label">Tìm kiếm</label>
-                <input id="filter-keyword" type="text" name="keyword" class="form-control"
-                       placeholder="Nhập tiêu đề hoặc nội dung..." th:value="${keyword}">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input id="filter-keyword" type="text" name="keyword" class="form-control border-start-0"
+                           placeholder="Tìm kiếm tiêu đề..." th:value="${keyword}">
+                </div>
             </div>
             <div class="col-md-3">
-                <label for="filter-category" class="form-label">Danh mục</label>
-                <select id="filter-category" name="category" class="form-select">
-                    <option value="">Tất cả danh mục</option>
-                    <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}"
-                            th:selected="${cat == category}"></option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <label for="filter-status" class="form-label">Trạng thái</label>
-                <select id="filter-status" name="status" class="form-select">
+                <label for="filter-category" class="form-label small text-muted mb-1">Loại</label>
+                <select id="filter-category" name="category" class="form-select" onchange="this.form.submit()">
                     <option value="">Tất cả</option>
-                    <option value="ACTIVE" th:selected="${status == 'ACTIVE'}">Hoạt động</option>
-                    <option value="INACTIVE" th:selected="${status == 'INACTIVE'}">Tạm khóa</option>
+                    <option value="FAQ" th:selected="${category == 'FAQ'}">FAQ</option>
+                    <option value="GUIDE" th:selected="${category == 'GUIDE' or category == 'HƯỚNG DẪN'}">GUIDE</option>
+                    <option value="POLICY" th:selected="${category == 'POLICY' or category == 'CHÍNH SÁCH'}">POLICY</option>
                 </select>
             </div>
-            <div class="col-md-3 d-flex gap-2">
-                <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Lọc</button>
-                <a class="btn btn-outline-secondary" th:href="@{/knowledgebase}">Đặt lại</a>
+            <div class="col-md-4">
+                <label for="filter-status" class="form-label small text-muted mb-1">Trạng thái</label>
+                <div class="d-flex gap-2">
+                    <select id="filter-status" name="status" class="form-select" onchange="this.form.submit()">
+                        <option value="">Tất cả</option>
+                        <option value="ACTIVE" th:selected="${status == 'ACTIVE'}">ACTIVE</option>
+                        <option value="INACTIVE" th:selected="${status == 'INACTIVE'}">INACTIVE</option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="submit" title="Tìm kiếm"><i class="bi bi-search"></i></button>
+                </div>
             </div>
         </form>
     </div>
 
-    <!-- Bảng danh sách -->
-    <div class="card border-0 shadow-sm">
+    <div class="card border shadow-sm">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-bordered table-hover align-middle mb-0">
                 <thead class="table-light">
                 <tr>
-                    <th style="width: 60px;">ID</th>
-                    <th style="width: 250px;">Tiêu đề</th>
-                    <th style="width: 130px;">Danh mục</th>
-                    <th>Nội dung tóm tắt</th>
-                    <th style="width: 130px;">Trạng thái</th>
-                    <th class="text-end pe-3" style="width: 220px;">Thao tác</th>
+                    <th>Tiêu đề</th>
+                    <th style="width: 140px;">Loại</th>
+                    <th style="width: 160px;">Cập nhật</th>
+                    <th style="width: 150px;">Trạng thái</th>
+                    <th class="text-center" style="width: 50px;"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="item : ${entries.content}">
-                    <td th:text="${item.knowledgeId}" class="fw-semibold text-muted"></td>
-                    <td class="fw-bold text-primary" th:text="${item.title}"></td>
-                    <td>
-                        <span class="badge text-bg-light border" th:text="${item.category}"></span>
-                    </td>
-                    <td class="text-muted" th:text="${#strings.abbreviate(item.content, 100)}"></td>
-                    <td>
-                        <span class="badge"
-                              th:classappend="${item.status == 'ACTIVE' ? 'text-bg-success' : 'text-bg-secondary'}"
-                              th:text="${item.status == 'ACTIVE' ? 'Hoạt động' : 'Tạm khóa'}"></span>
-                    </td>
-                    <td class="text-end pe-3">
-                        <div class="d-inline-flex gap-1">
-                            <a class="btn btn-sm btn-outline-primary"
-                               th:href="@{/knowledgebase/{id}/edit(id=${item.knowledgeId})}">
-                                <i class="bi bi-pencil-square me-1"></i>Sửa
-                            </a>
-                            <form th:action="@{/knowledgebase/{id}/toggle-status(id=${item.knowledgeId})}" method="post" class="d-inline">
-                                <button type="submit" class="btn btn-sm btn-outline-warning"
-                                        th:title="${item.status == 'ACTIVE' ? 'Khóa bài viết' : 'Kích hoạt bài viết'}">
-                                    <i class="bi" th:classappend="${item.status == 'ACTIVE' ? 'bi-lock' : 'bi-unlock'}"></i>
-                                </button>
-                            </form>
-                            <form th:action="@{/knowledgebase/{id}/delete(id=${item.knowledgeId})}" method="post" class="d-inline"
-                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');">
-                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </form>
+                    <td th:text="${item.title}"></td>
+                    <td th:text="${item.category == 'HƯỚNG DẪN' or item.category == 'GUIDE' ? 'GUIDE' : (item.category == 'CHÍNH SÁCH' or item.category == 'POLICY' ? 'POLICY' : (item.category == 'SUPPORT' ? 'SUPPORT' : 'FAQ'))}"></td>
+                    <td th:text="${item.updatedAt != null ? #temporals.format(item.updatedAt, 'dd/MM/yyyy') : (item.createdAt != null ? #temporals.format(item.createdAt, 'dd/MM/yyyy') : '—')}"></td>
+                    <td th:text="${item.status}"></td>
+                    <td class="text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end table-action-menu shadow-sm">
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/knowledgebase/{id}(id=${item.knowledgeId})}">Xem chi tiết</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/knowledgebase/{id}/edit(id=${item.knowledgeId})}">Chỉnh sửa</a>
+                                </li>
+                                <li>
+                                    <form th:action="@{/knowledgebase/{id}/toggle-status(id=${item.knowledgeId})}" method="post">
+                                        <button type="submit" class="dropdown-item"
+                                                th:text="${item.status == 'ACTIVE' ? 'Vô hiệu hóa' : 'Kích hoạt'}"></button>
+                                    </form>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form th:action="@{/knowledgebase/{id}/delete(id=${item.knowledgeId})}" method="post"
+                                          onsubmit="return confirm('Bạn có chắc chắn muốn xóa nội dung này không?');">
+                                        <button type="submit" class="dropdown-item text-danger">Xóa</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </td>
                 </tr>
                 <tr th:if="${entries.empty}">
-                    <td colspan="6" class="text-center text-muted py-5">
-                        <i class="bi bi-journal-x fs-2 d-block mb-2"></i>Chưa có bài viết kiến thức nào phù hợp.
+                    <td colspan="5" class="text-center text-muted py-5">
+                        Chưa có nội dung trợ giúp &amp; chính sách nào phù hợp.
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Phân trang -->
         <div class="d-flex justify-content-between align-items-center p-3 flex-wrap gap-2 border-top">
-            <small class="text-muted" th:text="|Tổng ${entries.totalElements} bài viết|">Tổng 0 bài viết</small>
-            <nav aria-label="Phân trang" th:if="${entries.totalPages > 1}">
-                <ul class="pagination pagination-sm mb-0">
+            <nav aria-label="Phân trang">
+                <ul class="pagination pagination-sm mb-0" th:if="${entries.totalPages > 0}">
                     <li class="page-item" th:classappend="${entries.first ? 'disabled' : ''}">
                         <a class="page-link"
-                           th:href="@{/knowledgebase(keyword=${keyword},category=${category},status=${status},page=${entries.number - 1})}">Trước</a>
+                           th:href="@{/knowledgebase(keyword=${keyword},category=${category},status=${status},page=${entries.number - 1})}">&lt;--</a>
                     </li>
-                    <li class="page-item disabled">
-                        <span class="page-link" th:text="|${entries.number + 1} / ${entries.totalPages}|"></span>
+                    <li class="page-item"
+                        th:each="p : ${#numbers.sequence(0, entries.totalPages - 1)}"
+                        th:classappend="${p == entries.number ? 'active' : ''}">
+                        <a class="page-link"
+                           th:href="@{/knowledgebase(keyword=${keyword},category=${category},status=${status},page=${p})}"
+                           th:text="${p + 1}"></a>
                     </li>
                     <li class="page-item" th:classappend="${entries.last ? 'disabled' : ''}">
                         <a class="page-link"
-                           th:href="@{/knowledgebase(keyword=${keyword},category=${category},status=${status},page=${entries.number + 1})}">Sau</a>
+                           th:href="@{/knowledgebase(keyword=${keyword},category=${category},status=${status},page=${entries.number + 1})}">--&gt;</a>
                     </li>
                 </ul>
             </nav>
+            <small class="text-muted"
+                   th:text="|Hiển thị ${entries.empty ? 0 : (entries.number * entries.size + 1)} - ${entries.empty ? 0 : (entries.number * entries.size + entries.numberOfElements)} / ${entries.totalElements} nội dung|">
+                Hiển thị 0 - 0 / 0 nội dung
+            </small>
         </div>
     </div>
 </div>

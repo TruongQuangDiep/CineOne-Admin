@@ -1,6 +1,7 @@
 package com.example.cineone_admin.service;
 
 import com.example.cineone_admin.dto.knowledgebase.KnowledgeBaseRequest;
+import com.example.cineone_admin.dto.support.FaqItemResponse;
 import com.example.cineone_admin.entity.KnowledgeBaseEntry;
 import com.example.cineone_admin.repository.KnowledgeBaseEntryRepository;
 import jakarta.persistence.criteria.Predicate;
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @Service
@@ -22,7 +25,7 @@ public class KnowledgeBaseService {
 
     private final KnowledgeBaseEntryRepository repository;
 
-    public static final List<String> DEFAULT_CATEGORIES = List.of("FAQ", "CHÍNH SÁCH", "HƯỚNG DẪN");
+    public static final List<String> DEFAULT_CATEGORIES = List.of("FAQ", "GUIDE", "POLICY", "SUPPORT");
     public static final Set<String> VALID_STATUSES = Set.of("ACTIVE", "INACTIVE");
 
     public Page<KnowledgeBaseEntry> search(String keyword, String category, String status, int page, int size) {
@@ -37,7 +40,8 @@ public class KnowledgeBaseService {
             }
 
             if (category != null && !category.isBlank()) {
-                predicates.add(cb.equal(root.get("category"), category.trim().toUpperCase()));
+                String normCat = normalizeCategoryForDb(category);
+                predicates.add(cb.equal(root.get("category"), normCat));
             }
 
             if (status != null && !status.isBlank()) {
@@ -63,7 +67,7 @@ public class KnowledgeBaseService {
 
         KnowledgeBaseEntry entry = new KnowledgeBaseEntry();
         entry.setTitle(request.getTitle().trim());
-        entry.setCategory(request.getCategory().trim().toUpperCase());
+        entry.setCategory(normalizeCategoryForDb(request.getCategory()));
         entry.setContent(request.getContent().trim());
         entry.setStatus(request.getStatus().trim().toUpperCase());
 
@@ -80,7 +84,7 @@ public class KnowledgeBaseService {
         }
 
         entry.setTitle(request.getTitle().trim());
-        entry.setCategory(request.getCategory().trim().toUpperCase());
+        entry.setCategory(normalizeCategoryForDb(request.getCategory()));
         entry.setContent(request.getContent().trim());
         entry.setStatus(request.getStatus().trim().toUpperCase());
 
@@ -101,11 +105,77 @@ public class KnowledgeBaseService {
     }
 
     private void validateRequest(KnowledgeBaseRequest request) {
-        if (request.getCategory() == null || !DEFAULT_CATEGORIES.contains(request.getCategory().trim().toUpperCase())) {
+        String normCat = request.getCategory() != null ? normalizeCategoryForDb(request.getCategory()) : "";
+        if (!DEFAULT_CATEGORIES.contains(normCat)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Danh mục không hợp lệ.");
         }
         if (request.getStatus() == null || !VALID_STATUSES.contains(request.getStatus().trim().toUpperCase())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Trạng thái không hợp lệ.");
         }
+    }
+
+    private static String normalizeCategoryForDb(String category) {
+        if (category == null) return "";
+        String c = category.trim().toUpperCase(Locale.ROOT);
+        if ("CHÍNH SÁCH".equals(c) || "CHINH SACH".equals(fold(c))) return "POLICY";
+        if ("HƯỚNG DẪN".equals(c) || "HUONG DAN".equals(fold(c))) return "GUIDE";
+        if ("HỖ TRỢ".equals(c) || "HO TRO".equals(fold(c))) return "SUPPORT";
+        return c;
+    }
+
+    public List<FaqItemResponse> getActiveFaqs(String category, String keyword) {
+        List<KnowledgeBaseEntry> activeEntries = repository.findByStatusOrderByKnowledgeIdAsc("ACTIVE");
+        String normCat = category == null ? "" : normalizeCategoryLabel(category);
+        String normKeyword = keyword == null ? "" : fold(keyword);
+
+        return activeEntries.stream()
+                .filter(entry -> {
+                    if (normCat.isEmpty() || "ALL".equalsIgnoreCase(normCat) || "TẤT CẢ".equalsIgnoreCase(normCat)) {
+                        return true;
+                    }
+                    String entryCat = normalizeCategoryLabel(entry.getCategory());
+                    return entryCat.equalsIgnoreCase(normCat) || fold(entryCat).equals(fold(normCat));
+                })
+                .filter(entry -> {
+                    if (normKeyword.isEmpty()) {
+                        return true;
+                    }
+                    String combined = fold((entry.getTitle() != null ? entry.getTitle() : "") + " " + (entry.getContent() != null ? entry.getContent() : ""));
+                    return combined.contains(normKeyword);
+                })
+                .map(entry -> FaqItemResponse.builder()
+                        .id(entry.getKnowledgeId())
+                        .title(entry.getTitle())
+                        .content(entry.getContent())
+                        .category(normalizeCategoryLabel(entry.getCategory()))
+                        .build())
+                .toList();
+    }
+
+    private static String normalizeCategoryLabel(String category) {
+        if (category == null || category.isBlank()) {
+            return "FAQ";
+        }
+        String c = category.trim().toUpperCase(Locale.ROOT);
+        if ("POLICY".equals(c) || "CHÍNH SÁCH".equals(c) || "CHINH SACH".equals(fold(c))) {
+            return "CHÍNH SÁCH";
+        }
+        if ("GUIDE".equals(c) || "HƯỚNG DẪN".equals(c) || "HUONG DAN".equals(fold(c))) {
+            return "HƯỚNG DẪN";
+        }
+        if ("SUPPORT".equals(c) || "HỖ TRỢ".equals(c) || "HO TRO".equals(fold(c))) {
+            return "HỖ TRỢ";
+        }
+        return c;
+    }
+
+    private static String fold(String text) {
+        if (text == null) return "";
+        return Normalizer.normalize(text, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "")
+                .replace('đ', 'd')
+                .replace('Đ', 'D')
+                .toLowerCase(Locale.ROOT)
+                .trim();
     }
 }

@@ -63,6 +63,24 @@ public class KnowledgeBaseController {
         }
     }
 
+    @GetMapping("/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+        KnowledgeBaseEntry existing = service.getById(id);
+        KnowledgeBaseRequest request = KnowledgeBaseRequest.builder()
+                .title(existing.getTitle())
+                .category(existing.getCategory())
+                .content(existing.getContent())
+                .status(existing.getStatus())
+                .build();
+
+        model.addAttribute("entry", request);
+        model.addAttribute("id", id);
+        model.addAttribute("categories", KnowledgeBaseService.DEFAULT_CATEGORIES);
+        model.addAttribute("isEdit", true);
+        model.addAttribute("readOnly", true);
+        return "knowledgebase/form";
+    }
+
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable Long id, Model model) {
         KnowledgeBaseEntry existing = service.getById(id);
