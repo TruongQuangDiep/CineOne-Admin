@@ -16,6 +16,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import com.example.cineone_admin.dto.notification.UserNotificationResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.messaging.AndroidConfig;
+import com.google.firebase.messaging.AndroidNotification;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.Message;
+import java.util.concurrent.CompletableFuture;
 
 import java.text.Normalizer;
 import java.time.LocalDateTime;
@@ -246,7 +255,8 @@ public class NotificationService {
             }
 
             if (!notifications.isEmpty()) {
-                notificationRepository.saveAll(notifications);
+                List<Notification> savedNotifications = notificationRepository.saveAllAndFlush(notifications);
+                savedNotifications.forEach(this::sendPushToUserAsync);
             }
             campaign.setStatus("SENT");
             return campaignRepository.saveAndFlush(campaign);
@@ -475,6 +485,7 @@ public class NotificationService {
             notification.setType(normType);
             notification.setRead(false);
             savedNotification = notificationRepository.saveAndFlush(notification);
+            sendPushToUserAsync(savedNotification);
         }
 
         if (sendEmail) {
@@ -530,5 +541,154 @@ public class NotificationService {
             return "SCHEDULE";
         }
         return "SEND_NOW";
+    }
+
+        public List<UserNotificationResponse> getMyNotifications(Authentication authentication, String filter) {
+        User user = requireAuthenticatedUser(authentication);
+        List<Notification> list = notificationRepository
+                .findByUser_UserIdOrderByCreatedAtDescNotificationIdDesc(user.getUserId());
+
+        String normFilter = filter == null ? "ALL" : filter.trim().toUpperCase(Locale.ROOT);
+        return list.stream()
+                .filter(n -> matchesMobileFilter(n, normFilter))
+                .map(this::toUserNotificationResponse)
+                .toList();
+    }
+
+    public long getUnreadCount(Authentication authentication) {
+        User user = requireAuthenticatedUser(authentication);
+        return notificationRepository.countByUser_UserIdAndReadFalse(user.getUserId());
+    }
+
+    @Transactional
+    public UserNotificationResponse markAsRead(Long notificationId, Authentication authentication) {
+        User user = requireAuthenticatedUser(authentication);
+        Notification notification = notificationRepository
+                .findByNotificationIdAndUser_UserId(notificationId, user.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy thông báo."));
+
+        if (!Boolean.TRUE.equals(notification.getRead())) {
+            notification.setRead(true);
+            notification = notificationRepository.saveAndFlush(notification);
+        }
+        return toUserNotificationResponse(notification);
+    }
+
+    @Transactional
+    public int markAllAsRead(Authentication authentication) {
+        User user = requireAuthenticatedUser(authentication);
+        return notificationRepository.markAllAsReadByUserId(user.getUserId());
+    }
+
+    @Transactional
+    public void createAutoUserNotification(User user, String type, String title, String message) {
+        if (user == null || user.getUserId() == null || title == null || title.isBlank() || message == null || message.isBlank()) {
+            return;
+        }
+        String normType = (type != null && USER_NOTIFICATION_TYPES.contains(type.trim().toUpperCase(Locale.ROOT)))
+                ? type.trim().toUpperCase(Locale.ROOT)
+                : "SYSTEM";
+
+        Notification notification = new Notification();
+        notification.setUser(user);
+        notification.setCampaign(null); // Thông báo hệ thống / giao dịch không thuộc chiến dịch
+        notification.setType(normType);
+        notification.setTitle(title.trim().length() > 255 ? title.trim().substring(0, 255) : title.trim());
+        notification.setMessage(message.trim());
+        notification.setRead(false);
+        Notification saved = notificationRepository.saveAndFlush(notification);
+        sendPushToUserAsync(saved);
+    }
+
+    private boolean matchesMobileFilter(Notification n, String normFilter) {
+        return switch (normFilter) {
+            case "IMPORTANT" -> {
+                String t = n.getType() != null ? n.getType().trim().toUpperCase(Locale.ROOT) : "SYSTEM";
+                yield !"PROMOTION".equals(t); // Quan trọng: BOOKING, PAYMENT, TICKET, REMINDER, SYSTEM
+            }
+            case "READ" -> Boolean.TRUE.equals(n.getRead());
+            case "UNREAD" -> !Boolean.TRUE.equals(n.getRead());
+            default -> true;
+        };
+    }
+
+    private UserNotificationResponse toUserNotificationResponse(Notification n) {
+        LocalDateTime created = n.getCreatedAt() != null ? n.getCreatedAt() : LocalDateTime.now();
+        return UserNotificationResponse.builder()
+                .notificationId(n.getNotificationId())
+                .campaignId(n.getCampaign() != null ? n.getCampaign().getCampaignId() : null)
+                .title(n.getTitle())
+                .message(n.getMessage())
+                .type(n.getType())
+                .isRead(Boolean.TRUE.equals(n.getRead()))
+                .createdAt(created.toString())
+                .build();
+    }
+
+    private User requireAuthenticatedUser(Authentication authParam) {
+        Authentication authentication = authParam != null ? authParam : SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getPrincipal())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vui lòng đăng nhập để xem thông báo.");
+        }
+        String principal = authentication.getName();
+        if (principal == null || principal.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Phiên đăng nhập không hợp lệ.");
+        }
+        return userRepository.findByEmail(principal)
+                .or(() -> userRepository.findByPhone(principal))
+                .or(() -> {
+                    try {
+                        return userRepository.findById(Long.parseLong(principal));
+                    } catch (NumberFormatException e) {
+                        return Optional.empty();
+                    }
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Không tìm thấy tài khoản."));
+    }
+
+    public UserNotificationResponse getMyNotificationDetail(Long notificationId, Authentication authentication) {
+        User user = requireAuthenticatedUser(authentication);
+        Notification notification = notificationRepository
+                .findByNotificationIdAndUser_UserId(notificationId, user.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy thông báo."));
+        return toUserNotificationResponse(notification);
+    }
+
+    private void sendPushToUserAsync(Notification n) {
+        if (n == null || n.getUser() == null || n.getUser().getUserId() == null) {
+            return;
+        }
+        if (FirebaseApp.getApps().isEmpty()) {
+            return;
+        }
+        String topic = "user_" + n.getUser().getUserId();
+        String notifId = n.getNotificationId() != null ? String.valueOf(n.getNotificationId()) : "";
+        String title = n.getTitle() != null ? n.getTitle() : "CineOne";
+        String body = n.getMessage() != null ? n.getMessage() : "";
+        String type = n.getType() != null ? n.getType() : "SYSTEM";
+
+        CompletableFuture.runAsync(() -> {
+            try {
+                Message message = Message.builder()
+                        .setTopic(topic)
+                        .setNotification(com.google.firebase.messaging.Notification.builder()
+                                .setTitle(title)
+                                .setBody(body)
+                                .build())
+                        .setAndroidConfig(AndroidConfig.builder()
+                                .setPriority(AndroidConfig.Priority.HIGH)
+                                .setNotification(AndroidNotification.builder()
+                                        .setChannelId("cineone_notifications")
+                                        .build())
+                                .build())
+                        .putData("notificationId", notifId)
+                        .putData("title", title)
+                        .putData("message", body)
+                        .putData("type", type)
+                        .build();
+                FirebaseMessaging.getInstance().send(message);
+            } catch (Exception ignored) {
+            }
+        });
     }
 }
