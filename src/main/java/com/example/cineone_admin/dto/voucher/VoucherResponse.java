@@ -35,5 +35,8 @@ public class VoucherResponse {
     private String expiryDisplay;        
     private String periodDisplay;        
     private Integer remainingUsage;      
-    private String tab;                  
+    private String tab;     
+    
+    private java.util.List<String> applicableTierNames = new java.util.ArrayList<>();
+    private java.util.List<Long> applicableTierIds = new java.util.ArrayList<>();
 }

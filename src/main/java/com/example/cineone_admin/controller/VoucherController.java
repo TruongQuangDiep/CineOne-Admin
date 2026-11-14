@@ -1,6 +1,7 @@
 package com.example.cineone_admin.controller;
 
 import com.example.cineone_admin.dto.voucher.VoucherRequest;
+import com.example.cineone_admin.repository.MembershipTierRepository;
 import com.example.cineone_admin.service.VoucherService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class VoucherController {
 
     private final VoucherService voucherService;
+    private final MembershipTierRepository membershipTierRepository;
 
     @GetMapping
     public String listVouchers(
@@ -37,8 +39,14 @@ public class VoucherController {
 
     @GetMapping("/create")
     public String createForm(Model model) {
+        var allTiers = membershipTierRepository.findAll();
+        VoucherRequest req = new VoucherRequest();
+        // Mặc định chọn tất cả các hạng khi tạo mới
+        req.setMembershipTierIds(allTiers.stream().map(com.example.cineone_admin.entity.MembershipTier::getMembershipTierId).toList());
+
         model.addAttribute("activeMenu", "vouchers");
-        model.addAttribute("voucherRequest", new VoucherRequest());
+        model.addAttribute("voucherRequest", req);
+        model.addAttribute("allTiers", allTiers);
         model.addAttribute("isEdit", false);
         return "vouchers/form";
     }
@@ -82,9 +90,11 @@ public class VoucherController {
         req.setStartAt(v.getStartAt());
         req.setEndAt(v.getEndAt());
         req.setStatus(v.getStatus());
+        req.setMembershipTierIds(voucherService.getApplicableTierIds(id));
 
         model.addAttribute("activeMenu", "vouchers");
         model.addAttribute("voucherRequest", req);
+        model.addAttribute("allTiers", membershipTierRepository.findAll());
         model.addAttribute("voucherId", id);
         model.addAttribute("isEdit", true);
         return "vouchers/form";
@@ -113,6 +123,7 @@ public class VoucherController {
             model.addAttribute("isEdit", true);
             model.addAttribute("voucherId", id);
             model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("allTiers", membershipTierRepository.findAll());
             return "vouchers/form";
         }
     }

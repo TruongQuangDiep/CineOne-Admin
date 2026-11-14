@@ -3,11 +3,15 @@ package com.example.cineone_admin.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "vouchermembershiptiers")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class VoucherMembershipTier {
     @EmbeddedId
     private VoucherMembershipTierId id;
@@ -21,4 +25,10 @@ public class VoucherMembershipTier {
     @MapsId("membershipTierId")
     @JoinColumn(name = "membership_tier_id", nullable = false)
     private MembershipTier membershipTier;
+
+    public VoucherMembershipTier(Voucher voucher, MembershipTier membershipTier) {
+        this.voucher = voucher;
+        this.membershipTier = membershipTier;
+        this.id = new VoucherMembershipTierId(voucher.getVoucherId(), membershipTier.getMembershipTierId());
+    }
 }

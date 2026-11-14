@@ -57,6 +57,7 @@
                                     <th class="ps-3">Mã Voucher</th>
                                     <th>Mô tả</th>
                                     <th>Mức giảm</th>
+                                    <th>Hạng áp dụng</th>
                                     <th>Đơn tối thiểu</th>
                                     <th>Giới hạn dùng</th>
                                     <th>Thời hạn áp dụng</th>
@@ -76,6 +77,14 @@
                                               th:text="${v.discountValue} + '%'"></span>
                                         <span th:if="${v.discountType != 'PERCENT'}" class="fw-bold text-success"
                                               th:text="${#numbers.formatDecimal(v.discountValue, 0, 'POINT', 0, 'COMMA')} + ' đ'"></span>
+                                    </td>
+                                    <td>
+                                        <span th:if="${v.applicableTierNames != null and !v.applicableTierNames.empty}">
+                                            <span th:each="tName : ${v.applicableTierNames}"
+                                                  th:class="'badge me-1 ' + (${tName == 'PLATINUM'} ? 'bg-danger' : (${tName == 'VIP'} ? 'bg-warning text-dark' : 'bg-primary'))"
+                                                  th:text="${tName}">NORMAL</span>
+                                        </span>
+                                        <span th:if="${v.applicableTierNames == null or v.applicableTierNames.empty}" class="badge bg-secondary">Tất cả</span>
                                     </td>
                                     <td>
                                         <span th:if="${v.minOrder != null}"
@@ -104,6 +113,7 @@
                                             </form>
                                         </div>
                                     </td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
