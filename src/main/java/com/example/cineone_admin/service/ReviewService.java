@@ -75,7 +75,12 @@ public class ReviewService {
 
     @Transactional
     public void toggleStatus(Long id, boolean visible) {
-        get(id).setStatus(visible ? "VISIBLE" : "HIDDEN");
+        Review review = get(id);
+        review.setStatus(visible ? "VISIBLE" : "HIDDEN");
+
+        if (reviewSummarizerService != null && review.getMovie() != null) {
+            reviewSummarizerService.invalidate(review.getMovie().getMovieId());
+        }
     }
 
     public MovieReviewsResponse getMovieReviews(Long movieId) {
@@ -152,6 +157,14 @@ public class ReviewService {
         Optional<Review> existing = reviews.findFirstByUser_UserIdAndMovie_MovieId(user.getUserId(), movieId);
         boolean hasWatched = hasWatchedMovie(user.getUserId(), movieId);
 
+        if (existing.isPresent() && "HIDDEN".equalsIgnoreCase(existing.get().getStatus())) {
+            return ReviewEligibilityResponse.builder()
+                    .eligible(false)
+                    .alreadyReviewed(true)
+                    .message("Đánh giá của bạn về bộ phim này đã bị Quản trị viên ẩn do vi phạm tiêu chuẩn cộng đồng.")
+                    .build();
+        }
+
         if (!hasWatched) {
             return ReviewEligibilityResponse.builder()
                     .eligible(false)
@@ -196,6 +209,11 @@ public class ReviewService {
         }
 
         Optional<Review> existingOpt = reviews.findFirstByUser_UserIdAndMovie_MovieId(user.getUserId(), movie.getMovieId());
+
+        if (existingOpt.isPresent() && "HIDDEN".equalsIgnoreCase(existingOpt.get().getStatus())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Đánh giá của bạn về bộ phim này đã bị Quản trị viên ẩn do vi phạm tiêu chuẩn cộng đồng, không thể chỉnh sửa.");
+        }
         Review review;
         if (existingOpt.isPresent()) {
             review = existingOpt.get();
