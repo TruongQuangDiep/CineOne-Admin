@@ -44,16 +44,13 @@ public class MembershipService {
 
     @Transactional
     public MembershipTier save(Long id, @Valid MembershipTierRequest request) {
-        MembershipTier tier = id == null ? new MembershipTier() : get(id);
-        repository.findByName(request.getName().strip()).ifPresent(existing -> {
-            if (!Objects.equals(existing.getMembershipTierId(), id)) {
-                throw new IllegalArgumentException("Tên hạng thành viên đã tồn tại");
-            }
-        });
-        tier.setName(request.getName().strip());
+        if (id == null) {
+            throw new IllegalArgumentException("Hệ thống chỉ hỗ trợ cấu hình 3 bậc hạng cố định (NORMAL, VIP, PLATINUM).");
+        }
+        MembershipTier tier = get(id);
+        // Giữ nguyên tên hạng chuẩn (NORMAL, VIP, PLATINUM)
         tier.setMinSpending(request.getMinSpending());
         tier.setDescription(request.getDescription());
-        tier.setStatus(request.getStatus() != null ? request.getStatus() : "ACTIVE");
         return repository.save(tier);
     }
 

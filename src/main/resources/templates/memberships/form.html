@@ -31,7 +31,8 @@
             <div class="row g-4">
                 <div class="col-md-6">
                     <label for="name" class="form-label fw-semibold">Tên hạng thành viên <span class="text-danger">*</span></label>
-                    <input id="name" th:field="*{name}" class="form-control" maxlength="30" required placeholder="Ví dụ: NORMAL, VIP, PLATINUM">
+                   <input id="name" th:field="*{name}" class="form-control bg-light text-muted fw-bold font-monospace" maxlength="30" readonly required>
+                    <div class="form-text text-muted">Tên bậc hạng được cố định theo chuẩn hệ thống (NORMAL, VIP, PLATINUM).</div>
                     <div class="text-danger small mt-1" th:errors="*{name}"></div>
                 </div>
 
@@ -48,13 +49,13 @@
                     <div class="text-danger small mt-1" th:errors="*{description}"></div>
                 </div>
 
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <label for="status" class="form-label fw-semibold">Trạng thái áp dụng</label>
                     <select id="status" th:field="*{status}" class="form-select">
                         <option value="ACTIVE">ACTIVE (Đang áp dụng)</option>
                         <option value="INACTIVE">INACTIVE (Tạm ngưng)</option>
                     </select>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="card-footer bg-white border-top p-3 d-flex justify-content-between">

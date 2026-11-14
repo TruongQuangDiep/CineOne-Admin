@@ -22,11 +22,11 @@ public class MembershipController {
         return "memberships/list";
     }
 
-    @GetMapping("/memberships/new")
-    public String create(Model model) {
-        model.addAttribute("tierForm", new MembershipTierRequest());
-        return form(model, null);
-    }
+    // @GetMapping("/memberships/new")
+    // public String create(Model model) {
+    //     model.addAttribute("tierForm", new MembershipTierRequest());
+    //     return form(model, null);
+    // }
 
     @GetMapping("/memberships/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
