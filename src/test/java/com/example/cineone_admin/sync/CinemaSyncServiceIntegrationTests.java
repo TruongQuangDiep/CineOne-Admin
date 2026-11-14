@@ -30,12 +30,13 @@ import static org.mockito.Mockito.*;
         "spring.datasource.driver-class-name=org.h2.Driver", "spring.datasource.username=sa", "spring.datasource.password=",
         "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
         "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect"}, showSql = false)
-@Import({CinemaSyncService.class, SyncRecordStore.class, SyncLogService.class,
+@Import({CinemaSyncService.class, ScheduledSyncService.class, SyncRecordStore.class, SyncLogService.class,
         ProviderMappingService.class, ProviderMappingTransactionService.class, RoomTypeCatalogService.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 class CinemaSyncServiceIntegrationTests {
     @Autowired CinemaSyncService service;
+    @Autowired ScheduledSyncService scheduled;
     @Autowired ProviderMappingService mappings;
     @Autowired EntityManager em;
     @Autowired PlatformTransactionManager manager;
@@ -201,5 +202,17 @@ class CinemaSyncServiceIntegrationTests {
         Long id = internal(SHOWTIME, "show");
         assertEquals(0, run(NormalizedCatalogDTO.empty()).total());
         assertEquals(id, internal(SHOWTIME, "show"));
+    }
+
+    @Test void scheduledDailySyncRunsAllEligibleProvidersAndPersistsLogs() {
+        var data = catalog(List.of(show("show", 10, BigDecimal.TEN)));
+        when(factory.supports(code)).thenReturn(true);
+        when(adapter.sync(eq(request), any(LocalDate.class))).thenReturn(SyncResultDTO.of(code, data, List.of()));
+        var results = scheduled.syncAllActive();
+        assertEquals(1, results.size());
+        assertEquals("SUCCESS", results.getFirst().status());
+        assertEquals(6, results.getFirst().success());
+        assertNotNull(internal(SHOWTIME, "show"));
+        tx.executeWithoutResult(s -> assertEquals("SUCCESS", em.find(ProviderSyncLog.class, results.getFirst().syncLogId()).getStatus()));
     }
 }
