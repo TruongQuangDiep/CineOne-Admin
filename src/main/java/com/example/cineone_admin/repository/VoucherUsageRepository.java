@@ -10,4 +10,5 @@ import java.util.List;
 public interface VoucherUsageRepository extends JpaRepository<VoucherUsage, Long> {
     List<VoucherUsage> findByUser_UserId(Long userId);
     boolean existsByVoucher_VoucherIdAndUser_UserId(Long voucherId, Long userId);
+    long countByVoucher_VoucherId(Long voucherId);
 }

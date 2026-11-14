@@ -4,8 +4,11 @@ import com.example.cineone_admin.dto.voucher.VoucherRequest;
 import com.example.cineone_admin.dto.voucher.VoucherResponse;
 import com.example.cineone_admin.entity.User;
 import com.example.cineone_admin.entity.Voucher;
+import com.example.cineone_admin.entity.VoucherMembershipTier;
 import com.example.cineone_admin.entity.VoucherUsage;
+import com.example.cineone_admin.repository.MembershipTierRepository;
 import com.example.cineone_admin.repository.UserRepository;
+import com.example.cineone_admin.repository.VoucherMembershipTierRepository;
 import com.example.cineone_admin.repository.VoucherRepository;
 import com.example.cineone_admin.repository.VoucherUsageRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +35,8 @@ public class VoucherService {
     private final VoucherRepository voucherRepository;
     private final VoucherUsageRepository voucherUsageRepository;
     private final UserRepository userRepository;
+    private final VoucherMembershipTierRepository voucherMembershipTierRepository;
+    private final MembershipTierRepository membershipTierRepository;
 
     @Transactional(readOnly = true)
     public Page<VoucherResponse> getVouchers(String keyword, Pageable pageable) {
@@ -68,9 +73,22 @@ public class VoucherService {
         List<VoucherResponse> result = new ArrayList<>();
 
         for (Voucher v : allVouchers) {
+
+            List<VoucherMembershipTier> allowedTiers = voucherMembershipTierRepository.findByVoucher_VoucherId(v.getVoucherId());
+            if (!allowedTiers.isEmpty()) {
+                Long userTierId = (user != null && user.getMembershipTier() != null)
+                        ? user.getMembershipTier().getMembershipTierId()
+                        : null;
+                boolean tierMatched = userTierId != null && allowedTiers.stream()
+                        .anyMatch(at -> at.getMembershipTier().getMembershipTierId().equals(userTierId));
+                if (!tierMatched) {
+                    continue; 
+                }
+            }
             boolean isUsed = usedVoucherIds.contains(v.getVoucherId());
             boolean isExpired = v.getEndAt() != null && v.getEndAt().isBefore(now);
             boolean isActive = "ACTIVE".equalsIgnoreCase(v.getStatus());
+            boolean isExhausted = v.getUsageLimit() != null && voucherUsageRepository.countByVoucher_VoucherId(v.getVoucherId()) >= v.getUsageLimit();
 
             if ("USED".equals(filterTab)) {
                 if (isUsed) {
@@ -79,13 +97,13 @@ public class VoucherService {
                     result.add(res);
                 }
             } else if ("EXPIRED".equals(filterTab)) {
-                if (!isUsed && (isExpired || !isActive)) {
+                if (!isUsed && (isExpired || !isActive || isExhausted)) {
                     VoucherResponse res = mapToResponse(v);
                     res.setTab("EXPIRED");
                     result.add(res);
                 }
             } else { // "AVAILABLE"
-                if (!isUsed && !isExpired && isActive) {
+                if (!isUsed && !isExpired && isActive && !isExhausted) {
                     VoucherResponse res = mapToResponse(v);
                     res.setTab("AVAILABLE");
                     result.add(res);
@@ -133,7 +151,11 @@ public class VoucherService {
         }
         Voucher voucher = new Voucher();
         mapToEntity(voucher, request);
-        return mapToResponse(voucherRepository.save(voucher));
+        Voucher savedVoucher = voucherRepository.save(voucher);
+
+        saveMembershipTiers(savedVoucher, request.getMembershipTierIds());
+
+        return mapToResponse(savedVoucher);
     }
 
     @Transactional
@@ -143,7 +165,10 @@ public class VoucherService {
             throw new RuntimeException("Mã voucher đã tồn tại: " + request.getCode());
         }
         mapToEntity(voucher, request);
-        return mapToResponse(voucherRepository.save(voucher));
+        Voucher savedVoucher = voucherRepository.save(voucher);
+        voucherMembershipTierRepository.deleteByVoucher_VoucherId(id);
+        saveMembershipTiers(savedVoucher, request.getMembershipTierIds());
+        return mapToResponse(savedVoucher);
     }
 
     @Transactional
@@ -209,6 +234,45 @@ public class VoucherService {
             return result;
         }
 
+        if (v.getUsageLimit() != null && v.getUsageLimit() > 0) {
+            long usedCount = voucherUsageRepository.countByVoucher_VoucherId(v.getVoucherId());
+            if (usedCount >= v.getUsageLimit()) {
+                result.put("success", false);
+                result.put("message", "Mã voucher này đã hết lượt sử dụng.");
+                result.put("discountAmount", 0L);
+                result.put("finalAmount", subtotal);
+                return result;
+            }
+        }
+
+        User user = getAuthenticatedUser();
+        if (user != null && voucherUsageRepository.existsByVoucher_VoucherIdAndUser_UserId(v.getVoucherId(), user.getUserId())) {
+            result.put("success", false);
+            result.put("message", "Bạn đã sử dụng mã giảm giá này rồi.");
+            result.put("discountAmount", 0L);
+            result.put("finalAmount", subtotal);
+            return result;
+        }
+
+        List<VoucherMembershipTier> allowedTiers = voucherMembershipTierRepository.findByVoucher_VoucherId(v.getVoucherId());
+        if (!allowedTiers.isEmpty()) {
+            Long userTierId = (user != null && user.getMembershipTier() != null)
+                    ? user.getMembershipTier().getMembershipTierId()
+                    : null;
+            boolean tierMatched = userTierId != null && allowedTiers.stream()
+                    .anyMatch(at -> at.getMembershipTier().getMembershipTierId().equals(userTierId));
+            if (!tierMatched) {
+                String allowedNames = allowedTiers.stream()
+                        .map(at -> at.getMembershipTier().getName())
+                        .collect(java.util.stream.Collectors.joining(", "));
+                result.put("success", false);
+                result.put("message", "Mã voucher này chỉ dành riêng cho thành viên hạng: " + allowedNames + ".");
+                result.put("discountAmount", 0L);
+                result.put("finalAmount", subtotal);
+                return result;
+            }
+        }
+
         if (v.getMinOrder() != null && subtotal < v.getMinOrder().longValue()) {
             result.put("success", false);
             result.put("message", "Đơn hàng tối thiểu phải từ " + String.format("%,d", v.getMinOrder().longValue()) + " đ");
@@ -255,10 +319,20 @@ public class VoucherService {
     }
 
     private VoucherResponse mapToResponse(Voucher v) {
+        
         DecimalFormat df = new DecimalFormat("#,### đ");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         VoucherResponse r = new VoucherResponse();
+        List<VoucherMembershipTier> vmts = voucherMembershipTierRepository.findByVoucher_VoucherId(v.getVoucherId());
+        if (!vmts.isEmpty()) {
+            r.setApplicableTierNames(vmts.stream()
+                    .map(item -> item.getMembershipTier().getName())
+                    .toList());
+            r.setApplicableTierIds(vmts.stream()
+                    .map(item -> item.getMembershipTier().getMembershipTierId())
+                    .toList());
+        }
         r.setVoucherId(v.getVoucherId());
         r.setCode(v.getCode());
         String computedTitle = v.getDescription() != null && !v.getDescription().isBlank() ? v.getDescription() : ("Ưu đãi " + v.getCode());
@@ -288,7 +362,13 @@ public class VoucherService {
         String startStr = v.getStartAt() != null ? v.getStartAt().format(dtf) : "";
         String endStr = v.getEndAt() != null ? v.getEndAt().format(dtf) : "";
         r.setPeriodDisplay((startStr.isEmpty() ? "" : startStr + " - ") + endStr);
-        r.setRemainingUsage(v.getUsageLimit() != null ? v.getUsageLimit() : 999);
+        if (v.getUsageLimit() != null) {
+            long usedCount = voucherUsageRepository.countByVoucher_VoucherId(v.getVoucherId());
+            int remaining = Math.max(0, (int) (v.getUsageLimit() - usedCount));
+            r.setRemainingUsage(remaining);
+        } else {
+            r.setRemainingUsage(999);
+        }
 
         return r;
     }
@@ -308,5 +388,23 @@ public class VoucherService {
         } catch (NumberFormatException e) {
             return userRepository.findByEmail(principal).orElse(null);
         }
+    }
+
+    private void saveMembershipTiers(Voucher voucher, List<Long> tierIds) {
+        if (tierIds != null && !tierIds.isEmpty()) {
+            for (Long tierId : tierIds) {
+                membershipTierRepository.findById(tierId).ifPresent(tier -> {
+                    VoucherMembershipTier vmt = new VoucherMembershipTier(voucher, tier);
+                    voucherMembershipTierRepository.save(vmt);
+                });
+            }
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Long> getApplicableTierIds(Long voucherId) {
+        return voucherMembershipTierRepository.findByVoucher_VoucherId(voucherId).stream()
+                .map(vmt -> vmt.getMembershipTier().getMembershipTierId())
+                .toList();
     }
 }

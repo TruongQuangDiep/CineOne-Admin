@@ -38,6 +38,8 @@ public class BookingService {
     private final UserRepository userRepository;
     private final SeatRepository seatRepository;             
     private final BookingSeatRepository bookingSeatRepository;
+    private final com.example.cineone_admin.repository.VoucherRepository voucherRepository;
+    private final com.example.cineone_admin.repository.VoucherUsageRepository voucherUsageRepository;
 
     @Transactional(readOnly = true)
     public Page<BookingResponse> getBookings(String keyword, String status, Pageable pageable) {
@@ -184,6 +186,21 @@ public class BookingService {
         booking.setTotalAmount(total);
 
         booking = bookingRepository.save(booking);
+
+        String voucherCode = (String) request.get("voucherCode");
+        if (voucherCode != null && !voucherCode.isBlank() && discount.compareTo(BigDecimal.ZERO) > 0) {
+            final Booking savedBooking = booking;
+            final User finalUser = user;
+            final BigDecimal finalDiscount = discount;
+            voucherRepository.findByCodeIgnoreCase(voucherCode.trim()).ifPresent(v -> {
+                com.example.cineone_admin.entity.VoucherUsage usage = new com.example.cineone_admin.entity.VoucherUsage();
+                usage.setVoucher(v);
+                usage.setUser(finalUser);
+                usage.setBooking(savedBooking);
+                usage.setDiscountAmount(finalDiscount);
+                voucherUsageRepository.save(usage);
+            });
+        }
 
         List<?> seatIdsRaw = (List<?>) request.get("seatIds");
         if (seatIdsRaw != null && !seatIdsRaw.isEmpty()) {

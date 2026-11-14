@@ -88,6 +88,25 @@
                             </select>
                         </div>
 
+                        <div class="col-12">
+                            <label class="form-label fw-semibold d-block">Áp dụng cho Hạng thành viên <span class="text-danger">*</span></label>
+                            <div class="d-flex flex-wrap gap-4 pt-1">
+                                <div class="form-check" th:each="tier : ${allTiers}">
+                                    <input class="form-check-input" type="checkbox"
+                                           th:field="*{membershipTierIds}"
+                                           th:value="${tier.membershipTierId}"
+                                           th:id="'tier_' + ${tier.membershipTierId}">
+                                    <label class="form-check-label fw-medium" th:for="'tier_' + ${tier.membershipTierId}">
+                                        <span class="badge" 
+                                              th:classappend="${tier.name == 'PLATINUM' ? 'bg-danger' : (tier.name == 'VIP' ? 'bg-warning text-dark' : 'bg-primary')}"
+                                              th:text="${tier.name}">NORMAL</span>
+                                        <small class="text-muted ms-1" th:text="'(Chi tiêu từ ' + ${#numbers.formatDecimal(tier.minSpending, 0, 'POINT', 0, 'COMMA')} + ' đ)'"></small>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-muted">Chọn các hạng thành viên được phép nhận và sử dụng mã giảm giá này.</small>
+                        </div>
+
                         <div class="col-12 mt-4 d-flex justify-content-end gap-2">
                             <a th:href="@{/vouchers}" class="btn btn-outline-secondary">Hủy</a>
                             <button type="submit" class="btn btn-primary px-4">
