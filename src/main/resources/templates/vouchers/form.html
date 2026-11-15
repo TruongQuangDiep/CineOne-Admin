@@ -27,7 +27,7 @@
         <div class="card border-0 shadow-sm" style="max-width: 800px;">
             <div class="card-body p-4">
                 <form th:action="${isEdit ? '/vouchers/edit/' + voucherId : '/vouchers/create'}"
-                      th:object="${voucherRequest}" method="post">
+                      th:object="${voucherRequest}" method="post" enctype="multipart/form-data">
 
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -68,6 +68,18 @@
                         <div class="col-12">
                             <label class="form-label fw-semibold">Mô tả chương trình</label>
                             <textarea th:field="*{description}" rows="2" class="form-control" placeholder="Mô tả chi tiết khuyến mãi..."></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Hình ảnh Banner Voucher (Hiển thị popup & khuyến mãi trên App)</label>
+                            <input type="file" name="imageFile" id="imageFileInput" class="form-control" accept="image/*" onchange="previewVoucherImage(this)">
+                            <input type="hidden" th:field="*{imageUrl}">
+                            
+                            <!-- Vùng xem trước hình ảnh -->
+                            <div id="imagePreviewContainer" class="mt-2" th:style="*{imageUrl != null and !imageUrl.empty} ? 'display:block' : 'display:none'">
+                                <img id="imagePreview" th:src="*{imageUrl}" alt="Voucher Preview" 
+                                    class="rounded border shadow-sm" style="max-height: 180px; max-width: 100%; object-fit: cover;">
+                            </div>
                         </div>
 
                         <div class="col-md-6">
@@ -119,5 +131,19 @@
         </div>
     </div>
 </div>
+<script>
+    function previewVoucherImage(input) {
+        const container = document.getElementById('imagePreviewContainer');
+        const preview = document.getElementById('imagePreview');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                container.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 </body>
 </html>

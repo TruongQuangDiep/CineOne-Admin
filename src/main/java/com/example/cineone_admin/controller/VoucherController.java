@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.example.cineone_admin.component.CloudinaryService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/vouchers")
@@ -20,6 +22,7 @@ public class VoucherController {
 
     private final VoucherService voucherService;
     private final MembershipTierRepository membershipTierRepository;
+    private final CloudinaryService cloudinaryService;
 
     @GetMapping
     public String listVouchers(
@@ -51,24 +54,32 @@ public class VoucherController {
         return "vouchers/form";
     }
 
-    @PostMapping("/create")
+        @PostMapping("/create")
     public String handleCreate(
             @Valid @ModelAttribute("voucherRequest") VoucherRequest request,
             BindingResult bindingResult,
+            @RequestParam(value = "imageFile", required = false) MultipartFile imageFile, // 👉 Thêm nhận imageFile
             Model model,
             RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("activeMenu", "vouchers");
+            model.addAttribute("allTiers", membershipTierRepository.findAll());
             model.addAttribute("isEdit", false);
             return "vouchers/form";
         }
         try {
+
+            if (imageFile != null && !imageFile.isEmpty()) {
+                String uploadedUrl = cloudinaryService.uploadImage(imageFile, "cineone/vouchers");
+                request.setImageUrl(uploadedUrl);
+            }
             voucherService.createVoucher(request);
             redirectAttributes.addFlashAttribute("successMessage", "Tạo voucher mới thành công!");
             return "redirect:/vouchers";
         } catch (Exception e) {
             model.addAttribute("activeMenu", "vouchers");
+            model.addAttribute("allTiers", membershipTierRepository.findAll());
             model.addAttribute("isEdit", false);
             model.addAttribute("errorMessage", e.getMessage());
             return "vouchers/form";
@@ -105,25 +116,31 @@ public class VoucherController {
             @PathVariable("id") Long id,
             @Valid @ModelAttribute("voucherRequest") VoucherRequest request,
             BindingResult bindingResult,
+            @RequestParam(value = "imageFile", required = false) MultipartFile imageFile, // 👉 Thêm nhận imageFile
             Model model,
             RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("activeMenu", "vouchers");
-            model.addAttribute("isEdit", true);
+            model.addAttribute("allTiers", membershipTierRepository.findAll());
             model.addAttribute("voucherId", id);
+            model.addAttribute("isEdit", true);
             return "vouchers/form";
         }
         try {
+            if (imageFile != null && !imageFile.isEmpty()) {
+                String uploadedUrl = cloudinaryService.uploadImage(imageFile, "cineone/vouchers");
+                request.setImageUrl(uploadedUrl);
+            }
             voucherService.updateVoucher(id, request);
             redirectAttributes.addFlashAttribute("successMessage", "Cập nhật voucher thành công!");
             return "redirect:/vouchers";
         } catch (Exception e) {
             model.addAttribute("activeMenu", "vouchers");
-            model.addAttribute("isEdit", true);
-            model.addAttribute("voucherId", id);
-            model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("allTiers", membershipTierRepository.findAll());
+            model.addAttribute("voucherId", id);
+            model.addAttribute("isEdit", true);
+            model.addAttribute("errorMessage", e.getMessage());
             return "vouchers/form";
         }
     }
