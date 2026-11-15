@@ -46,5 +46,5 @@ public class Movie {
     private String castInfo;
 
     @Column(nullable = false, length = 20, columnDefinition = "ENUM('COMING_SOON','SNEAK_SHOW','NOW_SHOWING','END')")
-    private String status = "COMING_SOON";
+    private String status = "NOW_SHOWING";
 }

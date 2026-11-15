@@ -143,12 +143,11 @@
                     <div style="height: 170px; position: relative;" class="mb-3">
                         <canvas id="occupancyChart"></canvas>
                     </div>
-
-                    <!-- Danh sách theo rạp từ CSDL (Clickable) -->
                     <div class="d-flex flex-column gap-2" th:if="${not #lists.isEmpty(summary.occupancyByCinemas)}">
-                        <a th:each="item : ${summary.occupancyByCinemas}"
+                        <a th:each="item, iterStat : ${summary.occupancyByCinemas}"
                            th:href="@{/cinemas}"
                            class="border rounded p-2 bg-light-subtle text-decoration-none text-reset d-block"
+                           th:classappend="${iterStat.index >= 3 ? 'extra-cinema d-none' : ''}"
                            style="transition: background-color 0.15s;"
                            onmouseover="this.style.backgroundColor='#e2e8f0';"
                            onmouseout="this.style.backgroundColor='';"
@@ -167,6 +166,15 @@
                                 <span th:text="${item.totalRooms + ' phòng'}">0 phòng</span>
                             </div>
                         </a>
+
+                        <!-- Nút Xem thêm / Thu gọn khi danh sách có trên 3 rạp -->
+                        <div th:if="${#lists.size(summary.occupancyByCinemas) > 3}" class="text-center pt-1">
+                            <button type="button" class="btn btn-sm btn-link text-decoration-none text-primary fw-semibold p-0" onclick="toggleMoreCinemas()">
+                                <span id="toggleCinemasText">
+                                    <i class="bi bi-chevron-down me-1"></i>Xem thêm (<span th:text="${#lists.size(summary.occupancyByCinemas) - 3}">0</span> rạp khác)
+                                </span>
+                            </button>
+                        </div>
                     </div>
                     <div th:if="${#lists.isEmpty(summary.occupancyByCinemas)}" class="text-center text-muted small p-3">
                         Chưa có cụm rạp nào hoạt động trong CSDL.
@@ -329,9 +337,9 @@
     </div>
 
     <!-- ĐẶT SCRIPT CHART.JS NGAY BÊN TRONG dashboard-content ĐỂ THYMELEAF KHÔNG BỊ BỎ SÓT -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <script th:inline="javascript">
-        document.addEventListener("DOMContentLoaded", function () {
+        function initDashboardCharts() {
             /* Lấy mảng ngày và doanh thu thật từ CSDL */
             const revenueLabels = /*[[${summary.revenueDates}]]*/ [];
             const revenueData = /*[[${summary.revenueValues}]]*/ [];
@@ -425,7 +433,35 @@
                     }
                 });
             }
-        });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener("DOMContentLoaded", initDashboardCharts);
+        } else {
+            initDashboardCharts();
+        }
+
+        // Hàm thu gọn / mở rộng danh sách rạp để cân đối 2 cột Dashboard
+        window.toggleMoreCinemas = function() {
+            const extraItems = document.querySelectorAll('.extra-cinema');
+            const toggleText = document.getElementById('toggleCinemasText');
+            if (!extraItems.length || !toggleText) return;
+
+            const isHidden = extraItems[0].classList.contains('d-none');
+            extraItems.forEach(el => {
+                if (isHidden) {
+                    el.classList.remove('d-none');
+                } else {
+                    el.classList.add('d-none');
+                }
+            });
+
+            if (isHidden) {
+                toggleText.innerHTML = '<i class="bi bi-chevron-up me-1"></i>Thu gọn';
+            } else {
+                toggleText.innerHTML = '<i class="bi bi-chevron-down me-1"></i>Xem thêm (' + extraItems.length + ' rạp khác)';
+            }
+        };
     </script>
 
 </div>
