@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"><body>
 <div th:fragment="heading(title)" class="d-flex align-items-center justify-content-between mb-4 gap-2 flex-wrap">
-    <h3 class="m-0 fw-bold" th:text="${title}"></h3>
+    <h3 class="m-0 fw-bold">
+        <i th:if="${activeMenu == 'movies'}" class="bi bi-camera-reels-fill me-2 text-primary"></i>
+        <i th:if="${activeMenu == 'cinemas'}" class="bi bi-geo-alt-fill me-2 text-primary"></i>
+        <i th:if="${activeMenu == 'showtimes'}" class="bi bi-calendar3 me-2 text-primary"></i>
+        <i th:if="${activeMenu == 'fnb'}" class="bi bi-cup-straw me-2 text-primary"></i>
+        <span th:text="${title}"></span>
+    </h3>
     <a class="btn btn-outline-primary" th:href="@{/sync-logs}"><i class="bi bi-arrow-repeat"></i> Đồng bộ</a>
 </div>
 <span th:fragment="status(value)" class="badge border catalog-status"

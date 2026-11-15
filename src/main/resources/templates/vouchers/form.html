@@ -102,21 +102,33 @@
 
                         <div class="col-12">
                             <label class="form-label fw-semibold d-block">Áp dụng cho Hạng thành viên <span class="text-danger">*</span></label>
-                            <div class="d-flex flex-wrap gap-4 pt-1">
-                                <div class="form-check" th:each="tier : ${allTiers}">
-                                    <input class="form-check-input" type="checkbox"
-                                           th:field="*{membershipTierIds}"
-                                           th:value="${tier.membershipTierId}"
-                                           th:id="'tier_' + ${tier.membershipTierId}">
-                                    <label class="form-check-label fw-medium" th:for="'tier_' + ${tier.membershipTierId}">
-                                        <span class="badge" 
-                                              th:classappend="${tier.name == 'PLATINUM' ? 'bg-danger' : (tier.name == 'VIP' ? 'bg-warning text-dark' : 'bg-primary')}"
-                                              th:text="${tier.name}">NORMAL</span>
-                                        <small class="text-muted ms-1" th:text="'(Chi tiêu từ ' + ${#numbers.formatDecimal(tier.minSpending, 0, 'POINT', 0, 'COMMA')} + ' đ)'"></small>
+                            <div class="d-flex flex-wrap gap-4 pt-1 align-items-center">
+                                <!-- 1. Tùy chọn TẤT CẢ (Mặc định) -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="tier_all" checked>
+                                    <label class="form-check-label fw-semibold" for="tier_all">
+                                        <span class="badge bg-dark text-white">TẤT CẢ</span>
+                                        <small class="text-muted ms-1">(Mọi khách hàng)</small>
                                     </label>
                                 </div>
+
+                                <!-- 2. Danh sách các hạng thành viên cụ thể (Tự động khóa khi chọn Tất cả) -->
+                                <div id="specificTiersWrap" class="d-flex flex-wrap gap-4 align-items-center">
+                                    <div class="form-check" th:each="tier : ${allTiers}">
+                                        <input class="form-check-input tier-checkbox" type="checkbox"
+                                               th:field="*{membershipTierIds}"
+                                               th:value="${tier.membershipTierId}"
+                                               th:id="'tier_' + ${tier.membershipTierId}">
+                                        <label class="form-check-label fw-medium" th:for="'tier_' + ${tier.membershipTierId}">
+                                            <span class="badge" 
+                                                  th:classappend="${tier.name == 'PLATINUM' ? 'bg-danger' : (tier.name == 'VIP' ? 'bg-warning text-dark' : 'bg-primary')}"
+                                                  th:text="${tier.name}">NORMAL</span>
+                                            <small class="text-muted ms-1" th:text="'(Chi tiêu từ ' + ${#numbers.formatDecimal(tier.minSpending, 0, 'POINT', 0, 'COMMA')} + ' đ)'"></small>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <small class="text-muted">Chọn các hạng thành viên được phép nhận và sử dụng mã giảm giá này.</small>
+                            <small class="text-muted">Chọn "Tất cả" hoặc bỏ chọn để giới hạn cho từng hạng cụ thể.</small>
                         </div>
 
                         <div class="col-12 mt-4 d-flex justify-content-end gap-2">
@@ -144,6 +156,73 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+        // Xử lý logic chọn "Tất cả" hạng thành viên
+    (function () {
+        const tierAllCheckbox = document.getElementById('tier_all');
+        const specificTiersWrap = document.getElementById('specificTiersWrap');
+        if (!tierAllCheckbox || !specificTiersWrap) return;
+
+        const tierCheckboxes = specificTiersWrap.querySelectorAll('.tier-checkbox');
+
+        function updateTierState(isAll) {
+            if (isAll) {
+                // Tích chọn toàn bộ 3 hạng và khóa lại không cho bấm lẻ
+                tierCheckboxes.forEach(cb => cb.checked = true);
+                specificTiersWrap.style.pointerEvents = 'none';
+                specificTiersWrap.style.opacity = '0.5';
+            } else {
+                // Mở khóa cho phép người dùng tự do chọn lẻ từng hạng
+                specificTiersWrap.style.pointerEvents = 'auto';
+                specificTiersWrap.style.opacity = '1';
+            }
+        }
+
+                // 1. Khi người dùng click chọn/bỏ chọn ô "Tất cả"
+        tierAllCheckbox.addEventListener('change', function () {
+            if (this.checked) {
+                // Bật "Tất cả": Tích cả 3 ô và khóa lại
+                tierCheckboxes.forEach(cb => cb.checked = true);
+                specificTiersWrap.style.pointerEvents = 'none';
+                specificTiersWrap.style.opacity = '0.5';
+            } else {
+                // Tắt "Tất cả": BỎ TÍCH TOÀN BỘ cả 3 ô và mở khóa để bạn thoải mái chọn lẻ
+                tierCheckboxes.forEach(cb => cb.checked = false);
+                specificTiersWrap.style.pointerEvents = 'auto';
+                specificTiersWrap.style.opacity = '1';
+            }
+        });
+
+        // 2. Khi người dùng click chọn lẻ từng hạng
+        tierCheckboxes.forEach(cb => {
+            cb.addEventListener('change', function () {
+                const total = tierCheckboxes.length;
+                const checkedCount = specificTiersWrap.querySelectorAll('.tier-checkbox:checked').length;
+
+                // Nếu bạn tự tay tích đủ cả 3 hạng -> Tự động bật lại "Tất cả" và khóa lại
+                if (checkedCount === total) {
+                    tierAllCheckbox.checked = true;
+                    specificTiersWrap.style.pointerEvents = 'none';
+                    specificTiersWrap.style.opacity = '0.5';
+                } else {
+                    tierAllCheckbox.checked = false;
+                }
+            });
+        });
+
+        // 3. Khởi tạo trạng thái ban đầu khi mở trang (Tạo mới hoặc Sửa)
+        const total = tierCheckboxes.length;
+        const checkedCount = specificTiersWrap.querySelectorAll('.tier-checkbox:checked').length;
+        
+        // Mặc định tạo mới (hoặc voucher đang áp dụng đủ 3 hạng) -> Bật "Tất cả" và khóa lại
+        if (checkedCount === total || checkedCount === 0) {
+            tierAllCheckbox.checked = true;
+            updateTierState(true);
+        } else {
+            tierAllCheckbox.checked = false;
+            updateTierState(false);
+        }
+    })();
 </script>
 </body>
 </html>
