@@ -274,6 +274,12 @@ public class PaymentService {
                         booking.setStatus(BookingStatus.CONFIRMED);
                         bookingRepository.save(booking);
                         ticketService.createTicketForBooking(booking);
+                        List<BookingSeat> bSeats = bookingSeatRepository.findByBooking_BookingId(booking.getBookingId());
+                        List<Long> seatIds = bSeats.stream().map(bs -> bs.getSeat().getSeatId()).toList();
+                        if (!seatIds.isEmpty() && booking.getShowtime() != null) {
+                            Long userId = booking.getUser() != null ? booking.getUser().getUserId() : null;
+                            seatHoldService.markSeatsAsBooked(booking.getShowtime().getShowtimeId(), seatIds, userId);
+                        }
                         log.info("Đã đồng bộ thanh toán thành công cho đơn đặt vé #{}", bookingId);
                     }
                 } catch (Exception e) {
